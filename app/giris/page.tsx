@@ -3,6 +3,9 @@ import { Inter } from "next/font/google"
 import { ArrowUpRight, Mail, Phone, Plus } from "lucide-react"
 import { DevBaslik } from "./dev-baslik"
 import { Reveal } from "@/components/reveal"
+import { ProjeOnizleme } from "@/components/project-preview"
+import { Kartvizit } from "@/components/business-card"
+import { Certificate3D } from "@/components/cert-3d"
 import {
   cozumler,
   deneyim,
@@ -30,7 +33,6 @@ export const metadata: Metadata = { title: "Ece Özenir — Proje Yöneticisi" }
 const inter = Inter({ subsets: ["latin", "latin-ext"], weight: ["300", "400"], variable: "--font-giris" })
 
 const TONLAR = ["#a5ebd6", "#ffacea", "#a5c8eb", "#101731"] // nane, şeker pembesi, pudra mavisi, lacivert
-const ekranGoruntusu = (link: string) => `https://s0.wp.com/mshots/v1/${encodeURIComponent(link)}?w=900&h=675`
 const alanAdi = (link: string) => link.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "")
 
 function yilAnahtari(t: string) {
@@ -183,21 +185,25 @@ export default function GirisTema() {
         <div className="mt-14 grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
           {projeler.map((p, i) => {
             const ton = TONLAR[i % TONLAR.length]
-            const kapak = p.onizleme || ekranGoruntusu(p.link)
             return (
               <Reveal key={p.ad} delay={(i % 3) * 80}>
-                <a href={p.link} target="_blank" rel="noopener noreferrer" className="group block">
-                  <div className="p-4 transition-[padding] duration-500 group-hover:p-2" style={{ background: ton }}>
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={kapak} alt={p.ad} loading="lazy" className="aspect-[4/3] w-full bg-white object-cover object-top" />
+                <article className="group">
+                  <div className="p-3 sm:p-4" style={{ background: ton }}>
+                    <ProjeOnizleme
+                      src={p.onizleme || undefined}
+                      ad={p.ad}
+                      link={"canli" in p && p.canli === false ? undefined : p.link}
+                      koyu={ton === "#101731"}
+                      className="rounded-none"
+                    />
                   </div>
-                  <div className="mt-4 flex items-start justify-between gap-3">
+                  <a href={p.link} target="_blank" rel="noopener noreferrer" className="mt-4 flex items-start justify-between gap-3">
                     <h3 className="text-xl">{p.ad}</h3>
                     <ArrowUpRight className="mt-1 size-5 shrink-0 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                  </div>
+                  </a>
                   <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-[#666]">{p.aciklama}</p>
                   <p className="mt-3 text-xs text-[#666] uppercase">{p.etiketler.join(" · ")}</p>
-                </a>
+                </article>
               </Reveal>
             )
           })}
@@ -208,19 +214,21 @@ export default function GirisTema() {
           <Reveal>
             <h2 className="text-[clamp(30px,4vw,54px)]">Katkıda bulunduklarım</h2>
           </Reveal>
-          <div className="mt-10 grid gap-x-8 gap-y-10 border-t border-[#aaa] pt-10 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-10 grid gap-x-8 gap-y-10 border-t border-[#aaa] pt-10 sm:grid-cols-2 lg:grid-cols-2">
             {katkilar.map((k) => (
-              <a key={k.ad} href={k.link} target="_blank" rel="noopener noreferrer" className="group block">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={k.onizleme || ekranGoruntusu(k.link)}
-                  alt={k.ad}
-                  loading="lazy"
-                  className="aspect-[4/3] w-full bg-white object-cover object-top ring-1 ring-[#ddd] transition duration-500 group-hover:ring-black"
+              <article key={k.ad}>
+                <ProjeOnizleme
+                  src={k.onizleme || undefined}
+                  ad={k.ad}
+                  link={"canli" in k && k.canli === false ? undefined : k.link}
+                  className="rounded-none"
                 />
-                <h3 className="mt-4 text-lg">{k.ad}</h3>
+                <a href={k.link} target="_blank" rel="noopener noreferrer" className="mt-4 flex items-start justify-between gap-2">
+                  <h3 className="text-lg">{k.ad}</h3>
+                  <ArrowUpRight className="mt-1 size-4 shrink-0" />
+                </a>
                 <p className="mt-1 text-xs text-[#666]">{alanAdi(k.link)}</p>
-              </a>
+              </article>
             ))}
           </div>
         </div>
@@ -270,9 +278,14 @@ export default function GirisTema() {
       {sertifika && (
         <section className="grid items-center gap-10 px-4 py-20 sm:px-8 sm:py-28 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:gap-16">
           <Reveal>
-            <div className="bg-[#a5c8eb] p-5 sm:p-10">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={sertifika.gorsel} alt={sertifika.ad} loading="lazy" className="w-full bg-white" />
+            <div className="bg-[#a5c8eb] px-4 pt-12 pb-10 sm:px-10 sm:pt-16">
+              <Certificate3D
+                gorsel={sertifika.gorsel}
+                baslik={sertifika.ad}
+                kurum={sertifika.kurum}
+                detay={sertifika.aciklama}
+                tarih={sertifika.tarih}
+              />
             </div>
           </Reveal>
           <Reveal delay={120}>
@@ -331,8 +344,7 @@ export default function GirisTema() {
           </div>
           {kartvizit.on && (
             <Reveal delay={120}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={kartvizit.on} alt="Ece Özenir kartviziti" loading="lazy" className="w-full ring-1 ring-[#ddd]" />
+              <Kartvizit on={kartvizit.on} arka={kartvizit.arka} />
             </Reveal>
           )}
         </div>

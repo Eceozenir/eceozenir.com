@@ -6,8 +6,8 @@ import { ExternalLink, MousePointerClick, X } from "lucide-react"
 // Bir projenin site önizlemesi: tarayıcı penceresi görünümünde.
 // Masaüstü: kart ekrandayken site CANLI açılır ve kendi kendine yavaşça kayar.
 //           "Tıkla, aşağı kaydır" ile imleçle gezilebilir.
-// Mobil:    telefonu yormamak için önce sitenin fotoğrafı görünür; dokununca
-//           canlı site açılır. Aynı anda yalnızca bir site açık kalır.
+// Mobil:    telefonu yormamak için aynı anda yalnızca bir site canlı açılır: ekranın
+//           ortasına gelen kart. Diğerlerinde kapak (görsel ya da çizim) görünür.
 // "onizleme" (public/onizlemeler içindeki görsel/video) verilirse kapak olarak o kullanılır.
 
 const VIDEO = /\.(mp4|webm|mov)$/i
@@ -15,8 +15,6 @@ const SANAL_GENISLIK = 1280 // sitenin masaüstü genişliği; pencereye sığac
 const KAYMA_YUKSEKLIGI = 3 // otomatik kaymada sitenin kaç ekran boyu gösterileceği
 const AKTIF_OLAY = "onizleme-aktif"
 
-// Görsel verilmemişse sitenin ekran görüntüsünü otomatik al (WordPress mShots servisi)
-const ekranGoruntusu = (link: string) => `https://s0.wp.com/mshots/v1/${encodeURIComponent(link)}?w=900&h=563`
 
 function Iskelet() {
   return (
@@ -64,6 +62,7 @@ export function ProjeOnizleme({
   const [geziyor, setGeziyor] = useState(false)
   const [olcek, setOlcek] = useState(0.3)
   const [kapakHata, setKapakHata] = useState(false)
+  const [odak, setOdak] = useState(false) // mobil: ekranın ortasındaki kart (canlı açılan tek kart)
 
   useEffect(() => {
     const mq = window.matchMedia("(max-width: 1023px), (pointer: coarse)")
@@ -100,10 +99,32 @@ export function ProjeOnizleme({
     return () => io.disconnect()
   }, [link])
 
+  // Mobil: kart ekranın büyük kısmına gelince otomatik canlı açılır, diğerleri kapanır
+  useEffect(() => {
+    const el = ekranRef.current
+    if (!el || !link || !mobil) return
+    const io = new IntersectionObserver(
+      ([e]) => {
+        if (e.isIntersecting) {
+          window.dispatchEvent(new CustomEvent(AKTIF_OLAY, { detail: kimlik }))
+          setOdak(true)
+        } else {
+          setOdak(false)
+          setGeziyor(false)
+          setYuklendi(false)
+        }
+      },
+      { threshold: 0.7 }
+    )
+    io.observe(el)
+    return () => io.disconnect()
+  }, [link, mobil, kimlik])
+
   // Başka bir önizleme açılınca bu kapanır (mobilde aynı anda tek site)
   useEffect(() => {
     const dinle = (e: Event) => {
       if ((e as CustomEvent<string>).detail !== kimlik) {
+        setOdak(false)
         setGeziyor(false)
         setYuklendi(false)
       }
@@ -114,14 +135,15 @@ export function ProjeOnizleme({
 
   const gezmeyeBasla = () => {
     window.dispatchEvent(new CustomEvent(AKTIF_OLAY, { detail: kimlik }))
+    setOdak(true)
     setGeziyor(true)
   }
 
   const cerceve = koyu ? "bg-[#2a1708] text-[#fff8ea]" : "bg-white text-[#2a1708]"
   const alanAdi = link ? link.replace(/^https?:\/\//, "").replace(/\/$/, "") : ad
   // Mobilde site sadece dokununca, masaüstünde kart ekrandayken yüklenir
-  const canli = Boolean(link && gorunur && (mobil ? geziyor : true))
-  const kapak = src || (link && !kapakHata ? ekranGoruntusu(link) : "")
+  const canli = Boolean(link && gorunur && (mobil ? odak || geziyor : true))
+  const kapak = src && !kapakHata ? src : ""
 
   return (
     <div className={`overflow-hidden rounded-[11px] ring-1 ring-black/10 ${cerceve} ${className}`}>
@@ -150,7 +172,6 @@ export function ProjeOnizleme({
             type="button"
             onClick={() => {
               setGeziyor(false)
-              if (mobil) setYuklendi(false)
             }}
             className="flex size-6 items-center justify-center rounded opacity-60 hover:opacity-100"
             aria-label="Gezinmeyi bitir"
