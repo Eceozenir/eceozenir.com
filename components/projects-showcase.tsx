@@ -99,8 +99,8 @@ export function ProjectsShowcase({
           }
         >
           {/* Giriş kartı */}
-          <div className="flex w-[78vw] shrink-0 snap-start flex-col justify-center md:w-[420px]">
-            <h2 className="text-5xl leading-[0.95] font-extrabold tracking-tight sm:text-7xl">
+          <div className="flex w-[78vw] shrink-0 snap-start flex-col justify-center md:w-[520px]">
+            <h2 className="text-[clamp(38px,10vw,64px)] leading-[0.95] font-extrabold tracking-tight">
               Yürüttüğüm
               <br />
               <span className="vurgu vurgu-acik">
@@ -115,22 +115,12 @@ export function ProjectsShowcase({
 
           {projeler.map((p, i) => {
             const t = TEMALAR[i % TEMALAR.length]
-            const numara = String(i + 1).padStart(2, "0")
             return (
               <article
                 key={i}
                 className="group relative flex min-h-[460px] w-[82vw] shrink-0 snap-center flex-col overflow-hidden rounded-[32px] p-7 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.6)] transition-transform duration-500 hover:-translate-y-2 sm:p-10 md:h-[min(700px,86vh)] md:w-[540px]"
                 style={{ background: t.bg, color: t.fg }}
               >
-
-                {/* Dev, içi boş numara */}
-                <span
-                  aria-hidden
-                  className="pointer-events-none absolute -bottom-10 -left-2 text-[200px] leading-none font-extrabold text-transparent select-none sm:text-[260px]"
-                  style={{ WebkitTextStroke: `2px ${t.stroke}` }}
-                >
-                  {numara}
-                </span>
 
                 {/* Site önizlemesi (fotoğraf / video) */}
                 <ProjeOnizleme
