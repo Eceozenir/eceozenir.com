@@ -267,21 +267,30 @@
 @media (prefers-reduced-motion: reduce) { .simdi-nabiz { animation: none; } }
 
 /* ── Yazı stili ───────────────────────────────────────────────
-   Başlıklar Fraunces (serif), vurgulu kelimeler italik ve turuncu. */
-h1, h2, h3 {
-  font-family: var(--font-display), Georgia, serif;
-  font-variation-settings: "SOFT" 60;
+   Editoryal: bölüm başlıkları büyük harf, ince (400), sıkı satır aralığı.
+   Vurgulu kelimeler aynı yazı tipinde, düz turuncu. */
+body { letter-spacing: 0.005em; }
+h1, h2 {
+  text-transform: uppercase;
+  line-height: 0.9 !important;
+  letter-spacing: 0.005em !important;
+  font-weight: 400 !important;
 }
-h2.font-extrabold, h3.font-extrabold, h2 .font-extrabold {
-  font-weight: 600;
-  letter-spacing: -0.02em;
-}
-.vurgu {
-  font-family: var(--font-display), Georgia, serif;
-  font-style: italic;
-  font-weight: 400;
-  font-variation-settings: "SOFT" 100, "WONK" 1;
-  color: #e8590c;
-  padding-right: 0.06em;
-}
+h3 { font-weight: 500 !important; letter-spacing: -0.01em; }
+.vurgu { color: #e8590c; }
 .vurgu-acik { color: #ffb347; }
+
+/* Kareli kâğıt dokusu (proje kartları) */
+.kareli {
+  background-color: #fff;
+  background-image:
+    linear-gradient(to right, #f3ead8 1px, transparent 1px),
+    linear-gradient(to bottom, #f3ead8 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+/* Yanardöner küre: sitenin tek büyük renk anı */
+.kure {
+  border-radius: 9999px;
+  background: linear-gradient(255deg, #ffc21a, #ff8a1f 28%, #ff4f8b 62%, #fff8ea);
+}

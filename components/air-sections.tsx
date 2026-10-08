@@ -95,7 +95,12 @@ export function PreviewRows({ projeler, baslik, vurgu }: { projeler: Proje[]; ba
 export function GiantStatement({ satirlar, elYazisi }: { satirlar: string[]; elYazisi?: string }) {
   const refs = useRef<(HTMLDivElement | null)[]>([])
   const yaziRef = useRef<HTMLSpanElement>(null)
+  const kureRef = useRef<HTMLDivElement>(null)
   const cb = useRef((p: number) => {
+    // Küre kaydırdıkça büyür ve renkleri döner
+    if (kureRef.current) {
+      kureRef.current.style.transform = `translate(-50%,-50%) scale(${0.75 + p * 0.45}) rotate(${(p - 0.5) * 120}deg)`
+    }
     refs.current.forEach((el, i) => {
       if (!el) return
       const yon = i % 2 === 0 ? -1 : 1
@@ -110,18 +115,39 @@ export function GiantStatement({ satirlar, elYazisi }: { satirlar: string[]; elY
   const sectionRef = useScrollProgress(cb)
 
   return (
-    <section ref={sectionRef} className="relative overflow-hidden py-16 sm:py-24" aria-label={satirlar.join(" ")}>
-      <div aria-hidden>
+    <section ref={sectionRef} className="relative overflow-hidden py-24 sm:py-36" aria-label={satirlar.join(" ")}>
+      {/* İnce eş merkezli halkalar */}
+      <svg
+        aria-hidden
+        viewBox="0 0 1000 1000"
+        className="pointer-events-none absolute top-1/2 left-1/2 size-[min(150vw,1100px)] -translate-x-1/2 -translate-y-1/2"
+        fill="none"
+        stroke="#2a1708"
+        strokeOpacity="0.14"
+      >
+        <circle cx="500" cy="500" r="250" vectorEffect="non-scaling-stroke" />
+        <circle cx="500" cy="500" r="360" vectorEffect="non-scaling-stroke" />
+        <circle cx="500" cy="500" r="480" vectorEffect="non-scaling-stroke" />
+      </svg>
+      {/* Yanardöner küre */}
+      <div
+        ref={kureRef}
+        aria-hidden
+        className="kure pointer-events-none absolute top-1/2 left-1/2 size-[min(78vw,520px)] will-change-transform"
+        style={{ transform: "translate(-50%,-50%) scale(0.95)" }}
+      />
+      <div aria-hidden className="relative">
         {satirlar.map((s, i) => (
           <div
             key={i}
             ref={(el) => {
               refs.current[i] = el
             }}
-            className="text-center leading-[0.85] whitespace-nowrap text-[#2a1708] uppercase will-change-transform"
+            className="text-center leading-[0.82] whitespace-nowrap text-[#2a1708] uppercase will-change-transform"
             style={{
-              fontFamily: "var(--font-anton), Impact, sans-serif",
-              fontSize: "clamp(88px, 19vw, 259px)",
+              fontWeight: 400,
+              letterSpacing: "0.005em",
+              fontSize: "clamp(76px, 17vw, 240px)",
             }}
           >
             {s}

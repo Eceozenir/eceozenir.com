@@ -26,15 +26,15 @@ export default function ProjelerSayfa() {
         </h1>
         <p className="mt-4 font-semibold text-[#2a1708]/60">{projeler.length} proje</p>
 
-        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-12 grid gap-px bg-[#eadcc0] ring-1 ring-[#eadcc0] sm:grid-cols-2 lg:grid-cols-3">
           {projeler.map((p, i) => {
             return (
               <Reveal key={i} delay={(i % 3) * 80} className="h-full">
                 <article
-                  className="group flex h-full flex-col rounded-[12px] bg-white p-4 ring-1 ring-[#fbd99a] transition duration-300 hover:-translate-y-1"
+                  className="kareli group relative flex h-full flex-col p-5 transition duration-300 hover:z-10 hover:ring-1 hover:ring-[#2a1708]"
                 >
                   <ProjeOnizleme src={p.onizleme} ad={p.ad} link={"canli" in p && p.canli === false ? undefined : p.link} />
-                  <h2 className="mt-4 text-xl font-extrabold">
+                  <h3 className="mt-5 text-2xl font-extrabold tracking-tight">
                     {p.link ? (
                       <a href={p.link} target="_blank" rel="noopener noreferrer" className="inline-flex items-start gap-1 hover:text-[#e8590c]">
                         {p.ad}
@@ -43,7 +43,7 @@ export default function ProjelerSayfa() {
                     ) : (
                       p.ad
                     )}
-                  </h2>
+                  </h3>
                   <p className="mt-2 text-sm leading-relaxed text-[#2a1708]/70">{p.aciklama}</p>
                   <p className="mt-auto pt-4 text-xs font-bold text-[#e8590c]">{p.etiketler.join(" · ")}</p>
                 </article>
@@ -68,7 +68,7 @@ export default function ProjelerSayfa() {
           <div className="mt-12 grid gap-6 sm:grid-cols-2">
             {katkilar.map((k, i) => (
               <Reveal key={k.ad} delay={(i % 2) * 100} className="h-full">
-                <article className="group flex h-full flex-col rounded-[20px] bg-white p-4 ring-1 ring-[#fbd99a] transition duration-300 hover:-translate-y-1 sm:p-5">
+                <article className="kareli group flex h-full flex-col p-5 ring-1 ring-[#eadcc0] transition duration-300 hover:ring-[#2a1708] sm:p-6">
                   <ProjeOnizleme
                     src={k.onizleme || undefined}
                     ad={k.ad}
