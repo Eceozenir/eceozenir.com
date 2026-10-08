@@ -15,7 +15,7 @@ export default function ProjelerSayfa() {
       <div className="mx-auto max-w-6xl px-5 py-16 sm:px-6 sm:py-24">
         <a
           href="/#projeler"
-          className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-bold ring-1 ring-[#ecdcc0] transition hover:-translate-x-0.5"
+          className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-bold ring-1 ring-[#fbd99a] transition hover:-translate-x-0.5"
         >
           <ArrowLeft className="size-4" /> Ana sayfa
         </a>
@@ -36,16 +36,16 @@ export default function ProjelerSayfa() {
                   <ProjeOnizleme src={p.onizleme} ad={p.ad} link={"canli" in p && p.canli === false ? undefined : p.link} />
                   <h3 className="mt-5 text-2xl font-extrabold tracking-tight">
                     {p.link ? (
-                      <a href={p.link} target="_blank" rel="noopener noreferrer" className="inline-flex items-start gap-1 hover:text-[#b85c32]">
+                      <a href={p.link} target="_blank" rel="noopener noreferrer" className="inline-flex items-start gap-1 hover:text-[#e8590c]">
                         {p.ad}
-                        <ArrowUpRight className="mt-0.5 size-5 shrink-0 text-[#b85c32]" />
+                        <ArrowUpRight className="mt-0.5 size-5 shrink-0 text-[#e8590c]" />
                       </a>
                     ) : (
                       p.ad
                     )}
                   </h3>
                   <p className="mt-2 text-sm leading-relaxed text-[#2a1708]/70">{p.aciklama}</p>
-                  <p className="mt-auto pt-4 text-xs font-bold text-[#b85c32]">{p.etiketler.join(" · ")}</p>
+                  <p className="mt-auto pt-4 text-xs font-bold text-[#e8590c]">{p.etiketler.join(" · ")}</p>
                 </article>
               </Reveal>
             )
@@ -75,13 +75,13 @@ export default function ProjelerSayfa() {
                     link={"canli" in k && k.canli === false ? undefined : k.link}
                   />
                   <h3 className="mt-5 text-2xl font-extrabold tracking-tight">
-                    <a href={k.link} target="_blank" rel="noopener noreferrer" className="inline-flex items-start gap-1.5 hover:text-[#b85c32]">
+                    <a href={k.link} target="_blank" rel="noopener noreferrer" className="inline-flex items-start gap-1.5 hover:text-[#e8590c]">
                       {k.ad}
-                      <ArrowUpRight className="mt-1 size-5 shrink-0 text-[#b85c32]" />
+                      <ArrowUpRight className="mt-1 size-5 shrink-0 text-[#e8590c]" />
                     </a>
                   </h3>
                   <p className="mt-2 leading-relaxed text-[#2a1708]/70">{k.aciklama}</p>
-                  <p className="mt-auto pt-4 text-xs font-bold text-[#b85c32]">{k.etiketler.join(" · ")}</p>
+                  <p className="mt-auto pt-4 text-xs font-bold text-[#e8590c]">{k.etiketler.join(" · ")}</p>
                 </article>
               </Reveal>
             ))}

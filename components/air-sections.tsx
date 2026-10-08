@@ -68,7 +68,7 @@ export function PreviewRows({ projeler, baslik, vurgu }: { projeler: Proje[]; ba
       <h2 className="mx-auto mb-14 max-w-[1150px] px-6 text-center text-[clamp(32px,5vw,56px)] leading-[1] font-medium tracking-tight text-[#2a1708]">
         {baslik}{" "}
         <span
-          className="inline-block -rotate-3 bg-gradient-to-r from-[#e3b86a] via-[#d98a5c] to-[#d98fa3] bg-clip-text pr-2 text-[1.25em] text-transparent"
+          className="inline-block -rotate-3 bg-gradient-to-r from-[#f59f00] via-[#f76707] to-[#e64980] bg-clip-text pr-2 text-[1.25em] text-transparent"
           style={{ fontFamily: "var(--font-caveat), cursive" }}
         >
           {vurgu}
@@ -158,7 +158,7 @@ export function GiantStatement({ satirlar, elYazisi }: { satirlar: string[]; elY
       <span
         ref={yaziRef}
         aria-hidden
-        className="pointer-events-none absolute top-1/2 left-1/2 bg-gradient-to-r from-[#f2cf7e] via-[#eda57a] to-[#e7a1b4] bg-clip-text px-4 text-transparent"
+        className="pointer-events-none absolute top-1/2 left-1/2 bg-gradient-to-r from-[#ffc21a] via-[#ff8a1f] to-[#ff4f8b] bg-clip-text px-4 text-transparent"
         style={{
           fontFamily: "var(--font-caveat), cursive",
           fontSize: "clamp(64px, 11vw, 170px)",
