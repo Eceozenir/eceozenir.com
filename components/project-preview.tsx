@@ -35,9 +35,9 @@ function Iskelet() {
           <span className="h-3 w-3/5 rounded-full bg-[#2a1708]/30" />
           <span className="mt-1 h-2 w-full rounded-full bg-[#2a1708]/12" />
           <span className="h-2 w-5/6 rounded-full bg-[#2a1708]/12" />
-          <span className="mt-2 h-4 w-16 rounded-[4px] bg-[#ff8a1f]" />
+          <span className="mt-2 h-4 w-16 rounded-[4px] bg-[#eda57a]" />
         </div>
-        <div className="w-2/5 rounded-[8px] bg-gradient-to-br from-[#ffc21a] via-[#ff8a1f] to-[#ff4f8b] opacity-80" />
+        <div className="w-2/5 rounded-[8px] bg-gradient-to-br from-[#f2cf7e] via-[#eda57a] to-[#e7a1b4] opacity-80" />
       </div>
     </div>
   )
@@ -160,7 +160,7 @@ export function ProjeOnizleme({
         )}
       </div>
 
-      <div ref={ekranRef} className="relative aspect-[16/10] w-full overflow-hidden bg-[#fff0c2]">
+      <div ref={ekranRef} className="relative aspect-[16/10] w-full overflow-hidden bg-[#f7ecd6]">
         {/* Kapak: fotoğraf / video / iskelet */}
         {(!canli || !yuklendi) &&
           (kapak ? (
@@ -203,7 +203,7 @@ export function ProjeOnizleme({
         {/* Yükleniyor */}
         {canli && !yuklendi && (
           <div className="absolute inset-0 flex items-center justify-center bg-white/40">
-            <span className="size-6 animate-spin rounded-full border-2 border-[#ff8a1f] border-t-transparent" />
+            <span className="size-6 animate-spin rounded-full border-2 border-[#eda57a] border-t-transparent" />
           </div>
         )}
 
@@ -216,7 +216,7 @@ export function ProjeOnizleme({
             aria-label={`${ad} sitesini burada gez`}
           >
             <span className="inline-flex items-center gap-2 rounded-full bg-white/95 px-3.5 py-2 text-[11px] font-extrabold text-[#2a1708] shadow-lg transition-transform group-hover/gez:scale-105 sm:text-xs">
-              <MousePointerClick className="onizleme-fare size-4 text-[#e8590c]" />
+              <MousePointerClick className="onizleme-fare size-4 text-[#b85c32]" />
               Tıkla, aşağı kaydır
             </span>
           </button>

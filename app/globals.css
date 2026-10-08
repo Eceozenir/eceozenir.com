@@ -101,7 +101,7 @@
   to { --angle: 360deg; }
 }
 .spin-border {
-  background: conic-gradient(from var(--angle), #ffc21a, #ff8a1f, #ff4f8b, #ffe08a, #ffc21a);
+  background: conic-gradient(from var(--angle), #f2cf7e, #eda57a, #e7a1b4, #f4e1a8, #f2cf7e);
   animation: spin-angle 4s linear infinite;
 }
 
@@ -124,7 +124,7 @@
 /* MERHABA: harfler açılarak gelir, sonra üzerinden pembe-turuncu ışık geçer */
 .hero-title {
   letter-spacing: -0.04em;
-  background: linear-gradient(110deg, #f2f4f8 0%, #f2f4f8 38%, #ffd24a 46%, #ff9f43 54%, #f2f4f8 62%, #f2f4f8 100%);
+  background: linear-gradient(110deg, #f2f4f8 0%, #f2f4f8 38%, #f4d98f 46%, #eeb084 54%, #f2f4f8 62%, #f2f4f8 100%);
   background-size: 250% 100%;
   background-position: 100% 0;
   -webkit-background-clip: text;
@@ -155,7 +155,7 @@
 
 /* İsim ve vurgulu kelimeler: pembe → turuncu */
 .hero-highlight {
-  background: linear-gradient(90deg, #ffd24a, #ff9f43, #ff6b9a);
+  background: linear-gradient(90deg, #f4d98f, #eeb084, #e9a9b9);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -178,7 +178,7 @@
 
 /* Renkli kısımlarda pembe-turuncu akış */
 .hero-flow {
-  background: linear-gradient(90deg, #ffd24a, #ff9f43, #ff6b9a, #ffb000, #ffd24a);
+  background: linear-gradient(90deg, #f4d98f, #eeb084, #e9a9b9, #e9c27a, #f4d98f);
   background-size: 300% 100%;
   -webkit-background-clip: text;
   background-clip: text;
@@ -277,8 +277,8 @@ h1, h2 {
   font-weight: 400 !important;
 }
 h3 { font-weight: 500 !important; letter-spacing: -0.01em; }
-.vurgu { color: #e8590c; }
-.vurgu-acik { color: #ffb347; }
+.vurgu { color: #b85c32; }
+.vurgu-acik { color: #f1c08f; }
 
 /* Kareli kâğıt dokusu (proje kartları) */
 .kareli {
@@ -292,5 +292,5 @@ h3 { font-weight: 500 !important; letter-spacing: -0.01em; }
 /* Yanardöner küre: sitenin tek büyük renk anı */
 .kure {
   border-radius: 9999px;
-  background: linear-gradient(255deg, #ffc21a, #ff8a1f 28%, #ff4f8b 62%, #fff8ea);
+  background: linear-gradient(255deg, #f2cf7e, #eda57a 28%, #e7a1b4 62%, #fff8ea);
 }

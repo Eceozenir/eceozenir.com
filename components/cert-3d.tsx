@@ -122,19 +122,19 @@ export function Certificate3D({
       aria-label={`${kurum} — ${baslik} sertifikası`}
     >
       {/* Arkadaki sıcak hale */}
-      <div aria-hidden className="absolute inset-[8%] rounded-[40px] bg-gradient-to-br from-[#ffc21a]/40 via-[#ff8a1f]/30 to-[#ff4f8b]/30 blur-3xl" />
+      <div aria-hidden className="absolute inset-[8%] rounded-[40px] bg-gradient-to-br from-[#f2cf7e]/40 via-[#eda57a]/30 to-[#e7a1b4]/30 blur-3xl" />
 
       <div className="relative">
       {/* 360° dönüş halkası — arka yarısı (kartın arkasında kalır) */}
       <svg aria-hidden viewBox="0 0 400 100" preserveAspectRatio="none" className="pointer-events-none absolute -inset-x-[9%] top-[52%] h-[72%] w-[118%]">
         <defs>
           <linearGradient id="halka-renk" x1="0" x2="1">
-            <stop offset="0" stopColor="#ffc21a" />
-            <stop offset="0.5" stopColor="#ff8a1f" />
-            <stop offset="1" stopColor="#ff4f8b" />
+            <stop offset="0" stopColor="#f2cf7e" />
+            <stop offset="0.5" stopColor="#eda57a" />
+            <stop offset="1" stopColor="#e7a1b4" />
           </linearGradient>
           <marker id="halka-ok" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
-            <path d="M0,0 L10,5 L0,10 z" fill="#ff4f8b" />
+            <path d="M0,0 L10,5 L0,10 z" fill="#e7a1b4" />
           </marker>
         </defs>
         <path d="M12,50 A188,40 0 0 1 388,50" fill="none" stroke="url(#halka-renk)" strokeOpacity="0.45" strokeWidth="2" strokeDasharray="4 8" className="halka-akis" vectorEffect="non-scaling-stroke" />
@@ -170,7 +170,7 @@ export function Certificate3D({
 
         {/* Arka yüz */}
         <div
-          className="absolute inset-0 flex flex-col justify-between overflow-hidden rounded-[14px] bg-gradient-to-br from-[#ffc21a] via-[#ff8a1f] to-[#ff4f8b] p-6 text-[#2a1708] sm:p-10"
+          className="absolute inset-0 flex flex-col justify-between overflow-hidden rounded-[14px] bg-gradient-to-br from-[#f2cf7e] via-[#eda57a] to-[#e7a1b4] p-6 text-[#2a1708] sm:p-10"
           style={{ transform: `rotateY(180deg) translateZ(${KALINLIK / 2}px)`, backfaceVisibility: "hidden" }}
         >
           <p className="text-xs font-extrabold tracking-[0.25em] sm:text-sm">SERTİFİKA</p>
@@ -201,7 +201,7 @@ export function Certificate3D({
       </svg>
       {/* 360° etiketi */}
       <div className="pointer-events-none absolute top-[118%] left-1/2 -translate-x-1/2">
-        <span className="inline-flex items-center gap-1.5 text-sm font-extrabold tracking-[0.15em] text-[#e8590c]">
+        <span className="inline-flex items-center gap-1.5 text-sm font-extrabold tracking-[0.15em] text-[#b85c32]">
           <svg viewBox="0 0 24 24" className="size-3.5" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
             <path d="M21 12a9 9 0 1 1-3-6.7" />
             <path d="M21 4v5h-5" />

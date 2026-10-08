@@ -39,8 +39,8 @@ import {
 } from "./bilgilerim"
 
 // Ayçiçeği tonları: sarı → turuncu → pembe
-const GRADIENT = "bg-gradient-to-r from-[#ffc21a] via-[#ff8a1f] to-[#ff4f8b]"
-const GRADIENT_SICAK = "bg-gradient-to-br from-[#f76707] to-[#e64980]"
+const GRADIENT = "bg-gradient-to-r from-[#f2cf7e] via-[#eda57a] to-[#e7a1b4]"
+const GRADIENT_SICAK = "bg-gradient-to-br from-[#d98a5c] to-[#d98fa3]"
 const GRADIENT_TEXT = "vurgu"
 
 const IKONLAR = {
@@ -107,24 +107,24 @@ export default function Home() {
       <section id="hakkimda" className="relative overflow-hidden">
         <div
           aria-hidden
-          className="float-blob pointer-events-none absolute -top-40 -right-40 size-[520px] rounded-full bg-[#ffc21a]/35 blur-3xl"
+          className="float-blob pointer-events-none absolute -top-40 -right-40 size-[520px] rounded-full bg-[#f2cf7e]/35 blur-3xl"
         />
         <div
           aria-hidden
-          className="float-blob pointer-events-none absolute -bottom-40 -left-40 size-[520px] rounded-full bg-[#ff4f8b]/20 blur-3xl [animation-delay:-6s]"
+          className="float-blob pointer-events-none absolute -bottom-40 -left-40 size-[520px] rounded-full bg-[#e7a1b4]/20 blur-3xl [animation-delay:-6s]"
         />
         <div className="relative mx-auto grid max-w-6xl items-center gap-14 px-6 py-24 sm:py-32 md:grid-cols-[1fr_minmax(0,420px)] md:gap-16">
           {/* FOTOĞRAF — public klasörüne koyduğun fotoğraf burada görünür */}
           <Reveal className="order-first md:order-last">
             <div className="relative mx-auto w-full max-w-[340px] md:max-w-none">
               <div aria-hidden className={`absolute inset-0 translate-x-4 translate-y-4 rounded-[32px] ${GRADIENT}`} />
-              <div className="relative aspect-[4/5] overflow-hidden rounded-[32px] bg-[#fff0c2] ring-1 ring-[#2a1708]/10">
+              <div className="relative aspect-[4/5] overflow-hidden rounded-[32px] bg-[#f7ecd6] ring-1 ring-[#2a1708]/10">
                 {fotografVar ? (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img src={fotograf} alt="Ece Özenir" className="size-full object-cover" />
                 ) : (
-                  <div className="flex size-full flex-col items-center justify-center gap-3 border-2 border-dashed border-[#f59f00]/50 p-8 text-center text-[#2a1708]/60">
-                    <ImagePlus className="size-10 text-[#e8590c]" />
+                  <div className="flex size-full flex-col items-center justify-center gap-3 border-2 border-dashed border-[#e3b86a]/50 p-8 text-center text-[#2a1708]/60">
+                    <ImagePlus className="size-10 text-[#b85c32]" />
                     <p className="font-bold text-[#2a1708]/80">Fotoğrafın burada görünecek</p>
                     <p className="text-sm">
                       Fotoğrafını <code className="rounded bg-white/70 px-1.5 py-0.5">public</code> klasörüne{" "}
@@ -147,7 +147,7 @@ export default function Home() {
                 {firma.metin.split(firma.ad).map((parca, i, arr) => (
                   <span key={i}>
                     {parca}
-                    {i < arr.length - 1 && <strong className="font-bold text-[#e8590c]">{firma.ad}</strong>}
+                    {i < arr.length - 1 && <strong className="font-bold text-[#b85c32]">{firma.ad}</strong>}
                   </span>
                 ))}
               </p>
@@ -234,7 +234,7 @@ export default function Home() {
         .filter((c) => c.gorsel)
         .map((c) => (
           <section key={c.ad} id="sertifika" className="relative overflow-hidden">
-            <div aria-hidden className="float-blob pointer-events-none absolute top-1/3 left-1/2 size-[520px] -translate-x-1/2 rounded-full bg-[#ffc21a]/25 blur-3xl" />
+            <div aria-hidden className="float-blob pointer-events-none absolute top-1/3 left-1/2 size-[520px] -translate-x-1/2 rounded-full bg-[#f2cf7e]/25 blur-3xl" />
             <div className="relative mx-auto max-w-7xl px-5 py-24 sm:px-6 sm:py-32">
               <div className="grid items-center gap-12 lg:grid-cols-[1fr_minmax(0,540px)_1fr] lg:gap-10">
                 {/* Sol yazı */}
@@ -243,7 +243,7 @@ export default function Home() {
                     <span className={GRADIENT_TEXT}>{c.ad}</span>
                   </h2>
                   <p className="mt-4 text-lg font-semibold text-[#2a1708]/70">{c.kurum}</p>
-                  <p className="mt-6 text-lg font-extrabold text-[#e8590c]">{c.tarih}</p>
+                  <p className="mt-6 text-lg font-extrabold text-[#b85c32]">{c.tarih}</p>
                 </Reveal>
 
                 {/* Ortada 3B sertifika */}
@@ -279,19 +279,19 @@ export default function Home() {
                   className={`group relative flex h-full flex-col overflow-hidden rounded-[28px] p-7 transition duration-500 hover:-translate-y-1 sm:p-8 ${
                     buyuk
                       ? "bg-[#2a1708] text-[#fff8ea]"
-                      : "bg-white ring-1 ring-[#fbd99a] hover:shadow-[0_25px_50px_-25px_rgba(232,89,12,0.5)]"
+                      : "bg-white ring-1 ring-[#ecdcc0] hover:shadow-[0_25px_50px_-25px_rgba(184,92,50,0.5)]"
                   }`}
                 >
                   {/* Üstte ince renkli çizgi, üzerine gelince dolar */}
                   <div className={`absolute inset-x-0 top-0 h-1 origin-left scale-x-0 transition-transform duration-500 group-hover:scale-x-100 ${GRADIENT}`} />
                   {buyuk && (
-                    <div aria-hidden className="pointer-events-none absolute -right-20 -bottom-20 size-72 rounded-full bg-[#ff8a1f]/25 blur-3xl" />
+                    <div aria-hidden className="pointer-events-none absolute -right-20 -bottom-20 size-72 rounded-full bg-[#eda57a]/25 blur-3xl" />
                   )}
 
                   <div className="relative flex items-center justify-between">
                     <span
                       className={`flex size-12 items-center justify-center rounded-2xl transition-transform duration-500 group-hover:-rotate-6 ${
-                        buyuk ? "bg-[#ffc21a] text-[#2a1708]" : "bg-[#fff0c2] text-[#e8590c]"
+                        buyuk ? "bg-[#f2cf7e] text-[#2a1708]" : "bg-[#f7ecd6] text-[#b85c32]"
                       }`}
                     >
                       <Ikon className="size-6" />
@@ -314,7 +314,7 @@ export default function Home() {
                         key={j}
                         className={`inline-flex items-center gap-1.5 text-sm font-semibold ${buyuk ? "text-[#fff8ea]" : "text-[#2a1708]"}`}
                       >
-                        <Check className={`size-3.5 ${buyuk ? "text-[#ffc21a]" : "text-[#e8590c]"}`} />
+                        <Check className={`size-3.5 ${buyuk ? "text-[#f2cf7e]" : "text-[#b85c32]"}`} />
                         {m}
                       </li>
                     ))}
@@ -366,7 +366,7 @@ export default function Home() {
         <footer className="mx-auto flex max-w-6xl flex-wrap justify-between gap-2 px-2 pt-8 pb-4 text-sm text-[#2a1708]/50">
           <span>© {new Date().getFullYear()} Ece Özenir</span>
           {firma.site ? (
-            <a href={firma.site} target="_blank" rel="noopener noreferrer" className="hover:text-[#e8590c]">
+            <a href={firma.site} target="_blank" rel="noopener noreferrer" className="hover:text-[#b85c32]">
               {firma.ad}
             </a>
           ) : (

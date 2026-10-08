@@ -414,8 +414,8 @@ export default function MetroHero({
                   >
                     <defs>
                       <linearGradient id="hero-underline" x1="0" x2="1">
-                        <stop offset="0" stopColor="#ffc21a" />
-                        <stop offset="1" stopColor="#ff4f8b" />
+                        <stop offset="0" stopColor="#f2cf7e" />
+                        <stop offset="1" stopColor="#e7a1b4" />
                       </linearGradient>
                     </defs>
                     <path
@@ -462,7 +462,7 @@ export default function MetroHero({
                 fontWeight: 800,
                 fontSize: "clamp(15px, 2vw, 22px)",
                 letterSpacing: "0.3em",
-                color: "#ffd24a",
+                color: "#f4d98f",
                 textShadow: "0 2px 6px rgba(0,0,0,0.85), 0 0 28px rgba(0,0,0,0.6)",
               }}
             >
@@ -543,7 +543,7 @@ export default function MetroHero({
           style={{
             height: "100%",
             width: "100%",
-            background: "linear-gradient(90deg, #ffc21a, #ff8a1f, #ff4f8b)",
+            background: "linear-gradient(90deg, #f2cf7e, #eda57a, #e7a1b4)",
             transform: "scaleX(0)",
             transformOrigin: "left center",
           }}

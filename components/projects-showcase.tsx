@@ -17,10 +17,10 @@ type Proje = {
 
 // Her kart farklı bir ayçiçeği tonunda
 const TEMALAR = [
-  { bg: "#ffc21a", fg: "#2a1708", soft: "rgba(42,23,8,0.12)", stroke: "rgba(42,23,8,0.18)" },
-  { bg: "#ff8a1f", fg: "#2a1708", soft: "rgba(42,23,8,0.12)", stroke: "rgba(42,23,8,0.2)" },
-  { bg: "#ff4f8b", fg: "#ffffff", soft: "rgba(255,255,255,0.18)", stroke: "rgba(255,255,255,0.3)" },
-  { bg: "#fff8ea", fg: "#2a1708", soft: "rgba(255,138,31,0.15)", stroke: "rgba(255,138,31,0.35)" },
+  { bg: "#f2cf7e", fg: "#2a1708", soft: "rgba(42,23,8,0.12)", stroke: "rgba(42,23,8,0.18)" },
+  { bg: "#eda57a", fg: "#2a1708", soft: "rgba(42,23,8,0.12)", stroke: "rgba(42,23,8,0.2)" },
+  { bg: "#e7a1b4", fg: "#ffffff", soft: "rgba(255,255,255,0.18)", stroke: "rgba(255,255,255,0.3)" },
+  { bg: "#fff8ea", fg: "#2a1708", soft: "rgba(237,165,122,0.15)", stroke: "rgba(237,165,122,0.35)" },
 ]
 
 function clamp(v: number, a: number, b: number) {
@@ -162,17 +162,17 @@ export function ProjectsShowcase({
           {/* Bitiş kartı: tüm projeler sayfasına git */}
           <a
             href={devamLink}
-            className="group relative flex min-h-[460px] w-[78vw] shrink-0 snap-center flex-col items-start justify-center overflow-hidden rounded-[32px] border-2 border-dashed border-[#ffd24a]/40 p-10 transition-colors hover:border-[#ffd24a] md:h-[min(700px,86vh)] md:w-[420px]"
+            className="group relative flex min-h-[460px] w-[78vw] shrink-0 snap-center flex-col items-start justify-center overflow-hidden rounded-[32px] border-2 border-dashed border-[#f4d98f]/40 p-10 transition-colors hover:border-[#f4d98f] md:h-[min(700px,86vh)] md:w-[420px]"
           >
-            <span className="text-[120px] leading-none font-extrabold text-transparent [-webkit-text-stroke:2px_#ffd24a]">
+            <span className="text-[120px] leading-none font-extrabold text-transparent [-webkit-text-stroke:2px_#f4d98f]">
               {toplam ?? projeler.length}
             </span>
             <p className="mt-4 text-4xl leading-tight font-extrabold tracking-tight">
               Toplam proje.
               <br />
-              <span className="text-[#ffd24a]">Hepsini görmek ister misin?</span>
+              <span className="text-[#f4d98f]">Hepsini görmek ister misin?</span>
             </p>
-            <span className="mt-8 inline-flex items-center gap-2 rounded-full bg-[#ffc21a] px-5 py-2.5 text-sm font-bold text-[#2a1708]">
+            <span className="mt-8 inline-flex items-center gap-2 rounded-full bg-[#f2cf7e] px-5 py-2.5 text-sm font-bold text-[#2a1708]">
               Devamını gör <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
             </span>
           </a>
@@ -183,7 +183,7 @@ export function ProjectsShowcase({
           <div className="absolute inset-x-[8vw] bottom-10 h-1 overflow-hidden rounded-full bg-white/10">
             <div
               ref={barRef}
-              className="h-full origin-left rounded-full bg-gradient-to-r from-[#ffc21a] via-[#ff8a1f] to-[#ff4f8b]"
+              className="h-full origin-left rounded-full bg-gradient-to-r from-[#f2cf7e] via-[#eda57a] to-[#e7a1b4]"
               style={{ transform: "scaleX(0)" }}
             />
           </div>
