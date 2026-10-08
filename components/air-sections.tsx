@@ -115,7 +115,7 @@ export function GiantStatement({ satirlar, elYazisi }: { satirlar: string[]; elY
   const sectionRef = useScrollProgress(cb)
 
   return (
-    <section ref={sectionRef} className="relative overflow-hidden py-24 sm:py-36" aria-label={satirlar.join(" ")}>
+    <section ref={sectionRef} className="relative overflow-hidden py-32 sm:py-40" aria-label={satirlar.join(" ")}>
       {/* İnce eş merkezli halkalar */}
       <svg
         aria-hidden
@@ -133,7 +133,7 @@ export function GiantStatement({ satirlar, elYazisi }: { satirlar: string[]; elY
       <div
         ref={kureRef}
         aria-hidden
-        className="kure pointer-events-none absolute top-1/2 left-1/2 size-[min(78vw,520px)] will-change-transform"
+        className="kure pointer-events-none absolute top-1/2 left-1/2 size-[min(62vw,520px)] will-change-transform"
         style={{ transform: "translate(-50%,-50%) scale(0.95)" }}
       />
       <div aria-hidden className="relative">
