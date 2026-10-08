@@ -1,0 +1,267 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --radius: 0.625rem;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+}
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+  }
+}
+
+/* ── Animasyonlar ─────────────────────────────────────────── */
+
+/* Kaydırınca beliren öğeler (components/reveal.tsx) */
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);
+  transition-delay: var(--delay, 0ms);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Sonsuz kayan yazı şeridi */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.marquee-track {
+  animation: marquee 30s linear infinite;
+}
+
+/* Proje kartlarının etrafında dönen renkli çerçeve */
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+@keyframes spin-angle {
+  to { --angle: 360deg; }
+}
+.spin-border {
+  background: conic-gradient(from var(--angle), #ffc21a, #ff8a1f, #ff4f8b, #ffe08a, #ffc21a);
+  animation: spin-angle 4s linear infinite;
+}
+
+/* Yavaşça süzülen arka plan ışıkları */
+@keyframes float-blob {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(30px, -40px) scale(1.08); }
+}
+.float-blob {
+  animation: float-blob 12s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .marquee-track, .spin-border, .float-blob { animation: none; }
+}
+
+/* ── Giriş (hero) yazı efektleri ─────────────────────────── */
+
+/* MERHABA: harfler açılarak gelir, sonra üzerinden pembe-turuncu ışık geçer */
+.hero-title {
+  letter-spacing: -0.04em;
+  background: linear-gradient(110deg, #f2f4f8 0%, #f2f4f8 38%, #ffd24a 46%, #ff9f43 54%, #f2f4f8 62%, #f2f4f8 100%);
+  background-size: 250% 100%;
+  background-position: 100% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation:
+    hero-tracking-in 1.3s cubic-bezier(0.215, 0.61, 0.355, 1) both,
+    hero-shimmer 4.5s ease-in-out 1.4s infinite;
+}
+@keyframes hero-tracking-in {
+  0% { letter-spacing: 0.6em; opacity: 0; filter: blur(14px); }
+  60% { opacity: 1; }
+  100% { letter-spacing: -0.04em; opacity: 1; filter: blur(0); }
+}
+@keyframes hero-shimmer {
+  0% { background-position: 100% 0; }
+  60%, 100% { background-position: -50% 0; }
+}
+
+/* "Ben Ece Özenir." aşağıdan gelir */
+.hero-sub {
+  animation: hero-fade-up 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) 0.9s both;
+}
+@keyframes hero-fade-up {
+  from { opacity: 0; transform: translateY(18px); filter: blur(6px); }
+  to { opacity: 1; transform: none; filter: blur(0); }
+}
+
+/* İsim ve vurgulu kelimeler: pembe → turuncu */
+.hero-highlight {
+  background: linear-gradient(90deg, #ffd24a, #ff9f43, #ff6b9a);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* İsmin altındaki çizgi kendini çizer */
+.hero-underline {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: hero-draw 0.9s cubic-bezier(0.65, 0, 0.35, 1) 1.6s forwards;
+}
+@keyframes hero-draw {
+  to { stroke-dashoffset: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-title, .hero-sub { animation: none; }
+  .hero-underline { animation: none; stroke-dashoffset: 0; }
+}
+
+/* Renkli kısımlarda pembe-turuncu akış */
+.hero-flow {
+  background: linear-gradient(90deg, #ffd24a, #ff9f43, #ff6b9a, #ffb000, #ffd24a);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: hero-flow 5s linear infinite;
+}
+@keyframes hero-flow {
+  from { background-position: 0% 0; }
+  to { background-position: 300% 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-flow { animation: none; }
+}
+
+/* ── Yaratıcı bölümler ───────────────────────────────────── */
+
+/* Yavaş dönen ayçiçekleri */
+@keyframes sf-spin { to { transform: rotate(360deg); } }
+.spin-slow { animation: sf-spin 60s linear infinite; }
+
+/* Ters yöne akan şerit */
+.marquee-reverse { animation-direction: reverse; animation-duration: 36s; }
+
+/* Yolculuk durakları: ayçiçeği açar, kart yandan kayarak gelir */
+.durak .durak-cicek {
+  transform: scale(0.4);
+  opacity: 0;
+  transition: transform 0.9s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.5s ease;
+}
+.durak .durak-kart {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.15s, opacity 0.8s ease 0.15s;
+}
+@media (min-width: 768px) {
+  .durak-sol .durak-kart { transform: translateX(-60px) rotate(-2deg); }
+  .durak-sag .durak-kart { transform: translateX(60px) rotate(2deg); }
+}
+.durak.is-open .durak-cicek { transform: none; opacity: 1; }
+.durak.is-open .durak-kart { transform: none; opacity: 1; }
+
+/* Rozetlerin etrafındaki yazı döner, üzerine gelince hızlanır */
+.rozet-yazi { animation: sf-spin 18s linear infinite; }
+.rozet:hover .rozet-yazi, .group:hover .rozet-yazi { animation-duration: 5s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .spin-slow, .rozet-yazi { animation: none; }
+  .durak .durak-cicek, .durak .durak-kart { transform: none; opacity: 1; transition: none; }
+}
+
+/* Sertifikanın etrafındaki 360° halkada akan noktalar */
+@keyframes halka-akis { to { stroke-dashoffset: -48; } }
+.halka-akis { animation: halka-akis 1.6s linear infinite; }
+@media (prefers-reduced-motion: reduce) { .halka-akis { animation: none; } }
+
+/* ── Hizmetler (ServicesExplorer) ─────────────────────────── */
+@keyframes hizmet-giris { from { opacity: 0; transform: translateY(14px) scale(0.98); } to { opacity: 1; transform: none; } }
+.hizmet-giris { animation: hizmet-giris 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+@keyframes hizmet-sure { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+.hizmet-sure { animation-name: hizmet-sure; animation-timing-function: linear; animation-fill-mode: both; }
+@keyframes mock-rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+.mock-rise { animation: mock-rise 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+@keyframes mock-pop { 0% { transform: scale(0); } 70% { transform: scale(1.15); } 100% { transform: scale(1); } }
+.mock-pop { animation: mock-pop 0.5s cubic-bezier(0.3, 1.4, 0.5, 1) both; }
+@media (prefers-reduced-motion: reduce) {
+  .hizmet-giris, .hizmet-sure, .mock-rise, .mock-pop { animation: none; }
+}
+
+/* ── Canlı site önizlemesi: kendi kendine yavaşça aşağı-yukarı kayar ── */
+@keyframes onizleme-kayma {
+  0%, 12% { transform: translateY(0); }
+  48%, 58% { transform: translateY(-66.6667%); }
+  94%, 100% { transform: translateY(0); }
+}
+.onizleme-kayma { animation: onizleme-kayma 16s cubic-bezier(0.45, 0, 0.55, 1) infinite; }
+@keyframes onizleme-fare { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(3px); } }
+.onizleme-fare { animation: onizleme-fare 1.4s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .onizleme-kayma, .onizleme-fare { animation: none; }
+}
+
+/* Yolculuk: şu anki işin noktası nabız gibi atar */
+@keyframes simdi-nabiz { 0% { transform: scale(1); opacity: 0.7; } 100% { transform: scale(1.9); opacity: 0; } }
+.simdi-nabiz { animation: simdi-nabiz 2s cubic-bezier(0, 0, 0.2, 1) infinite; }
+@media (min-width: 768px) { .durak-simdi .durak-kart { transform: translateY(50px); } }
+@media (prefers-reduced-motion: reduce) { .simdi-nabiz { animation: none; } }
