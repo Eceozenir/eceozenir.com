@@ -302,3 +302,13 @@ h3 { font-weight: 500 !important; letter-spacing: -0.01em; }
 .giris-video { animation: giris-video 1.4s cubic-bezier(0.2, 0.8, 0.2, 1) 0.5s both; }
 @media (prefers-reduced-motion: reduce) { .giris-harf, .giris-video { animation: none; } }
 h1.giris-baslik { font-weight: 300 !important; letter-spacing: -0.04em !important; line-height: 0.9 !important; }
+
+/* /giris teması: başlıklar ince (300), büyük-küçük harf normal, sıkı harf aralığı */
+.tema-giris h1, .tema-giris h2, .tema-giris h3 {
+  text-transform: none !important;
+  font-weight: 300 !important;
+  letter-spacing: -0.03em !important;
+  line-height: 1.02 !important;
+}
+.tema-giris h2 { letter-spacing: -0.04em !important; }
+.tema-giris h1.giris-baslik { text-transform: uppercase !important; line-height: 0.9 !important; }
