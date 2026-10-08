@@ -6,8 +6,8 @@ import { ExternalLink, MousePointerClick, X } from "lucide-react"
 // Bir projenin site önizlemesi: tarayıcı penceresi görünümünde.
 // Masaüstü: kart ekrandayken site CANLI açılır ve kendi kendine yavaşça kayar.
 //           "Tıkla, aşağı kaydır" ile imleçle gezilebilir.
-// Mobil:    telefonu yormamak için aynı anda yalnızca bir site canlı açılır: ekranın
-//           ortasına gelen kart. Diğerlerinde kapak (görsel ya da çizim) görünür.
+// Mobil:    telefon çökmesin diye siteler kendiliğinden açılmaz; kapak görünür,
+//           dokununca o site açılır. Aynı anda yalnızca bir site açık kalır.
 // "onizleme" (public/onizlemeler içindeki görsel/video) verilirse kapak olarak o kullanılır.
 
 const VIDEO = /\.(mp4|webm|mov)$/i
@@ -99,27 +99,6 @@ export function ProjeOnizleme({
     return () => io.disconnect()
   }, [link])
 
-  // Mobil: kart ekranın büyük kısmına gelince otomatik canlı açılır, diğerleri kapanır
-  useEffect(() => {
-    const el = ekranRef.current
-    if (!el || !link || !mobil) return
-    const io = new IntersectionObserver(
-      ([e]) => {
-        if (e.isIntersecting) {
-          window.dispatchEvent(new CustomEvent(AKTIF_OLAY, { detail: kimlik }))
-          setOdak(true)
-        } else {
-          setOdak(false)
-          setGeziyor(false)
-          setYuklendi(false)
-        }
-      },
-      { threshold: 0.7 }
-    )
-    io.observe(el)
-    return () => io.disconnect()
-  }, [link, mobil, kimlik])
-
   // Başka bir önizleme açılınca bu kapanır (mobilde aynı anda tek site)
   useEffect(() => {
     const dinle = (e: Event) => {
@@ -142,7 +121,7 @@ export function ProjeOnizleme({
   const cerceve = koyu ? "bg-[#2a1708] text-[#fff8ea]" : "bg-white text-[#2a1708]"
   const alanAdi = link ? link.replace(/^https?:\/\//, "").replace(/\/$/, "") : ad
   // Mobilde site sadece dokununca, masaüstünde kart ekrandayken yüklenir
-  const canli = Boolean(link && gorunur && (mobil ? odak || geziyor : true))
+  const canli = Boolean(link && gorunur && (mobil ? odak && geziyor : true))
   const kapak = src && !kapakHata ? src : ""
 
   return (

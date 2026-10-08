@@ -312,3 +312,8 @@ h1.giris-baslik { font-weight: 300 !important; letter-spacing: -0.04em !importan
 }
 .tema-giris h2 { letter-spacing: -0.04em !important; }
 .tema-giris h1.giris-baslik { text-transform: uppercase !important; line-height: 0.9 !important; }
+
+/* Telefonlarda ağır, sürekli çalışan bulanık arka plan animasyonlarını kapat (bellek/pil) */
+@media (max-width: 767px), (pointer: coarse) {
+  .float-blob { animation: none !important; }
+}

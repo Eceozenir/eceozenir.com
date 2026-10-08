@@ -206,15 +206,39 @@ export default function MetroHero({
     const onWheel = (e: WheelEvent) => {
       if (handleDelta(e.deltaY)) e.preventDefault()
     }
+    // Mobil: videonun tamamı yaklaşık 2 parmak kaydırmasında (~800px) biter,
+    // parmak kalkınca video sonuna gelmişse kilit hemen açılır → 3. kaydırmada site akar.
+    const MOBIL_MESAFE = 800
+    let sonHiz = 0
+    let sonZaman = 0
+    let acmaZamanlayici = 0
     const onTouchStart = (e: TouchEvent) => {
       touchStartY = e.touches[0]?.clientY ?? 0
+      sonHiz = 0
+      sonZaman = performance.now()
+      window.clearTimeout(acmaZamanlayici)
     }
     const onTouchMove = (e: TouchEvent) => {
       const y = e.touches[0]?.clientY ?? touchStartY
       const deltaY = touchStartY - y
       touchStartY = y
-      // Parmakla kaydırma tekerlekten çok daha kısa mesafe; mobilde videoyu hızlandır
-      if (handleDelta(deltaY * 3.2)) e.preventDefault()
+      const simdi = performance.now()
+      sonHiz = deltaY / Math.max(1, simdi - sonZaman) // px/ms
+      sonZaman = simdi
+      if (handleDelta(deltaY * (scrubDistance / MOBIL_MESAFE))) e.preventDefault()
+    }
+    const onTouchEnd = () => {
+      if (!locked || reduceMotion) return
+      // Hızlı fiske: video biraz daha ilerlesin
+      if (sonHiz > 0.4) addDelta(Math.min(0.35, sonHiz * 0.25) * scrubDistance)
+      // Video sona geldiyse kilidi aç; bir sonraki kaydırma doğrudan siteyi kaydırır
+      if (targetProgress >= 0.999) {
+        targetProgress = 1
+        acmaZamanlayici = window.setTimeout(() => {
+          currentProgress = 1
+          releaseLock()
+        }, 250)
+      }
     }
     const onKeyDown = (e: KeyboardEvent) => {
       const keys: Record<string, number> = {
@@ -227,6 +251,7 @@ export default function MetroHero({
     window.addEventListener("wheel", onWheel, { passive: false })
     window.addEventListener("touchstart", onTouchStart, { passive: true })
     window.addEventListener("touchmove", onTouchMove, { passive: false })
+    window.addEventListener("touchend", onTouchEnd, { passive: true })
     window.addEventListener("keydown", onKeyDown)
 
     function frame() {
@@ -272,6 +297,8 @@ export default function MetroHero({
       window.removeEventListener("wheel", onWheel)
       window.removeEventListener("touchstart", onTouchStart)
       window.removeEventListener("touchmove", onTouchMove)
+      window.removeEventListener("touchend", onTouchEnd)
+      window.clearTimeout(acmaZamanlayici)
       window.removeEventListener("keydown", onKeyDown)
       cancelAnimationFrame(rafId)
       releaseLock()
