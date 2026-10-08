@@ -265,3 +265,23 @@
 .simdi-nabiz { animation: simdi-nabiz 2s cubic-bezier(0, 0, 0.2, 1) infinite; }
 @media (min-width: 768px) { .durak-simdi .durak-kart { transform: translateY(50px); } }
 @media (prefers-reduced-motion: reduce) { .simdi-nabiz { animation: none; } }
+
+/* ── Yazı stili ───────────────────────────────────────────────
+   Başlıklar Fraunces (serif), vurgulu kelimeler italik ve turuncu. */
+h1, h2, h3 {
+  font-family: var(--font-display), Georgia, serif;
+  font-variation-settings: "SOFT" 60;
+}
+h2.font-extrabold, h3.font-extrabold, h2 .font-extrabold {
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+.vurgu {
+  font-family: var(--font-display), Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  font-variation-settings: "SOFT" 100, "WONK" 1;
+  color: #e8590c;
+  padding-right: 0.06em;
+}
+.vurgu-acik { color: #ffb347; }

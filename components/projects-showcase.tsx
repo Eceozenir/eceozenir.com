@@ -103,7 +103,7 @@ export function ProjectsShowcase({
             <h2 className="text-5xl leading-[0.95] font-extrabold tracking-tight sm:text-7xl">
               Yürüttüğüm
               <br />
-              <span className="bg-gradient-to-r from-[#ffc21a] via-[#ff8a1f] to-[#ff4f8b] bg-clip-text text-transparent">
+              <span className="vurgu vurgu-acik">
                 projeler
               </span>
             </h2>

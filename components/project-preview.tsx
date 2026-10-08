@@ -1,17 +1,22 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useId, useRef, useState } from "react"
 import { ExternalLink, MousePointerClick, X } from "lucide-react"
 
 // Bir projenin site önizlemesi: tarayıcı penceresi görünümünde.
-// - "link" verilirse site, kart ekrana girince pencerede CANLI açılır ve kendi kendine
-//   yavaşça aşağı-yukarı kayar. "Aşağı kaydır · siteyi gez" ile imleçle gezilebilir olur.
-// - "onizleme" (public/onizlemeler içindeki görsel/video) canlı site yüklenene kadar
-//   ya da canlı açılamayan sitelerde kapak olarak gösterilir.
+// Masaüstü: kart ekrandayken site CANLI açılır ve kendi kendine yavaşça kayar.
+//           "Tıkla, aşağı kaydır" ile imleçle gezilebilir.
+// Mobil:    telefonu yormamak için önce sitenin fotoğrafı görünür; dokununca
+//           canlı site açılır. Aynı anda yalnızca bir site açık kalır.
+// "onizleme" (public/onizlemeler içindeki görsel/video) verilirse kapak olarak o kullanılır.
 
 const VIDEO = /\.(mp4|webm|mov)$/i
 const SANAL_GENISLIK = 1280 // sitenin masaüstü genişliği; pencereye sığacak şekilde küçültülür
 const KAYMA_YUKSEKLIGI = 3 // otomatik kaymada sitenin kaç ekran boyu gösterileceği
+const AKTIF_OLAY = "onizleme-aktif"
+
+// Görsel verilmemişse sitenin ekran görüntüsünü otomatik al (WordPress mShots servisi)
+const ekranGoruntusu = (link: string) => `https://s0.wp.com/mshots/v1/${encodeURIComponent(link)}?w=900&h=563`
 
 function Iskelet() {
   return (
@@ -51,11 +56,22 @@ export function ProjeOnizleme({
   koyu?: boolean
   className?: string
 }) {
+  const kimlik = useId()
   const ekranRef = useRef<HTMLDivElement>(null)
-  const [gorunur, setGorunur] = useState(false) // kart ekrana girdi mi (site o zaman yüklenir)
+  const [mobil, setMobil] = useState(true) // ilk çizimde güvenli taraf: mobil gibi davran
+  const [gorunur, setGorunur] = useState(false)
   const [yuklendi, setYuklendi] = useState(false)
-  const [geziyor, setGeziyor] = useState(false) // kullanıcı siteyi kendisi geziyor mu
+  const [geziyor, setGeziyor] = useState(false)
   const [olcek, setOlcek] = useState(0.3)
+  const [kapakHata, setKapakHata] = useState(false)
+
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 1023px), (pointer: coarse)")
+    const guncelle = () => setMobil(mq.matches)
+    guncelle()
+    mq.addEventListener("change", guncelle)
+    return () => mq.removeEventListener("change", guncelle)
+  }, [])
 
   // Pencere genişliğine göre siteyi ölçekle
   useEffect(() => {
@@ -66,13 +82,12 @@ export function ProjeOnizleme({
     return () => ro.disconnect()
   }, [])
 
-  // Site sadece kart ekrandayken yüklü kalsın (sayfa ağırlaşmasın)
+  // Kart ekrandan çıkınca site kapanır
   useEffect(() => {
     const el = ekranRef.current
     if (!el || !link) return
     const io = new IntersectionObserver(
       ([e]) => {
-        // Ekrandan çıkan site kapatılır; böylece aynı anda yalnızca görünenler çalışır
         setGorunur(e.isIntersecting)
         if (!e.isIntersecting) {
           setYuklendi(false)
@@ -85,9 +100,28 @@ export function ProjeOnizleme({
     return () => io.disconnect()
   }, [link])
 
+  // Başka bir önizleme açılınca bu kapanır (mobilde aynı anda tek site)
+  useEffect(() => {
+    const dinle = (e: Event) => {
+      if ((e as CustomEvent<string>).detail !== kimlik) {
+        setGeziyor(false)
+        setYuklendi(false)
+      }
+    }
+    window.addEventListener(AKTIF_OLAY, dinle)
+    return () => window.removeEventListener(AKTIF_OLAY, dinle)
+  }, [kimlik])
+
+  const gezmeyeBasla = () => {
+    window.dispatchEvent(new CustomEvent(AKTIF_OLAY, { detail: kimlik }))
+    setGeziyor(true)
+  }
+
   const cerceve = koyu ? "bg-[#2a1708] text-[#fff8ea]" : "bg-white text-[#2a1708]"
   const alanAdi = link ? link.replace(/^https?:\/\//, "").replace(/\/$/, "") : ad
-  const canli = Boolean(link && gorunur)
+  // Mobilde site sadece dokununca, masaüstünde kart ekrandayken yüklenir
+  const canli = Boolean(link && gorunur && (mobil ? geziyor : true))
+  const kapak = src || (link && !kapakHata ? ekranGoruntusu(link) : "")
 
   return (
     <div className={`overflow-hidden rounded-[11px] ring-1 ring-black/10 ${cerceve} ${className}`}>
@@ -97,7 +131,7 @@ export function ProjeOnizleme({
         <span className="size-2 rounded-full bg-[#febc2e]" />
         <span className="size-2 rounded-full bg-[#28c840]" />
         <span className="ml-2 flex h-4 flex-1 items-center gap-1.5 truncate rounded-[4px] bg-current/10 px-2 text-[10px] leading-4">
-          {link && <span className={`size-1.5 shrink-0 rounded-full ${yuklendi ? "bg-[#28c840]" : "bg-[#febc2e]"}`} />}
+          {link && <span className={`size-1.5 shrink-0 rounded-full ${canli && yuklendi ? "bg-[#28c840]" : "bg-[#febc2e]"}`} />}
           <span className="truncate opacity-60">{alanAdi}</span>
         </span>
         {link && (
@@ -105,33 +139,42 @@ export function ProjeOnizleme({
             href={link}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex size-5 items-center justify-center rounded opacity-60 hover:opacity-100"
+            className="flex size-6 items-center justify-center rounded opacity-60 hover:opacity-100"
             aria-label="Siteyi yeni sekmede aç"
           >
-            <ExternalLink className="size-3" />
+            <ExternalLink className="size-3.5" />
           </a>
         )}
         {geziyor && (
           <button
             type="button"
-            onClick={() => setGeziyor(false)}
-            className="flex size-5 items-center justify-center rounded opacity-60 hover:opacity-100"
+            onClick={() => {
+              setGeziyor(false)
+              if (mobil) setYuklendi(false)
+            }}
+            className="flex size-6 items-center justify-center rounded opacity-60 hover:opacity-100"
             aria-label="Gezinmeyi bitir"
           >
-            <X className="size-3.5" />
+            <X className="size-4" />
           </button>
         )}
       </div>
 
       <div ref={ekranRef} className="relative aspect-[16/10] w-full overflow-hidden bg-[#fff0c2]">
-        {/* Kapak: canlı site yüklenene kadar ya da canlı yoksa */}
+        {/* Kapak: fotoğraf / video / iskelet */}
         {(!canli || !yuklendi) &&
-          (src ? (
-            VIDEO.test(src) ? (
-              <video src={src} autoPlay muted loop playsInline className="absolute inset-0 size-full object-cover object-top" />
+          (kapak ? (
+            VIDEO.test(kapak) ? (
+              <video src={kapak} autoPlay muted loop playsInline className="absolute inset-0 size-full object-cover object-top" />
             ) : (
               // eslint-disable-next-line @next/next/no-img-element
-              <img src={src} alt={`${ad} önizlemesi`} loading="lazy" className="absolute inset-0 size-full object-cover object-top" />
+              <img
+                src={kapak}
+                alt={`${ad} önizlemesi`}
+                loading="lazy"
+                onError={() => setKapakHata(true)}
+                className="absolute inset-0 size-full bg-white object-cover object-top"
+              />
             )
           ) : (
             <Iskelet />
@@ -148,6 +191,7 @@ export function ProjeOnizleme({
               title={`${ad} canlı önizleme`}
               onLoad={() => setYuklendi(true)}
               tabIndex={geziyor ? 0 : -1}
+              loading="lazy"
               referrerPolicy="no-referrer"
               sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
               className="absolute top-0 left-0 origin-top-left border-0 bg-white"
@@ -158,20 +202,20 @@ export function ProjeOnizleme({
 
         {/* Yükleniyor */}
         {canli && !yuklendi && (
-          <div className="absolute inset-0 flex items-center justify-center">
+          <div className="absolute inset-0 flex items-center justify-center bg-white/40">
             <span className="size-6 animate-spin rounded-full border-2 border-[#ff8a1f] border-t-transparent" />
           </div>
         )}
 
-        {/* "Aşağı kaydır · siteyi gez" */}
+        {/* "Tıkla, aşağı kaydır" */}
         {link && !geziyor && (
           <button
             type="button"
-            onClick={() => setGeziyor(true)}
+            onClick={gezmeyeBasla}
             className="group/gez absolute inset-0 flex items-end justify-center bg-gradient-to-t from-[#2a1708]/50 via-transparent to-transparent p-3 sm:p-4"
             aria-label={`${ad} sitesini burada gez`}
           >
-            <span className="inline-flex items-center gap-2 rounded-full bg-white/95 px-3.5 py-2 text-[11px] font-extrabold text-[#2a1708] shadow-lg backdrop-blur transition-transform group-hover/gez:scale-105 sm:text-xs">
+            <span className="inline-flex items-center gap-2 rounded-full bg-white/95 px-3.5 py-2 text-[11px] font-extrabold text-[#2a1708] shadow-lg transition-transform group-hover/gez:scale-105 sm:text-xs">
               <MousePointerClick className="onizleme-fare size-4 text-[#e8590c]" />
               Tıkla, aşağı kaydır
             </span>

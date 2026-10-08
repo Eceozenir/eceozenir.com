@@ -41,7 +41,7 @@ import {
 // Ayçiçeği tonları: sarı → turuncu → pembe
 const GRADIENT = "bg-gradient-to-r from-[#ffc21a] via-[#ff8a1f] to-[#ff4f8b]"
 const GRADIENT_SICAK = "bg-gradient-to-br from-[#f76707] to-[#e64980]"
-const GRADIENT_TEXT = "bg-gradient-to-r from-[#f59f00] via-[#f76707] to-[#e64980] bg-clip-text text-transparent"
+const GRADIENT_TEXT = "vurgu"
 
 const IKONLAR = {
   sepet: ShoppingCart,

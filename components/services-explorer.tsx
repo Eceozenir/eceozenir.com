@@ -326,15 +326,25 @@ export function ServicesExplorer({
 }) {
   const [aktif, setAktif] = useState(0)
   const [oto, setOto] = useState(true)
+  const [masaustu, setMasaustu] = useState(false)
+  const [mobilAcik, setMobilAcik] = useState<number | null>(0) // mobilde açık olan hizmet (null = hepsi kapalı)
   const barRef = useRef<HTMLSpanElement>(null)
 
-  // Kullanıcı dokunana kadar hizmetler sırayla değişir
   useEffect(() => {
-    if (!oto) return
+    const mq = window.matchMedia("(min-width: 1024px)")
+    const guncelle = () => setMasaustu(mq.matches)
+    guncelle()
+    mq.addEventListener("change", guncelle)
+    return () => mq.removeEventListener("change", guncelle)
+  }, [])
+
+  // Masaüstünde, kullanıcı dokunana kadar hizmetler sırayla değişir (mobilde değişmez)
+  useEffect(() => {
+    if (!oto || !masaustu) return
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return
     const id = window.setTimeout(() => setAktif((a) => (a + 1) % cozumler.length), SURE)
     return () => window.clearTimeout(id)
-  }, [aktif, oto, cozumler.length])
+  }, [aktif, oto, masaustu, cozumler.length])
 
   const sec = (i: number) => {
     setOto(false)
@@ -353,7 +363,7 @@ export function ServicesExplorer({
           <div>
             <h2 className="max-w-2xl text-4xl leading-[1] font-extrabold tracking-tight text-balance sm:text-6xl">
               İşletmeniz için{" "}
-              <span className="bg-gradient-to-r from-[#f59f00] via-[#f76707] to-[#e64980] bg-clip-text text-transparent">
+              <span className="vurgu">
                 ne yapabiliriz?
               </span>
             </h2>
@@ -367,12 +377,16 @@ export function ServicesExplorer({
           {/* ── Sol: hizmet listesi ── */}
           <ol className="border-t border-[#2a1708]/10">
             {cozumler.map((s, i) => {
-              const secili = i === aktif
+              const secili = masaustu ? i === aktif : mobilAcik === i
               return (
                 <li key={s.baslik} className="border-b border-[#2a1708]/10">
                   <button
                     type="button"
-                    onClick={() => sec(i)}
+                    onClick={() => {
+                      sec(i)
+                      // Mobil: açık olana tekrar dokununca kapanır
+                      setMobilAcik((m) => (m === i ? null : i))
+                    }}
                     onMouseEnter={() => window.matchMedia("(hover: hover)").matches && sec(i)}
                     aria-expanded={secili}
                     className="group relative flex w-full items-center gap-4 py-5 text-left sm:gap-6 sm:py-6"
@@ -383,7 +397,7 @@ export function ServicesExplorer({
                     <span
                       className={`flex-1 text-2xl font-extrabold tracking-tight text-balance transition-all duration-500 sm:text-3xl xl:text-4xl ${
                         secili
-                          ? "translate-x-1 bg-gradient-to-r from-[#f59f00] via-[#f76707] to-[#e64980] bg-clip-text text-transparent"
+                          ? "translate-x-1 text-[#e8590c]"
                           : "text-[#2a1708]/45 group-hover:text-[#2a1708]"
                       }`}
                     >
@@ -402,7 +416,7 @@ export function ServicesExplorer({
                       </span>
                     </span>
                     {/* Otomatik geçiş çubuğu */}
-                    {secili && oto && (
+                    {secili && oto && masaustu && (
                       <span className="absolute inset-x-0 -bottom-px h-0.5 overflow-hidden">
                         <span
                           ref={barRef}

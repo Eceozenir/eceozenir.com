@@ -138,7 +138,7 @@ export function Journey({ duraklar }: { duraklar: Durak[] }) {
                         <span className="text-sm font-bold text-[#ffd24a]">{d.tarih}</span>
                       </div>
                       <h3 className="relative mt-5 text-4xl leading-[1] font-extrabold tracking-tight sm:text-6xl">
-                        <span className="bg-gradient-to-r from-[#ffc21a] via-[#ff8a1f] to-[#ff4f8b] bg-clip-text text-transparent">
+                        <span className="vurgu vurgu-acik">
                           {d.baslik}
                         </span>
                       </h3>

@@ -22,7 +22,7 @@ export default function ProjelerSayfa() {
 
         <h1 className="mt-10 text-5xl font-extrabold tracking-tight sm:text-7xl">
           Tüm{" "}
-          <span className="bg-gradient-to-r from-[#f59f00] via-[#f76707] to-[#e64980] bg-clip-text text-transparent">projeler</span>
+          <span className="vurgu">projeler</span>
         </h1>
         <p className="mt-4 font-semibold text-[#2a1708]/60">{projeler.length} proje</p>
 
@@ -57,7 +57,7 @@ export default function ProjelerSayfa() {
           <Reveal className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
             <h2 className="text-4xl font-extrabold tracking-tight sm:text-6xl">
               Katkıda{" "}
-              <span className="bg-gradient-to-r from-[#f59f00] via-[#f76707] to-[#e64980] bg-clip-text text-transparent">
+              <span className="vurgu">
                 bulunduklarım
               </span>
             </h2>

@@ -34,7 +34,7 @@ export interface MetroHeroProps {
 }
 
 const DEFAULT_VIDEO = "https://cdn.21st.dev/assets/mirror/21/21a77eac28eacbb7e142016eefeaa0b4a766619e51113629a3bc6df6af066c0f.mp4"
-const SANS = "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
+const SANS = "var(--font-sans), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
 
 const COL_BG = "#05070d"
 const COL_TEXT = "#f2f4f8"
@@ -213,7 +213,8 @@ export default function MetroHero({
       const y = e.touches[0]?.clientY ?? touchStartY
       const deltaY = touchStartY - y
       touchStartY = y
-      if (handleDelta(deltaY)) e.preventDefault()
+      // Parmakla kaydırma tekerlekten çok daha kısa mesafe; mobilde videoyu hızlandır
+      if (handleDelta(deltaY * 3.2)) e.preventDefault()
     }
     const onKeyDown = (e: KeyboardEvent) => {
       const keys: Record<string, number> = {
@@ -457,16 +458,12 @@ export default function MetroHero({
           {taglineEyebrow && (
             <span
               style={{
-                display: "inline-block",
                 fontFamily: SANS,
                 fontWeight: 800,
-                fontSize: "clamp(13px, 1.7vw, 19px)",
-                letterSpacing: "0.28em",
-                padding: "0.7em 1.5em 0.7em 1.78em",
-                borderRadius: 999,
-                color: "#2a1708",
-                background: "linear-gradient(90deg, #ffc21a, #ff8a1f, #ff4f8b)",
-                boxShadow: "0 10px 30px -8px rgba(255,79,139,0.65), 0 0 0 1px rgba(255,255,255,0.25) inset",
+                fontSize: "clamp(15px, 2vw, 22px)",
+                letterSpacing: "0.3em",
+                color: "#ffd24a",
+                textShadow: "0 2px 6px rgba(0,0,0,0.85), 0 0 28px rgba(0,0,0,0.6)",
               }}
             >
               {taglineEyebrow}
