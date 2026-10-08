@@ -88,6 +88,10 @@ export default function MetroHero({
     let locked = false
     let lockedScrollY = 0
     let touchStartY = 0
+    // Telefon/tablet: kaydırma kilidi yok. Video kendiliğinden bir kez oynar,
+    // yazılar videoyla birlikte değişir, sayfa baştan normal kayar.
+    const mobil =
+      window.matchMedia?.("(pointer: coarse)").matches || window.innerWidth < 768
 
     // Bulanık arka plan (yalnızca framed modunda)
     function drawBg() {
@@ -120,7 +124,11 @@ export default function MetroHero({
 
     // iOS Safari: oynatma başlamadan video verisi yüklemeyebiliyor.
     const p = video.play()
-    if (p && typeof p.then === "function") {
+    if (mobil && !reduceMotion) {
+      // Mobilde video duraklatılmaz, kendisi oynar
+      video.loop = false
+      p?.catch?.(() => {})
+    } else if (p && typeof p.then === "function") {
       p.then(() => video.pause()).catch(() => {})
     } else {
       video.pause()
@@ -174,7 +182,8 @@ export default function MetroHero({
     }
 
     // Sayfa en üstte açıldıysa kilitle (sayfanın ortasında yenilendiyse kilitleme).
-    if (!reduceMotion && window.scrollY < 5) engageLock()
+    // Mobilde hiç kilitlenmez.
+    if (!reduceMotion && !mobil && window.scrollY < 5) engageLock()
 
     function addDelta(deltaY: number) {
       targetProgress = clamp(targetProgress + deltaY / scrubDistance, 0, 1)
@@ -184,7 +193,7 @@ export default function MetroHero({
     // Bir kaydırma hareketini işler. true dönerse tarayıcının normal
     // kaydırması engellenir.
     function handleDelta(deltaY: number): boolean {
-      if (reduceMotion) return false
+      if (reduceMotion || mobil) return false
       if (locked) {
         // Video bitti ve hâlâ aşağı kaydırılıyor → kilidi aç, site devam etsin.
         if (deltaY > 0 && targetProgress >= 1 && currentProgress > 0.98) {
@@ -228,7 +237,7 @@ export default function MetroHero({
       if (handleDelta(deltaY * (scrubDistance / MOBIL_MESAFE))) e.preventDefault()
     }
     const onTouchEnd = () => {
-      if (!locked || reduceMotion) return
+      if (!locked || reduceMotion || mobil) return
       // Hızlı fiske: video biraz daha ilerlesin
       if (sonHiz > 0.4) addDelta(Math.min(0.35, sonHiz * 0.25) * scrubDistance)
       // Video sona geldiyse kilidi aç; bir sonraki kaydırma doğrudan siteyi kaydırır
@@ -255,9 +264,16 @@ export default function MetroHero({
     window.addEventListener("keydown", onKeyDown)
 
     function frame() {
-      currentProgress += (targetProgress - currentProgress) * 0.18
+      if (mobil) {
+        // İlerleme videonun kendi oynatmasından gelir (sarma/atlama yok)
+        const sure = duration || video!.duration || 0
+        currentProgress = sure > 0 ? clamp(video!.currentTime / sure, 0, 1) : 0
+        if (window.scrollY > 10 || currentProgress > 0.05) hasStartedScrolling = true
+      } else {
+        currentProgress += (targetProgress - currentProgress) * 0.18
+      }
 
-      if (duration > 0) {
+      if (duration > 0 && !mobil) {
         // Videonun tam sonuna atlamak bazı tarayıcılarda boş kare gösterir.
         seekTo(currentProgress * Math.max(0, duration - 0.05))
       }

@@ -86,6 +86,58 @@ export function ProjectsShowcase({
     }
   }, [pinned])
 
+  // Mobil (ve hareket azaltma açıkken): /giris'teki gibi alt alta kartlar,
+  // her önizleme sitenin ayçiçeği tonlarından birinde çerçevelenir.
+  if (!pinned) {
+    return (
+      <section ref={sectionRef} id="projeler" className="relative bg-[#2a1708] px-5 py-20 text-[#fff8ea] sm:px-8">
+        <h2 className="text-[clamp(38px,10vw,64px)] leading-[0.95] font-extrabold tracking-tight">
+          Yürüttüğüm <span className="vurgu vurgu-acik">projeler</span>
+        </h2>
+        <div className="mt-12 grid gap-y-14 sm:grid-cols-2 sm:gap-x-6">
+          {projeler.map((p, i) => {
+            const t = TEMALAR[i % TEMALAR.length]
+            return (
+              <article key={i}>
+                <div className="p-3" style={{ background: t.bg }}>
+                  <ProjeOnizleme
+                    src={p.onizleme || undefined}
+                    ad={p.ad}
+                    link={p.canli === false ? undefined : p.link}
+                    koyu={t.bg === "#fff8ea"}
+                    className="rounded-none"
+                  />
+                </div>
+                <a
+                  href={p.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-4 flex items-start justify-between gap-3"
+                >
+                  <h3 className="text-2xl font-extrabold tracking-tight">{p.ad}</h3>
+                  <ArrowUpRight className="mt-1 size-5 shrink-0 text-[#ffd24a]" />
+                </a>
+                <p className="mt-2 text-sm leading-relaxed text-[#fff8ea]/65">{p.aciklama}</p>
+                <p className="mt-3 text-xs font-bold tracking-wide text-[#ffd24a]/80 uppercase">{p.etiketler.join(" · ")}</p>
+              </article>
+            )
+          })}
+        </div>
+        <a
+          href={devamLink}
+          className="mt-14 flex items-center justify-between gap-4 border-t border-white/15 pt-6 text-lg font-bold"
+        >
+          <span>
+            Tüm projeler <span className="text-[#ffd24a]">({toplam ?? projeler.length})</span>
+          </span>
+          <span className="inline-flex items-center gap-2 rounded-full bg-[#ffc21a] px-5 py-2.5 text-sm text-[#2a1708]">
+            Devamını gör <ArrowRight className="size-4" />
+          </span>
+        </a>
+      </section>
+    )
+  }
+
   return (
     <section ref={sectionRef} id="projeler" className="relative bg-[#2a1708] text-[#fff8ea]">
       <div className={pinned ? "sticky top-0 flex h-screen flex-col justify-center overflow-hidden" : "py-20"}>
