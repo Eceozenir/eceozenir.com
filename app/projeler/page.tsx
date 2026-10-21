@@ -15,7 +15,7 @@ export default function ProjelerSayfa() {
       <div className="mx-auto max-w-6xl px-5 py-16 sm:px-6 sm:py-24">
         <a
           href="/#projeler"
-          className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-bold ring-1 ring-[#fbd99a] transition hover:-translate-x-0.5"
+          className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-bold ring-1 ring-[#f1d9cc] transition hover:-translate-x-0.5"
         >
           <ArrowLeft className="size-4" /> Ana sayfa
         </a>
@@ -26,26 +26,26 @@ export default function ProjelerSayfa() {
         </h1>
         <p className="mt-4 font-semibold text-[#2a1708]/60">{projeler.length} proje</p>
 
-        <div className="mt-12 grid gap-px bg-[#eadcc0] ring-1 ring-[#eadcc0] sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {projeler.map((p, i) => {
             return (
               <Reveal key={i} delay={(i % 3) * 80} className="h-full">
                 <article
-                  className="kareli group relative flex h-full flex-col p-5 transition duration-300 hover:z-10 hover:ring-1 hover:ring-[#2a1708]"
+                  className="kareli group relative flex h-full flex-col rounded-[20px] p-5 ring-1 ring-[#f1d9cc] transition duration-300 hover:-translate-y-1"
                 >
                   <ProjeOnizleme src={p.onizleme} ad={p.ad} link={"canli" in p && p.canli === false ? undefined : p.link} />
                   <h3 className="mt-5 text-2xl font-extrabold tracking-tight">
                     {p.link ? (
-                      <a href={p.link} target="_blank" rel="noopener noreferrer" className="inline-flex items-start gap-1 hover:text-[#e8590c]">
+                      <a href={p.link} target="_blank" rel="noopener noreferrer" className="inline-flex items-start gap-1 hover:text-[#c4623a]">
                         {p.ad}
-                        <ArrowUpRight className="mt-0.5 size-5 shrink-0 text-[#e8590c]" />
+                        <ArrowUpRight className="mt-0.5 size-5 shrink-0 text-[#c4623a]" />
                       </a>
                     ) : (
                       p.ad
                     )}
                   </h3>
                   <p className="mt-2 text-sm leading-relaxed text-[#2a1708]/70">{p.aciklama}</p>
-                  <p className="mt-auto pt-4 text-xs font-bold text-[#e8590c]">{p.etiketler.join(" · ")}</p>
+                  <p className="mt-auto pt-4 text-xs font-bold text-[#c4623a]">{p.etiketler.join(" · ")}</p>
                 </article>
               </Reveal>
             )
@@ -68,20 +68,20 @@ export default function ProjelerSayfa() {
           <div className="mt-12 grid gap-6 sm:grid-cols-2">
             {katkilar.map((k, i) => (
               <Reveal key={k.ad} delay={(i % 2) * 100} className="h-full">
-                <article className="kareli group flex h-full flex-col p-5 ring-1 ring-[#eadcc0] transition duration-300 hover:ring-[#2a1708] sm:p-6">
+                <article className="kareli group flex h-full flex-col rounded-[20px] p-5 ring-1 ring-[#f1d9cc] transition duration-300 hover:-translate-y-1 sm:p-6">
                   <ProjeOnizleme
                     src={k.onizleme || undefined}
                     ad={k.ad}
                     link={"canli" in k && k.canli === false ? undefined : k.link}
                   />
                   <h3 className="mt-5 text-2xl font-extrabold tracking-tight">
-                    <a href={k.link} target="_blank" rel="noopener noreferrer" className="inline-flex items-start gap-1.5 hover:text-[#e8590c]">
+                    <a href={k.link} target="_blank" rel="noopener noreferrer" className="inline-flex items-start gap-1.5 hover:text-[#c4623a]">
                       {k.ad}
-                      <ArrowUpRight className="mt-1 size-5 shrink-0 text-[#e8590c]" />
+                      <ArrowUpRight className="mt-1 size-5 shrink-0 text-[#c4623a]" />
                     </a>
                   </h3>
                   <p className="mt-2 leading-relaxed text-[#2a1708]/70">{k.aciklama}</p>
-                  <p className="mt-auto pt-4 text-xs font-bold text-[#e8590c]">{k.etiketler.join(" · ")}</p>
+                  <p className="mt-auto pt-4 text-xs font-bold text-[#c4623a]">{k.etiketler.join(" · ")}</p>
                 </article>
               </Reveal>
             ))}

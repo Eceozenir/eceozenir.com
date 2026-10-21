@@ -17,10 +17,9 @@ type Proje = {
 
 // Her kart farklı bir ayçiçeği tonunda
 const TEMALAR = [
-  { bg: "#ffc21a", fg: "#2a1708", soft: "rgba(42,23,8,0.12)", stroke: "rgba(42,23,8,0.18)" },
-  { bg: "#ff8a1f", fg: "#2a1708", soft: "rgba(42,23,8,0.12)", stroke: "rgba(42,23,8,0.2)" },
-  { bg: "#ff4f8b", fg: "#ffffff", soft: "rgba(255,255,255,0.18)", stroke: "rgba(255,255,255,0.3)" },
-  { bg: "#fff8ea", fg: "#2a1708", soft: "rgba(255,138,31,0.15)", stroke: "rgba(255,138,31,0.35)" },
+  { bg: "#f7cbb3", fg: "#2a1708", soft: "rgba(42,23,8,0.08)", stroke: "rgba(42,23,8,0.12)" }, // yumuşak turuncu
+  { bg: "#f2c9c9", fg: "#2a1708", soft: "rgba(42,23,8,0.08)", stroke: "rgba(42,23,8,0.12)" }, // toz pembe
+  { bg: "#ffffff", fg: "#2a1708", soft: "rgba(42,23,8,0.06)", stroke: "rgba(42,23,8,0.1)" },
 ]
 
 function clamp(v: number, a: number, b: number) {
@@ -90,7 +89,7 @@ export function ProjectsShowcase({
   // her önizleme sitenin ayçiçeği tonlarından birinde çerçevelenir.
   if (!pinned) {
     return (
-      <section ref={sectionRef} id="projeler" className="relative bg-[#2a1708] px-5 py-20 text-[#fff8ea] sm:px-8">
+      <section ref={sectionRef} id="projeler" className="relative bg-[#fbeee9] px-5 py-20 text-[#2a1708] sm:px-8">
         <h2 className="text-[clamp(38px,10vw,64px)] leading-[0.95] font-extrabold tracking-tight">
           Yürüttüğüm <span className="vurgu vurgu-acik">projeler</span>
         </h2>
@@ -104,7 +103,7 @@ export function ProjectsShowcase({
                     src={p.onizleme || undefined}
                     ad={p.ad}
                     link={p.canli === false ? undefined : p.link}
-                    koyu={t.bg === "#fff8ea"}
+                    koyu={false}
                     className="rounded-none"
                   />
                 </div>
@@ -115,22 +114,22 @@ export function ProjectsShowcase({
                   className="mt-4 flex items-start justify-between gap-3"
                 >
                   <h3 className="text-2xl font-extrabold tracking-tight">{p.ad}</h3>
-                  <ArrowUpRight className="mt-1 size-5 shrink-0 text-[#ffd24a]" />
+                  <ArrowUpRight className="mt-1 size-5 shrink-0 text-[#c4623a]" />
                 </a>
-                <p className="mt-2 text-sm leading-relaxed text-[#fff8ea]/65">{p.aciklama}</p>
-                <p className="mt-3 text-xs font-bold tracking-wide text-[#ffd24a]/80 uppercase">{p.etiketler.join(" · ")}</p>
+                <p className="mt-2 text-sm leading-relaxed text-[#2a1708]/65">{p.aciklama}</p>
+                <p className="mt-3 text-xs font-bold tracking-wide text-[#c4623a] uppercase">{p.etiketler.join(" · ")}</p>
               </article>
             )
           })}
         </div>
         <a
           href={devamLink}
-          className="mt-14 flex items-center justify-between gap-4 border-t border-white/15 pt-6 text-lg font-bold"
+          className="mt-14 flex items-center justify-between gap-4 text-lg font-bold"
         >
           <span>
-            Tüm projeler <span className="text-[#ffd24a]">({toplam ?? projeler.length})</span>
+            Tüm projeler <span className="text-[#c4623a]">({toplam ?? projeler.length})</span>
           </span>
-          <span className="inline-flex items-center gap-2 rounded-full bg-[#ffc21a] px-5 py-2.5 text-sm text-[#2a1708]">
+          <span className="inline-flex items-center gap-2 rounded-full bg-[#2a1708] px-5 py-2.5 text-sm text-[#fff8ea]">
             Devamını gör <ArrowRight className="size-4" />
           </span>
         </a>
@@ -139,7 +138,7 @@ export function ProjectsShowcase({
   }
 
   return (
-    <section ref={sectionRef} id="projeler" className="relative bg-[#2a1708] text-[#fff8ea]">
+    <section ref={sectionRef} id="projeler" className="relative bg-[#fbeee9] text-[#2a1708]">
       <div className={pinned ? "sticky top-0 flex h-screen flex-col justify-center overflow-hidden" : "py-20"}>
 
         <div
@@ -159,7 +158,7 @@ export function ProjectsShowcase({
                 projeler
               </span>
             </h2>
-            <p className="mt-6 flex items-center gap-3 text-sm font-semibold text-[#fff8ea]/60">
+            <p className="mt-6 flex items-center gap-3 text-sm font-semibold text-[#2a1708]/55">
               <MoveRight className="size-5 animate-pulse" />
               {pinned ? "Aşağı kaydırdıkça projeler akar" : "Sağa kaydır"}
             </p>
@@ -170,7 +169,7 @@ export function ProjectsShowcase({
             return (
               <article
                 key={i}
-                className="group relative flex min-h-[460px] w-[82vw] shrink-0 snap-center flex-col overflow-hidden rounded-[32px] p-7 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.6)] transition-transform duration-500 hover:-translate-y-2 sm:p-10 md:h-[min(700px,86vh)] md:w-[540px]"
+                className="group relative flex min-h-[460px] w-[82vw] shrink-0 snap-center flex-col overflow-hidden rounded-[32px] p-7 shadow-[0_30px_60px_-35px_rgba(42,23,8,0.35)] transition-transform duration-500 hover:-translate-y-2 sm:p-10 md:h-[min(700px,86vh)] md:w-[540px]"
                 style={{ background: t.bg, color: t.fg }}
               >
 
@@ -179,7 +178,7 @@ export function ProjectsShowcase({
                   src={p.onizleme}
                   ad={p.ad}
                   link={p.canli === false ? undefined : p.link}
-                  koyu={t.bg === "#fff8ea"}
+                  koyu={false}
                   className="relative transition-transform duration-700 group-hover:-translate-y-1 group-hover:rotate-[-1deg]"
                 />
 
@@ -204,32 +203,21 @@ export function ProjectsShowcase({
           {/* Bitiş kartı: tüm projeler sayfasına git */}
           <a
             href={devamLink}
-            className="group relative flex min-h-[460px] w-[78vw] shrink-0 snap-center flex-col items-start justify-center overflow-hidden rounded-[32px] border-2 border-dashed border-[#ffd24a]/40 p-10 transition-colors hover:border-[#ffd24a] md:h-[min(700px,86vh)] md:w-[420px]"
+            className="group relative flex min-h-[460px] w-[78vw] shrink-0 snap-center flex-col items-start justify-center overflow-hidden rounded-[32px] border-2 border-dashed border-[#e8a99f]/60 p-10 transition-colors hover:border-[#c4623a] md:h-[min(700px,86vh)] md:w-[420px]"
           >
-            <span className="text-[120px] leading-none font-extrabold text-transparent [-webkit-text-stroke:2px_#ffd24a]">
+            <span className="text-[120px] leading-none font-extrabold text-transparent [-webkit-text-stroke:2px_#c4623a]">
               {toplam ?? projeler.length}
             </span>
             <p className="mt-4 text-4xl leading-tight font-extrabold tracking-tight">
               Toplam proje.
               <br />
-              <span className="text-[#ffd24a]">Hepsini görmek ister misin?</span>
+              <span className="text-[#c4623a]">Hepsini görmek ister misin?</span>
             </p>
-            <span className="mt-8 inline-flex items-center gap-2 rounded-full bg-[#ffc21a] px-5 py-2.5 text-sm font-bold text-[#2a1708]">
+            <span className="mt-8 inline-flex items-center gap-2 rounded-full bg-[#2a1708] px-5 py-2.5 text-sm font-bold text-[#fff8ea]">
               Devamını gör <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
             </span>
           </a>
         </div>
-
-        {/* İlerleme çubuğu (masaüstü) */}
-        {pinned && (
-          <div className="absolute inset-x-[8vw] bottom-10 h-1 overflow-hidden rounded-full bg-white/10">
-            <div
-              ref={barRef}
-              className="h-full origin-left rounded-full bg-gradient-to-r from-[#ffc21a] via-[#ff8a1f] to-[#ff4f8b]"
-              style={{ transform: "scaleX(0)" }}
-            />
-          </div>
-        )}
       </div>
     </section>
   )

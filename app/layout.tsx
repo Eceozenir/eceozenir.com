@@ -1,10 +1,10 @@
 import type { Metadata } from "next"
-import { Inter_Tight } from "next/font/google"
+import { Manrope } from "next/font/google"
 import "./globals.css"
 
-// Tek yazı tipi: Inter Tight. Başlıklar büyük harf, ince (400) ve sıkı satırlı;
-// metinler aynı ailede, rahat okunur aralıkla.
-const font = Inter_Tight({
+// Tek yazı tipi: Manrope. Yumuşak, geometrik ve sade.
+// (Değiştirmek için buradaki adı başka bir Google Fonts yazı tipiyle değiştir.)
+const font = Manrope({
   subsets: ["latin", "latin-ext"],
   display: "swap",
   variable: "--font-sans",

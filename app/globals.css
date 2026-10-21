@@ -101,7 +101,7 @@
   to { --angle: 360deg; }
 }
 .spin-border {
-  background: conic-gradient(from var(--angle), #ffc21a, #ff8a1f, #ff4f8b, #ffe08a, #ffc21a);
+  background: conic-gradient(from var(--angle), #f4a77c, #eea58f, #e6a1a6, #f8d3bd, #f4a77c);
   animation: spin-angle 4s linear infinite;
 }
 
@@ -124,7 +124,7 @@
 /* MERHABA: harfler açılarak gelir, sonra üzerinden pembe-turuncu ışık geçer */
 .hero-title {
   letter-spacing: -0.04em;
-  background: linear-gradient(110deg, #f2f4f8 0%, #f2f4f8 38%, #ffd24a 46%, #ff9f43 54%, #f2f4f8 62%, #f2f4f8 100%);
+  background: linear-gradient(110deg, #f2f4f8 0%, #f2f4f8 38%, #f6c3a6 46%, #f4a77c 54%, #f2f4f8 62%, #f2f4f8 100%);
   background-size: 250% 100%;
   background-position: 100% 0;
   -webkit-background-clip: text;
@@ -155,7 +155,7 @@
 
 /* İsim ve vurgulu kelimeler: pembe → turuncu */
 .hero-highlight {
-  background: linear-gradient(90deg, #ffd24a, #ff9f43, #ff6b9a);
+  background: linear-gradient(90deg, #f6c3a6, #f4a77c, #e6a1a6);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -178,7 +178,7 @@
 
 /* Renkli kısımlarda pembe-turuncu akış */
 .hero-flow {
-  background: linear-gradient(90deg, #ffd24a, #ff9f43, #ff6b9a, #ffb000, #ffd24a);
+  background: linear-gradient(90deg, #f6c3a6, #f4a77c, #e6a1a6, #f4a77c, #f6c3a6);
   background-size: 300% 100%;
   -webkit-background-clip: text;
   background-clip: text;
@@ -274,11 +274,11 @@ h1, h2 {
   text-transform: uppercase;
   line-height: 0.9 !important;
   letter-spacing: 0.005em !important;
-  font-weight: 400 !important;
+  font-weight: 500 !important;
 }
-h3 { font-weight: 500 !important; letter-spacing: -0.01em; }
-.vurgu { color: #e8590c; }
-.vurgu-acik { color: #ffb347; }
+h3 { font-weight: 600 !important; letter-spacing: -0.01em; }
+.vurgu { color: #c4623a; }
+.vurgu-acik { color: #f4a77c; }
 
 /* Kareli kâğıt dokusu (proje kartları) */
 .kareli {
@@ -292,7 +292,7 @@ h3 { font-weight: 500 !important; letter-spacing: -0.01em; }
 /* Yanardöner küre: sitenin tek büyük renk anı */
 .kure {
   border-radius: 9999px;
-  background: linear-gradient(255deg, #ffc21a, #ff8a1f 28%, #ff4f8b 62%, #fff8ea);
+  background: linear-gradient(255deg, #f4a77c, #eea58f 28%, #e6a1a6 62%, #fff8ea);
 }
 
 /* ── /giris deneme sayfası ── */

@@ -88,14 +88,6 @@ export function Journey({ duraklar }: { duraklar: Durak[] }) {
 
   return (
     <div ref={wrapRef} className="relative">
-      {/* Çizgi: mobilde solda, masaüstünde ortada */}
-      <div ref={lineRef} className="absolute top-7 left-[26px] w-1 rounded-full bg-[#fbd99a]/60 md:left-1/2 md:-translate-x-1/2">
-        <div
-          ref={fillRef}
-          className="h-full w-full origin-top rounded-full bg-gradient-to-b from-[#ffc21a] via-[#ff8a1f] to-[#ff4f8b]"
-          style={{ transform: "scaleY(0)" }}
-        />
-      </div>
 
       <ol className="space-y-14 md:space-y-20">
         {duraklar.map((d, i) => {
@@ -111,22 +103,22 @@ export function Journey({ duraklar }: { duraklar: Durak[] }) {
               >
                 {/* Durak işareti: nabız gibi atan büyük nokta */}
                 <div className="relative z-10 flex justify-center md:col-start-2 md:row-start-1">
-                  <span aria-hidden className="simdi-nabiz absolute top-0 size-14 rounded-full bg-[#ff8a1f]/40 md:size-24" />
+                  <span aria-hidden className="simdi-nabiz absolute top-0 size-14 rounded-full bg-[#eea58f]/40 md:size-24" />
                   <div
                     data-nokta
-                    className="durak-cicek relative flex size-14 items-center justify-center rounded-full bg-[#2a1708] ring-[6px] ring-white shadow-[0_12px_30px_-6px_rgba(232,89,12,0.7)] md:size-24"
+                    className="durak-cicek relative flex size-14 items-center justify-center rounded-full bg-[#2a1708] ring-[6px] ring-white shadow-[0_12px_30px_-6px_rgba(196,98,58,0.7)] md:size-24"
                   >
-                    <span className="absolute inset-[3px] rounded-full bg-gradient-to-br from-[#ffc21a] via-[#ff8a1f] to-[#ff4f8b] opacity-90" />
+                    <span className="absolute inset-[3px] rounded-full bg-gradient-to-br from-[#f4a77c] via-[#eea58f] to-[#e6a1a6] opacity-90" />
                     <Ikon className="relative size-6 text-white md:size-9" />
                   </div>
                 </div>
 
                 {/* Kart: koyu, renkli çerçeveli */}
                 <div className="durak-kart relative md:col-span-3 md:col-start-1 md:row-start-2 md:mx-auto md:w-full md:max-w-2xl md:text-center">
-                  <div className="relative rounded-[30px] bg-gradient-to-br from-[#ffc21a] via-[#ff8a1f] to-[#ff4f8b] p-[2px] shadow-[0_30px_70px_-25px_rgba(232,89,12,0.75)]">
+                  <div className="relative rounded-[30px] bg-gradient-to-br from-[#f4a77c] via-[#eea58f] to-[#e6a1a6] p-[2px] shadow-[0_30px_70px_-25px_rgba(196,98,58,0.75)]">
                     <div className="relative overflow-hidden rounded-[28px] bg-[#2a1708] p-7 text-[#fff8ea] sm:p-10">
-                      <div aria-hidden className="pointer-events-none absolute -top-24 -right-16 size-64 rounded-full bg-[#ff4f8b]/30 blur-3xl" />
-                      <div aria-hidden className="pointer-events-none absolute -bottom-24 -left-16 size-64 rounded-full bg-[#ffc21a]/25 blur-3xl" />
+                      <div aria-hidden className="pointer-events-none absolute -top-24 -right-16 size-64 rounded-full bg-[#e6a1a6]/30 blur-3xl" />
+                      <div aria-hidden className="pointer-events-none absolute -bottom-24 -left-16 size-64 rounded-full bg-[#f4a77c]/25 blur-3xl" />
                       <div className="relative flex flex-wrap items-center gap-3 md:justify-center">
                         <span className="inline-flex items-center gap-2 text-xs font-extrabold tracking-[0.2em] text-[#4ade80]">
                           <span className="relative flex size-2">
@@ -135,7 +127,7 @@ export function Journey({ duraklar }: { duraklar: Durak[] }) {
                           </span>
                           ŞU AN
                         </span>
-                        <span className="text-sm font-bold text-[#ffd24a]">{d.tarih}</span>
+                        <span className="text-sm font-bold text-[#f6c3a6]">{d.tarih}</span>
                       </div>
                       <h3 className="relative mt-5 text-4xl leading-[1] font-extrabold tracking-tight sm:text-6xl">
                         <span className="vurgu vurgu-acik">
@@ -162,10 +154,10 @@ export function Journey({ duraklar }: { duraklar: Durak[] }) {
               <div className="relative z-10 flex justify-center md:col-start-2 md:row-start-1">
                 <div
                   data-nokta
-                  className={`durak-cicek flex size-14 items-center justify-center rounded-full ring-[6px] ring-white shadow-[0_8px_20px_-6px_rgba(232,89,12,0.45)] md:size-16 ${
+                  className={`durak-cicek flex size-14 items-center justify-center rounded-full ring-[6px] ring-white shadow-[0_8px_20px_-6px_rgba(196,98,58,0.45)] md:size-16 ${
                     d.tur === "okul"
-                      ? "bg-gradient-to-br from-[#ff8a1f] to-[#ff4f8b]"
-                      : "bg-gradient-to-br from-[#ffc21a] to-[#ff8a1f]"
+                      ? "bg-gradient-to-br from-[#eea58f] to-[#e6a1a6]"
+                      : "bg-gradient-to-br from-[#f4a77c] to-[#eea58f]"
                   }`}
                 >
                   <Ikon className="size-6 text-white" />
@@ -176,17 +168,17 @@ export function Journey({ duraklar }: { duraklar: Durak[] }) {
               <div
                 className={`durak-kart relative md:row-start-1 ${sag ? "md:col-start-3" : "md:col-start-1 md:text-right"}`}
               >
-                <div className="group relative overflow-hidden rounded-[28px] bg-white p-6 shadow-[0_20px_50px_-25px_rgba(232,89,12,0.45)] ring-1 ring-[#fbd99a] transition duration-500 hover:-translate-y-1 hover:shadow-[0_30px_60px_-25px_rgba(232,89,12,0.6)] sm:p-8">
+                <div className="group relative overflow-hidden rounded-[28px] bg-white p-6 shadow-[0_20px_50px_-25px_rgba(196,98,58,0.45)] ring-1 ring-[#f1d9cc] transition duration-500 hover:-translate-y-1 hover:shadow-[0_30px_60px_-25px_rgba(196,98,58,0.6)] sm:p-8">
                   {/* Köşede renkli şerit */}
                   <div
                     className={`absolute top-0 h-full w-1.5 ${sag ? "left-0" : "left-0 md:right-0 md:left-auto"} ${
                       d.tur === "okul"
-                        ? "bg-gradient-to-b from-[#ff4f8b] to-[#ff8a1f]"
-                        : "bg-gradient-to-b from-[#ffc21a] to-[#ff8a1f]"
+                        ? "bg-gradient-to-b from-[#e6a1a6] to-[#eea58f]"
+                        : "bg-gradient-to-b from-[#f4a77c] to-[#eea58f]"
                     }`}
                   />
                   <div className={`flex flex-wrap items-center gap-2 ${sag ? "" : "md:justify-end"}`}>
-                    <span className="text-sm font-bold text-[#e8590c]">{d.tarih}</span>
+                    <span className="text-sm font-bold text-[#c4623a]">{d.tarih}</span>
                   </div>
                   <h3 className="mt-3 text-2xl font-extrabold tracking-tight">{d.baslik}</h3>
                   <p className="mt-1 font-semibold text-[#2a1708]/60">{d.alt}</p>
