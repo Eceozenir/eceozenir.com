@@ -272,7 +272,7 @@
 body { letter-spacing: 0.005em; }
 h1, h2 {
   text-transform: uppercase;
-  line-height: 0.9 !important;
+  line-height: 1.06 !important; /* İ noktaları üst satıra değmesin */
   letter-spacing: 0.005em !important;
   font-weight: 500 !important;
 }

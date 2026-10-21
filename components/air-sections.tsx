@@ -143,7 +143,7 @@ export function GiantStatement({ satirlar, elYazisi }: { satirlar: string[]; elY
             ref={(el) => {
               refs.current[i] = el
             }}
-            className="text-center leading-[0.82] whitespace-nowrap text-[#2a1708] uppercase will-change-transform"
+            className="text-center leading-[1] whitespace-nowrap text-[#2a1708] uppercase will-change-transform"
             style={{
               fontWeight: 400,
               letterSpacing: "0.005em",
