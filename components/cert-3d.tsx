@@ -119,22 +119,22 @@ export function Certificate3D({
       className="relative mx-auto w-full max-w-[600px] cursor-grab touch-pan-y select-none active:cursor-grabbing"
       style={{ perspective: "1400px" }}
       role="img"
-      aria-label={`${kurum} — ${baslik} sertifikası`}
+      aria-label={`${kurum}, ${baslik} sertifikası`}
     >
       {/* Arkadaki sıcak hale */}
-      <div aria-hidden className="absolute inset-[8%] rounded-[40px] bg-gradient-to-br from-[#f4a77c]/40 via-[#eea58f]/30 to-[#e6a1a6]/30 blur-3xl" />
+      <div aria-hidden className="absolute inset-[8%] rounded-[40px] bg-gradient-to-br from-[#f8a55e]/40 via-[#f47b2a]/30 to-[#fbbf91]/30 blur-3xl" />
 
       <div className="relative">
-      {/* 360° dönüş halkası — arka yarısı (kartın arkasında kalır) */}
+      {/* 360° dönüş halkası: arka yarısı (kartın arkasında kalır) */}
       <svg aria-hidden viewBox="0 0 400 100" preserveAspectRatio="none" className="pointer-events-none absolute -inset-x-[9%] top-[52%] h-[72%] w-[118%]">
         <defs>
           <linearGradient id="halka-renk" x1="0" x2="1">
-            <stop offset="0" stopColor="#f4a77c" />
-            <stop offset="0.5" stopColor="#eea58f" />
-            <stop offset="1" stopColor="#e6a1a6" />
+            <stop offset="0" stopColor="#f8a55e" />
+            <stop offset="0.5" stopColor="#f47b2a" />
+            <stop offset="1" stopColor="#fbbf91" />
           </linearGradient>
           <marker id="halka-ok" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
-            <path d="M0,0 L10,5 L0,10 z" fill="#e6a1a6" />
+            <path d="M0,0 L10,5 L0,10 z" fill="#fbbf91" />
           </marker>
         </defs>
         <path d="M12,50 A188,40 0 0 1 388,50" fill="none" stroke="url(#halka-renk)" strokeOpacity="0.45" strokeWidth="2" strokeDasharray="4 8" className="halka-akis" vectorEffect="non-scaling-stroke" />
@@ -148,7 +148,7 @@ export function Certificate3D({
             className="absolute inset-0 rounded-[14px]"
             style={{
               transform: `translateZ(${i - KALINLIK / 2}px)`,
-              background: i % 2 ? "#f1d9cc" : "#e8c9b8",
+              background: i % 2 ? "#f6e1cc" : "#ecd2bb",
             }}
           />
         ))}
@@ -170,7 +170,7 @@ export function Certificate3D({
 
         {/* Arka yüz */}
         <div
-          className="absolute inset-0 flex flex-col justify-between overflow-hidden rounded-[14px] bg-gradient-to-br from-[#f4a77c] via-[#eea58f] to-[#e6a1a6] p-6 text-[#2a1708] sm:p-10"
+          className="absolute inset-0 flex flex-col justify-between overflow-hidden rounded-[14px] bg-gradient-to-br from-[#f8a55e] via-[#f47b2a] to-[#fbbf91] p-6 text-[#2a1708] sm:p-10"
           style={{ transform: `rotateY(180deg) translateZ(${KALINLIK / 2}px)`, backfaceVisibility: "hidden" }}
         >
           <p className="text-xs font-extrabold tracking-[0.25em] sm:text-sm">SERTİFİKA</p>
@@ -186,7 +186,7 @@ export function Certificate3D({
         </div>
       </div>
 
-      {/* 360° dönüş halkası — ön yarısı, uçlarında oklar */}
+      {/* 360° dönüş halkası: ön yarısı, uçlarında oklar */}
       <svg aria-hidden viewBox="0 0 400 100" preserveAspectRatio="none" className="pointer-events-none absolute -inset-x-[9%] top-[52%] h-[72%] w-[118%] overflow-visible">
         <path
           d="M388,50 A188,40 0 0 1 12,50"
@@ -197,11 +197,11 @@ export function Certificate3D({
           markerEnd="url(#halka-ok)"
           vectorEffect="non-scaling-stroke"
         />
-        <path d="M388,50 A188,40 0 0 1 12,50" fill="none" stroke="#fff8ea" strokeWidth="3" strokeDasharray="2 22" className="halka-akis" vectorEffect="non-scaling-stroke" />
+        <path d="M388,50 A188,40 0 0 1 12,50" fill="none" stroke="#fffaf2" strokeWidth="3" strokeDasharray="2 22" className="halka-akis" vectorEffect="non-scaling-stroke" />
       </svg>
       {/* 360° etiketi */}
       <div className="pointer-events-none absolute top-[118%] left-1/2 -translate-x-1/2">
-        <span className="inline-flex items-center gap-1.5 text-sm font-extrabold tracking-[0.15em] text-[#c4623a]">
+        <span className="inline-flex items-center gap-1.5 text-sm font-extrabold tracking-[0.15em] text-[#d4581b]">
           <svg viewBox="0 0 24 24" className="size-3.5" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
             <path d="M21 12a9 9 0 1 1-3-6.7" />
             <path d="M21 4v5h-5" />

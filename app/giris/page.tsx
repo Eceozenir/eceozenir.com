@@ -28,7 +28,7 @@ import {
 // siyah hap düğmeler. Renk sadece küçük dokunuşlarda: nane, şeker pembesi, pudra mavisi, lacivert.
 // İçerikler ana sayfayla aynı: hepsi app/bilgilerim.ts dosyasından gelir.
 
-export const metadata: Metadata = { title: "Ece Özenir — Proje Yöneticisi" }
+export const metadata: Metadata = { title: "Ece Özenir | Proje Yöneticisi" }
 
 const inter = Inter({ subsets: ["latin", "latin-ext"], weight: ["300", "400"], variable: "--font-giris" })
 

@@ -68,7 +68,7 @@ export function PreviewRows({ projeler, baslik, vurgu }: { projeler: Proje[]; ba
       <h2 className="mx-auto mb-14 max-w-[1150px] px-6 text-center text-[clamp(32px,5vw,56px)] leading-[1] font-medium tracking-tight text-[#2a1708]">
         {baslik}{" "}
         <span
-          className="inline-block -rotate-3 bg-gradient-to-r from-[#f4a77c] via-[#eea58f] to-[#e6a1a6] bg-clip-text pr-2 text-[1.25em] text-transparent"
+          className="inline-block -rotate-3 bg-gradient-to-r from-[#f8a55e] via-[#f47b2a] to-[#fbbf91] bg-clip-text pr-2 text-[1.25em] text-transparent"
           style={{ fontFamily: "var(--font-caveat), cursive" }}
         >
           {vurgu}
@@ -158,13 +158,13 @@ export function GiantStatement({ satirlar, elYazisi }: { satirlar: string[]; elY
       <span
         ref={yaziRef}
         aria-hidden
-        className="pointer-events-none absolute top-1/2 left-1/2 bg-gradient-to-r from-[#f4a77c] via-[#eea58f] to-[#e6a1a6] bg-clip-text px-4 text-transparent"
+        className="pointer-events-none absolute top-1/2 left-1/2 bg-gradient-to-r from-[#f8a55e] via-[#f47b2a] to-[#fbbf91] bg-clip-text px-4 text-transparent"
         style={{
           fontFamily: "var(--font-caveat), cursive",
           fontSize: "clamp(64px, 11vw, 170px)",
           lineHeight: 1,
           opacity: 0,
-          filter: "drop-shadow(0 4px 0 #fff8ea) drop-shadow(0 -4px 0 #fff8ea) drop-shadow(4px 0 0 #fff8ea) drop-shadow(-4px 0 0 #fff8ea)",
+          filter: "drop-shadow(0 4px 0 #fffaf2) drop-shadow(0 -4px 0 #fffaf2) drop-shadow(4px 0 0 #fffaf2) drop-shadow(-4px 0 0 #fffaf2)",
         }}
       >
         {elYazisi}

@@ -17,8 +17,8 @@ type Proje = {
 
 // Her kart farklı bir ayçiçeği tonunda
 const TEMALAR = [
-  { bg: "#f7cbb3", fg: "#2a1708", soft: "rgba(42,23,8,0.08)", stroke: "rgba(42,23,8,0.12)" }, // yumuşak turuncu
-  { bg: "#f2c9c9", fg: "#2a1708", soft: "rgba(42,23,8,0.08)", stroke: "rgba(42,23,8,0.12)" }, // toz pembe
+  { bg: "#ffd9bd", fg: "#2a1708", soft: "rgba(42,23,8,0.08)", stroke: "rgba(42,23,8,0.12)" }, // açık turuncu
+  { bg: "#fde6d2", fg: "#2a1708", soft: "rgba(42,23,8,0.08)", stroke: "rgba(42,23,8,0.12)" }, // şeftali
   { bg: "#ffffff", fg: "#2a1708", soft: "rgba(42,23,8,0.06)", stroke: "rgba(42,23,8,0.1)" },
 ]
 
@@ -89,7 +89,7 @@ export function ProjectsShowcase({
   // her önizleme sitenin ayçiçeği tonlarından birinde çerçevelenir.
   if (!pinned) {
     return (
-      <section ref={sectionRef} id="projeler" className="relative bg-[#fbeee9] px-5 py-20 text-[#2a1708] sm:px-8">
+      <section ref={sectionRef} id="projeler" className="relative bg-[#fff1e4] px-5 py-20 text-[#2a1708] sm:px-8">
         <h2 className="text-[clamp(38px,10vw,64px)] leading-[0.95] font-extrabold tracking-tight">
           Yürüttüğüm <span className="vurgu vurgu-acik">projeler</span>
         </h2>
@@ -114,10 +114,10 @@ export function ProjectsShowcase({
                   className="mt-4 flex items-start justify-between gap-3"
                 >
                   <h3 className="text-2xl font-extrabold tracking-tight">{p.ad}</h3>
-                  <ArrowUpRight className="mt-1 size-5 shrink-0 text-[#c4623a]" />
+                  <ArrowUpRight className="mt-1 size-5 shrink-0 text-[#d4581b]" />
                 </a>
                 <p className="mt-2 text-sm leading-relaxed text-[#2a1708]/65">{p.aciklama}</p>
-                <p className="mt-3 text-xs font-bold tracking-wide text-[#c4623a] uppercase">{p.etiketler.join(" · ")}</p>
+                <p className="mt-3 text-xs font-bold tracking-wide text-[#d4581b] uppercase">{p.etiketler.join(" · ")}</p>
               </article>
             )
           })}
@@ -127,9 +127,9 @@ export function ProjectsShowcase({
           className="mt-14 flex items-center justify-between gap-4 text-lg font-bold"
         >
           <span>
-            Tüm projeler <span className="text-[#c4623a]">({toplam ?? projeler.length})</span>
+            Tüm projeler <span className="text-[#d4581b]">({toplam ?? projeler.length})</span>
           </span>
-          <span className="inline-flex items-center gap-2 rounded-full bg-[#2a1708] px-5 py-2.5 text-sm text-[#fff8ea]">
+          <span className="inline-flex items-center gap-2 rounded-full bg-[#2a1708] px-5 py-2.5 text-sm text-[#fffaf2]">
             Devamını gör <ArrowRight className="size-4" />
           </span>
         </a>
@@ -138,7 +138,7 @@ export function ProjectsShowcase({
   }
 
   return (
-    <section ref={sectionRef} id="projeler" className="relative bg-[#fbeee9] text-[#2a1708]">
+    <section ref={sectionRef} id="projeler" className="relative bg-[#fff1e4] text-[#2a1708]">
       <div className={pinned ? "sticky top-0 flex h-screen flex-col justify-center overflow-hidden" : "py-20"}>
 
         <div
@@ -203,17 +203,17 @@ export function ProjectsShowcase({
           {/* Bitiş kartı: tüm projeler sayfasına git */}
           <a
             href={devamLink}
-            className="group relative flex min-h-[460px] w-[78vw] shrink-0 snap-center flex-col items-start justify-center overflow-hidden rounded-[32px] border-2 border-dashed border-[#e8a99f]/60 p-10 transition-colors hover:border-[#c4623a] md:h-[min(700px,86vh)] md:w-[420px]"
+            className="group relative flex min-h-[460px] w-[78vw] shrink-0 snap-center flex-col items-start justify-center overflow-hidden rounded-[32px] border-2 border-dashed border-[#f6b98a]/60 p-10 transition-colors hover:border-[#d4581b] md:h-[min(700px,86vh)] md:w-[420px]"
           >
-            <span className="text-[120px] leading-none font-extrabold text-transparent [-webkit-text-stroke:2px_#c4623a]">
+            <span className="text-[120px] leading-none font-extrabold text-transparent [-webkit-text-stroke:2px_#d4581b]">
               {toplam ?? projeler.length}
             </span>
             <p className="mt-4 text-4xl leading-tight font-extrabold tracking-tight">
               Toplam proje.
               <br />
-              <span className="text-[#c4623a]">Hepsini görmek ister misin?</span>
+              <span className="text-[#d4581b]">Hepsini görmek ister misin?</span>
             </p>
-            <span className="mt-8 inline-flex items-center gap-2 rounded-full bg-[#2a1708] px-5 py-2.5 text-sm font-bold text-[#fff8ea]">
+            <span className="mt-8 inline-flex items-center gap-2 rounded-full bg-[#2a1708] px-5 py-2.5 text-sm font-bold text-[#fffaf2]">
               Devamını gör <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
             </span>
           </a>

@@ -184,7 +184,7 @@ export const projeler = [
   },
   {
     ad: "STSİZ Toptancı Projesi",
-    aciklama: "[Toptan satış platformu — kısa açıklamayı sen kontrol et/düzenle.]",
+    aciklama: "[Toptan satış platformu. Kısa açıklamayı sen kontrol et/düzenle.]",
     etiketler: ["B2B", "Toptan satış"],
     link: "https://stsiz.com/",
     canli: false, // site pencere içinde açılmıyor; açılırsa bu satırı sil
@@ -235,32 +235,32 @@ export const katkilar = [
 export const egitim = [
   {
     okul: "İstanbul Nişantaşı Üniversitesi",
-    bolum: "Yönetim Bilişim Sistemleri (İngilizce) — Lisans",
-    tarih: "2022 — 2026",
+    bolum: "Yönetim Bilişim Sistemleri (İngilizce), Lisans",
+    tarih: "2022-2026",
     not: "",
   },
   {
     okul: "TED Koleji",
     bolum: "Lise",
-    tarih: "2018 — 2022",
+    tarih: "2018-2022",
     not: "",
   },
 ]
 // Sertifikalar "Yolculuğum" bölümünde gösterilir.
 export const sertifikalar = [
   {
-    ad: "Yazılım Uzmanlığı — Frontend",
+    ad: "Frontend Yazılım Uzmanlığı",
     kurum: "Acunmedya Akademi × İstanbul Nişantaşı Üniversitesi",
-    tarih: "2023 — 2024",
+    tarih: "2023-2024",
     saat: "260", // sağ tarafta büyük yazılan sayı
-    aciklama: "Genişletilmiş Yazılım Uzmanlığı – Frontend Eğitimi Programı’nı tamamladım.",
+    aciklama: "Genişletilmiş Yazılım Uzmanlığı Frontend Eğitimi Programı’nı tamamladım.",
     // Sertifikanın görseli (kimlik ve barkod numarası gizlenmiş hâli).
     // Boş bırakırsan 3B sertifika bölümü görünmez.
     gorsel: "/sertifikalar/acunmedya.jpg",
     link: "",
   },
   {
-    ad: "Cambridge English — B1",
+    ad: "Cambridge English B1",
     kurum: "Cambridge Assessment English",
     tarih: "2022",
     saat: "",
@@ -274,7 +274,7 @@ export const sertifikalar = [
 
 export const deneyim = [
   {
-    tarih: "2025 — Bugün",
+    tarih: "2025-Bugün",
     rol: "Proje Yöneticisi",
     sirket: "Webadası Bilgi Teknolojileri",
     aciklama: "E-ticaret, kurumsal site ve B2B projelerini fikir aşamasından teslimata kadar yönetiyorum.",
@@ -324,7 +324,7 @@ export const yetkinlikler = [
 
 export const iletisim = {
   eposta: "ece@webadasi.com",
-  telefon: "0549 800 01 81", // örn: "+90 555 555 55 55" — boş bırakırsan görünmez
+  telefon: "0549 800 01 81", // örn: "+90 555 555 55 55": boş bırakırsan görünmez
   linkedin: "https://www.linkedin.com/",
 }
 

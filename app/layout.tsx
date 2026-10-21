@@ -11,7 +11,7 @@ const font = Manrope({
 })
 
 export const metadata: Metadata = {
-  title: "Ece Özenir — Proje Yöneticisi",
+  title: "Ece Özenir | Proje Yöneticisi",
   description: "Ece Özenir'in projeleri, eğitimi ve sertifikaları.",
 }
 

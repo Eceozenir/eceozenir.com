@@ -40,8 +40,8 @@ export function Kartvizit({ on, arka }: { on: string; arka?: string }) {
             transitionTimingFunction: "cubic-bezier(0.2, 0.8, 0.2, 1)",
           }}
         >
-          <Yuz src={on} alt="Ece Özenir kartviziti — Türkçe" />
-          {arka && <Yuz src={arka} alt="Ece Özenir kartviziti — İngilizce" arka />}
+          <Yuz src={on} alt="Ece Özenir kartviziti, Türkçe" />
+          {arka && <Yuz src={arka} alt="Ece Özenir kartviziti, İngilizce" arka />}
         </div>
       </button>
       {arka && (
