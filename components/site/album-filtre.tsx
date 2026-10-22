@@ -9,6 +9,7 @@ const SECENEKLER = [
   { id: "hepsi", ad: "Tümü" },
   { id: "ralli", ad: "Ralliler" },
   { id: "etkinlik", ad: "Toplantı ve etkinlikler" },
+  { id: "ofis", ad: "Ofisten kareler" },
 ]
 
 export function AlbumFiltre({ albumler }: { albumler: AlbumOzet[] }) {

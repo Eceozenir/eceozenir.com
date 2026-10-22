@@ -371,7 +371,7 @@ export const tosfed = {
 // ─────────────────────────────────────────────────────────────
 // GALERİ (/galeri). Her albüm için public/galeri/<slug> klasörü aç ve
 // fotoğrafları içine at; site klasördeki fotoğrafları kendisi bulur.
-// kategori: "ralli" | "etkinlik"
+// kategori: "ralli" | "etkinlik" | "ofis"
 // kapak: boş bırakırsan klasördeki ilk fotoğraf kapak olur.
 // ─────────────────────────────────────────────────────────────
 export const galeri = [
@@ -391,6 +391,15 @@ export const galeri = [
     yer: "[Yer]",
     tarih: "[Tarih]",
     aciklama: "Fujifilm ile yürüttüğümüz proje toplantılarından kareler.",
+    kapak: "",
+  },
+  {
+    slug: "ofisten-kareler",
+    baslik: "Ofisten kareler",
+    kategori: "ofis",
+    yer: "Webadası Bilgi Teknolojileri",
+    tarih: "[Yıl]",
+    aciklama: "Webadası ekibiyle ofisteki günlük çalışmalarımızdan kareler.",
     kapak: "",
   },
 ]

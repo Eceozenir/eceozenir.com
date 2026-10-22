@@ -5,3 +5,7 @@ next-env.d.ts
 *.tsbuildinfo
 .DS_Store
 ozel-belgeler
+
+# Ham fotoğraflar (Claude düzenleyip public/galeri içine taşır)
+yeni-gorseller/*
+!yeni-gorseller/.gitkeep

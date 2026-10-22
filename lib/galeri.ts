@@ -31,4 +31,4 @@ export function album(slug: string): Album | undefined {
   return albumler().find((a) => a.slug === slug)
 }
 
-export const KATEGORI_AD: Record<string, string> = { ralli: "Ralli", etkinlik: "Etkinlik" }
+export const KATEGORI_AD: Record<string, string> = { ralli: "Ralli", etkinlik: "Etkinlik", ofis: "Ofis" }

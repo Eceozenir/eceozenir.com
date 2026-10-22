@@ -16,7 +16,7 @@ export default function GaleriSayfa() {
       <SayfaBaslik
         ust={`${liste.length} albüm · ${toplam} fotoğraf`}
         baslik="Galeri"
-        aciklama="TOSFED görevlerimde ralli parkurlarından, proje toplantılarından ve etkinliklerden kareler."
+        aciklama="TOSFED görevlerimde ralli parkurlarından, proje toplantılarından, etkinliklerden ve ofisten kareler."
       />
       <Kap>
         <AlbumFiltre albumler={liste} />
