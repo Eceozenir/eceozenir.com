@@ -15,7 +15,6 @@ import { Reveal } from "@/components/reveal"
 import { GiantStatement } from "@/components/air-sections"
 import { Sayac } from "@/components/site/sayac"
 import { Hero } from "@/components/site/hero"
-import { Kronometre } from "@/components/site/kronometre"
 import { Kap, BolumBaslik } from "@/components/site/ui"
 import { ProjeKart } from "@/components/site/proje-kart"
 import { ReferansIzgara } from "@/components/site/referanslar"
@@ -55,41 +54,47 @@ export default function AnaSayfa() {
         referanslar={referanslar.map((r) => r.ad)}
       />
 
-      {/* ── İKİLİ PANEL: fotoğraf + kiremit metin paneli ── */}
-      <Kap className="pt-6 sm:pt-8">
-        <div className="grid overflow-hidden rounded-2xl md:grid-cols-2">
+      {/* ── TANITIM: ekran genişliğinde fotoğraf + acı kahve panel ── */}
+      <section className="px-2 pt-2 sm:px-3 sm:pt-3">
+        <div className="grid overflow-hidden rounded-2xl md:min-h-[88svh] md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={fotograf} alt="Ece Özenir" className="aspect-[4/5] w-full object-cover md:aspect-auto md:h-full" />
-          <div className="flex flex-col justify-between gap-10 bg-[#4a2b1d] p-8 text-[#fbfaf6] sm:p-12 lg:p-14">
+          <div className="flex flex-col justify-between gap-14 bg-[#4a2b1d] p-7 text-[#fbfaf6] sm:p-12 lg:p-16">
             <div>
-              <h2 className="text-[clamp(36px,4.6vw,60px)] leading-[1.02] font-light">Merhaba, ben Ece.</h2>
-              <p className="mt-6 text-xl leading-snug font-light text-[#fbfaf6]">{hakkimda.trim()}</p>
-              <p className="mt-4 leading-relaxed text-[#fbfaf6]/75">{firma.metin}</p>
+              <h2 className="text-[clamp(48px,7.4vw,128px)] leading-[0.95] font-light">
+                Merhaba,
+                <br />
+                ben Ece.
+              </h2>
+              <div className="mt-10 grid gap-6 lg:grid-cols-2 lg:gap-12">
+                <p className="text-[clamp(20px,1.8vw,26px)] leading-snug font-light">{hakkimda.trim()}</p>
+                <div>
+                  <p className="leading-relaxed text-[#fbfaf6]/70">{firma.metin}</p>
+                  <Link
+                    href="/hakkimda"
+                    data-miknatis
+                    className="group mt-6 inline-flex items-center gap-2.5 text-[13px] tracking-[0.06em] uppercase"
+                  >
+                    <span className="flex size-7 items-center justify-center rounded-full bg-[#fbfaf6] text-[#4a2b1d] transition-transform group-hover:rotate-45">
+                      <ArrowUpRight className="size-4" />
+                    </span>
+                    Hakkımda
+                  </Link>
+                </div>
+              </div>
             </div>
-            <Link href="/hakkimda" data-miknatis className="group inline-flex items-center gap-2.5 self-start text-[13px] tracking-[0.06em] uppercase">
-              <span className="flex size-7 items-center justify-center rounded-full bg-[#fbfaf6] text-[#4a2b1d] transition-transform group-hover:rotate-45">
-                <ArrowUpRight className="size-4" />
-              </span>
-              Hakkımda
-            </Link>
+            {/* Rakamlar */}
+            <div className="grid grid-cols-2 gap-x-6 gap-y-8 lg:grid-cols-4">
+              {istatistik.map((s) => (
+                <div key={s.ad}>
+                  <Sayac deger={s.deger} className="mono block text-[clamp(36px,4vw,56px)] leading-none font-light tracking-tight" />
+                  <p className="mt-2 text-sm text-[#fbfaf6]/60">{s.ad}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
-      </Kap>
-
-
-      {/* ── RAKAMLAR ── */}
-      <Kap className="pt-6 sm:pt-8">
-        <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
-          {istatistik.map((s, i) => (
-            <Reveal key={s.ad} delay={i * 70}>
-              <div className="h-full rounded-2xl bg-white px-6 py-7">
-                <Sayac deger={s.deger} className="mono block text-[clamp(32px,4vw,48px)] leading-none font-semibold tracking-tight" />
-                <p className="mt-3 text-sm text-[#6b665e]">{s.ad}</p>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-      </Kap>
+      </section>
 
       {/* ── HİZMETLER ── */}
       <section className="pt-24 sm:pt-32">
@@ -162,31 +167,6 @@ export default function AnaSayfa() {
           <BolumBaslik baslik="Referanslar" aciklama="Birlikte çalıştığımız markalardan bazıları." />
           <div className="mt-12">
             <ReferansIzgara />
-          </div>
-        </Kap>
-      </section>
-
-      {/* ── TOSFED ── */}
-      <section className="pt-24 sm:pt-32">
-        <Kap>
-          <div className="overflow-hidden rounded-[32px] bg-[#4a2b1d] text-[#fbfaf6]">
-            <div className="grid gap-12 p-8 sm:p-12 lg:grid-cols-[1fr_1.1fr] lg:gap-16 lg:p-16">
-              <div className="flex flex-col">
-                <p className="mono text-sm text-[#fbfaf6]/50">
-                  {tosfed.kurum} · {tosfed.kurumTam}
-                </p>
-                <h2 className="mt-5 text-[clamp(32px,4.4vw,52px)] leading-[1.05] font-semibold">{tosfed.rol}</h2>
-                <p className="mt-5 max-w-md text-lg leading-relaxed text-[#fbfaf6]/65">{tosfed.ozet}</p>
-                <Link
-                  href="/tosfed"
-                  className="group mt-10 inline-flex items-center gap-2 self-start rounded-full bg-[#fbfaf6] px-5 py-3 text-sm font-medium text-[#141414] lg:mt-auto"
-                >
-                  Ralliler ve galeri <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
-                </Link>
-              </div>
-              {/* Oynanabilir kronometre */}
-              <Kronometre />
-            </div>
           </div>
         </Kap>
       </section>

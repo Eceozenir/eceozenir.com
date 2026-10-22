@@ -321,21 +321,13 @@ h1.giris-baslik { font-weight: 300 !important; letter-spacing: -0.04em !importan
 }
 
 /* ── Fare etkileşimleri (components/site/etkilesim.tsx) ── */
-html.ozel-imlec, html.ozel-imlec a, html.ozel-imlec button, html.ozel-imlec summary, html.ozel-imlec [role=tab] { cursor: none; }
-.imlec-nokta, .imlec-halka {
-  position: fixed; top: 0; left: 0; z-index: 9999; pointer-events: none; opacity: 0;
-  transition: opacity 0.2s ease;
+.imlec-etiket {
+  position: fixed; top: 0; left: 0; z-index: 9999; pointer-events: none;
+  padding: 6px 12px; border-radius: 9999px; background: #4a2b1d; color: #fbfaf6;
+  font-size: 12px; letter-spacing: 0.04em; white-space: nowrap;
+  opacity: 0; scale: 0.85; transition: opacity 0.18s ease, scale 0.18s ease;
 }
-.imlec-nokta { width: 6px; height: 6px; border-radius: 9999px; background: #4a2b1d; }
-.imlec-halka {
-  width: 36px; height: 36px; border-radius: 9999px;
-  border: 1.5px solid rgba(74, 43, 29, 0.55);
-  display: flex; align-items: center; justify-content: center;
-  transition: opacity 0.2s ease, background-color 0.25s ease, border-color 0.25s ease;
-}
-.imlec-halka span { font-size: 4px; line-height: 1.1; font-weight: 600; color: #fff; text-align: center; white-space: nowrap; }
-.imlec-halka.imlec-dolu { background: #4a2b1d; border-color: #4a2b1d; }
-html:not(.ozel-imlec) .imlec-nokta, html:not(.ozel-imlec) .imlec-halka { display: none; }
+.imlec-etiket.acik { opacity: 1; scale: 1; }
 
 /* Mıknatıs ve 3B eğim: yumuşak geri dönüş */
 [data-miknatis] { transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1); }

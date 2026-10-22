@@ -2,66 +2,40 @@
 
 import { useEffect, useRef } from "react"
 
-// Sitedeki fare etkileşimleri (yalnızca fare kullanılan cihazlarda çalışır):
-//  - Özel imleç: fareyi yumuşakça takip eden halka. Bağlantılarda büyür;
-//    data-imlec="Yazı" verilen öğelerde halkanın içinde o yazı görünür.
-//  - data-miknatis: düğme fareye doğru çekilir.
-//  - data-egim: kart fareye göre 3B eğilir, üstünden ışık geçer (--gx, --gy).
+// Sitedeki fare etkileşimleri (yalnızca fare kullanılan cihazlarda):
+//  - data-imlec="Yazı": fare okunun yanında küçük bir etiket çıkar (ör. "Siteyi gez")
+//  - data-miknatis: düğme fareye doğru hafifçe çekilir
+//  - data-egim: kart fareye göre 3B eğilir, üstünden ışık geçer (--gx, --gy)
 export function Etkilesim() {
-  const noktaRef = useRef<HTMLDivElement>(null)
-  const halkaRef = useRef<HTMLDivElement>(null)
-  const etiketRef = useRef<HTMLSpanElement>(null)
+  const etiketRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const uygun = window.matchMedia("(hover: hover) and (pointer: fine)").matches
     const sakin = window.matchMedia("(prefers-reduced-motion: reduce)").matches
     if (!uygun || sakin) return
-    const nokta = noktaRef.current!
-    const halka = halkaRef.current!
     const etiket = etiketRef.current!
-    document.documentElement.classList.add("ozel-imlec")
-
-    let x = -100, y = -100, hx = -100, hy = -100
-    let olcek = 1, hedefOlcek = 1
-    let gorunur = false
     let miknatis: HTMLElement | null = null
     let egim: HTMLElement | null = null
-    let raf = 0
-
-    const goster = (v: boolean) => {
-      gorunur = v
-      nokta.style.opacity = halka.style.opacity = v ? "1" : "0"
-    }
 
     const birak = () => {
-      if (miknatis) {
-        miknatis.style.transform = ""
-        miknatis = null
-      }
-      if (egim) {
-        egim.style.transform = ""
-        egim = null
-      }
+      if (miknatis) miknatis.style.transform = ""
+      if (egim) egim.style.transform = ""
+      miknatis = egim = null
     }
 
     const hareket = (e: MouseEvent) => {
-      x = e.clientX
-      y = e.clientY
-      baslat()
-      if (!gorunur) goster(true)
+      const x = e.clientX
+      const y = e.clientY
       const hedef = e.target as HTMLElement
 
-      // Halka: bağlantı/düğme üstünde büyür, etiket varsa yazar
+      // Etiket: okun sağ altında durur
       const etiketli = hedef.closest<HTMLElement>("[data-imlec]")
-      const tiklanir = hedef.closest("a, button, [role=tab], summary, label")
       if (etiketli) {
         etiket.textContent = etiketli.dataset.imlec || ""
-        hedefOlcek = 3.4
-        halka.classList.add("imlec-dolu")
+        etiket.style.transform = `translate(${x + 18}px, ${y + 20}px)`
+        etiket.classList.add("acik")
       } else {
-        etiket.textContent = ""
-        hedefOlcek = tiklanir ? 1.8 : 1
-        halka.classList.remove("imlec-dolu")
+        etiket.classList.remove("acik")
       }
 
       // Mıknatıs
@@ -70,9 +44,7 @@ export function Etkilesim() {
       miknatis = m
       if (m) {
         const r = m.getBoundingClientRect()
-        const dx = x - (r.left + r.width / 2)
-        const dy = y - (r.top + r.height / 2)
-        m.style.transform = `translate(${dx * 0.28}px, ${dy * 0.38}px)`
+        m.style.transform = `translate(${(x - (r.left + r.width / 2)) * 0.22}px, ${(y - (r.top + r.height / 2)) * 0.3}px)`
       }
 
       // 3B eğim
@@ -83,64 +55,29 @@ export function Etkilesim() {
         const r = g.getBoundingClientRect()
         const px = (x - r.left) / r.width - 0.5
         const py = (y - r.top) / r.height - 0.5
-        g.style.transform = `perspective(1000px) rotateX(${-py * 7}deg) rotateY(${px * 9}deg) translateY(-4px)`
+        g.style.transform = `perspective(1000px) rotateX(${-py * 6}deg) rotateY(${px * 8}deg) translateY(-4px)`
         g.style.setProperty("--gx", `${(px + 0.5) * 100}%`)
         g.style.setProperty("--gy", `${(py + 0.5) * 100}%`)
       }
     }
 
-    // Fare sayfadan ya da bir iframe'in (canlı site önizlemesi) içine çıkınca imleci gizle
+    // Fare sayfadan ya da bir canlı önizlemenin içine çıkınca etiketi gizle
     const cikis = (e: MouseEvent) => {
       const r = e.relatedTarget as HTMLElement | null
       if (!r || r.tagName === "IFRAME") {
-        goster(false)
+        etiket.classList.remove("acik")
         birak()
       }
-    }
-    const bas = () => {
-      hedefOlcek *= 0.75
-      baslat()
-    }
-    const birakTus = () => {
-      hedefOlcek /= 0.75
-      baslat()
-    }
-
-    const kare = () => {
-      raf = 0
-      hx += (x - hx) * 0.18
-      hy += (y - hy) * 0.18
-      olcek += (hedefOlcek - olcek) * 0.2
-      nokta.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%)`
-      halka.style.transform = `translate(${hx}px, ${hy}px) translate(-50%, -50%) scale(${olcek})`
-      // Halka yerine oturunca dur; fare kıpırdayınca yeniden başlar
-      if (Math.abs(x - hx) + Math.abs(y - hy) > 0.1 || Math.abs(hedefOlcek - olcek) > 0.002) raf = requestAnimationFrame(kare)
-    }
-    const baslat = () => {
-      if (!raf) raf = requestAnimationFrame(kare)
     }
 
     window.addEventListener("mousemove", hareket, { passive: true })
     document.addEventListener("mouseout", cikis)
-    window.addEventListener("mousedown", bas)
-    window.addEventListener("mouseup", birakTus)
     return () => {
-      cancelAnimationFrame(raf)
       window.removeEventListener("mousemove", hareket)
       document.removeEventListener("mouseout", cikis)
-      window.removeEventListener("mousedown", bas)
-      window.removeEventListener("mouseup", birakTus)
-      document.documentElement.classList.remove("ozel-imlec")
       birak()
     }
   }, [])
 
-  return (
-    <>
-      <div ref={noktaRef} aria-hidden className="imlec-nokta" />
-      <div ref={halkaRef} aria-hidden className="imlec-halka">
-        <span ref={etiketRef} />
-      </div>
-    </>
-  )
+  return <div ref={etiketRef} aria-hidden className="imlec-etiket" />
 }
