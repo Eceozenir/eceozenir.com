@@ -18,6 +18,7 @@ export function IletisimBolum() {
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <a
+                data-miknatis
                 href={`mailto:${iletisim.eposta}`}
                 className="inline-flex items-center justify-center gap-2 rounded-full bg-[#141414] px-6 py-3.5 text-[15px] font-medium text-[#f6f4ef] transition-colors hover:bg-[#c2410c]"
               >
@@ -25,6 +26,7 @@ export function IletisimBolum() {
               </a>
               {tel && (
                 <a
+                  data-miknatis
                   href={tel}
                   className="mono inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 text-[15px] bg-[#141414]/[0.06] transition-colors hover:bg-[#141414]/[0.1]"
                 >

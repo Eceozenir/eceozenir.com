@@ -14,6 +14,8 @@ import {
 import { Reveal } from "@/components/reveal"
 import { GiantStatement } from "@/components/air-sections"
 import { Sayac } from "@/components/site/sayac"
+import { Hero } from "@/components/site/hero"
+import { Kronometre } from "@/components/site/kronometre"
 import { Kap, BolumBaslik } from "@/components/site/ui"
 import { ProjeKart } from "@/components/site/proje-kart"
 import { ReferansIzgara } from "@/components/site/referanslar"
@@ -34,7 +36,6 @@ const IKON = {
 } as const
 
 export default function AnaSayfa() {
-  const sehirSayisi = new Set(tosfed.ralliler.map((r) => r.sehir)).size
   const egitimSaati = sertifikalar.find((s) => s.saat)?.saat
   const istatistik = [
     ...rakamlar.map((r) => ({ deger: r.deger, ad: r.aciklama })),
@@ -46,53 +47,14 @@ export default function AnaSayfa() {
 
   return (
     <>
-      {/* ── GİRİŞ: tam ekran video üstünde büyük serif başlık ── */}
-      <section className="relative -mt-16 flex min-h-[100svh] items-end overflow-hidden bg-[#0b252a] text-white sm:-mt-[72px]">
-        <video
-          src={giris.video}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          className="absolute inset-0 size-full object-cover"
-        />
-        <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-black/40" />
-        <Kap className="relative w-full pt-40 pb-14 sm:pb-20">
-          <span className="foto-gir inline-flex items-center gap-2 rounded-lg bg-black/35 px-3 py-1.5 text-sm backdrop-blur-sm">
-            <span className="size-1.5 rounded-full bg-[#4ade80]" />
-            Proje Yöneticisi · {firma.ad}
-          </span>
-          <h1 className="foto-gir mt-6 max-w-5xl text-[clamp(44px,7.2vw,108px)] leading-[0.98] text-white" style={{ animationDelay: "120ms" }}>
-            {vurguParcalari.length > 1 ? (
-              <>
-                {vurguParcalari[0]}
-                <em className="italic">{giris.sloganVurgu}</em>
-                {vurguParcalari.slice(1).join(giris.sloganVurgu)}
-              </>
-            ) : (
-              giris.slogan
-            )}
-          </h1>
-          <p className="foto-gir mt-6 max-w-xl text-lg leading-relaxed text-white/80" style={{ animationDelay: "240ms" }}>
-            {hakkimda.trim()} {firma.metin}
-          </p>
-          <div className="foto-gir mt-9 flex flex-col gap-3 sm:flex-row" style={{ animationDelay: "360ms" }}>
-            <Link
-              href="/projeler"
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-6 py-3.5 text-[15px] font-medium text-black transition-colors hover:bg-[#f6f4ef]"
-            >
-              Projeleri incele <ArrowRight className="size-4" />
-            </Link>
-            <a
-              href="#iletisim"
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-white/15 px-6 py-3.5 text-[15px] font-medium text-white backdrop-blur-sm transition-colors hover:bg-white/25"
-            >
-              İletişime geç
-            </a>
-          </div>
-        </Kap>
-      </section>
+      {/* ── GİRİŞ: tam ekran video, el feneri ve kaçan harfler ── */}
+      <Hero
+        video={giris.video}
+        slogan={giris.slogan}
+        vurgu={giris.sloganVurgu}
+        rozet={`Proje Yöneticisi · ${firma.ad}`}
+        metin={`${hakkimda.trim()} ${firma.metin}`}
+      />
 
       {/* ── RAKAMLAR ── */}
       <Kap className="pt-16 sm:pt-20">
@@ -124,7 +86,7 @@ export default function AnaSayfa() {
               const Ikon = IKON[c.ikon as keyof typeof IKON] ?? Globe
               return (
                 <Reveal key={c.baslik} delay={(i % 4) * 60} className="h-full">
-                  <div className="flex h-full flex-col rounded-2xl bg-white p-6 transition duration-300 hover:-translate-y-1 hover:shadow-[0_18px_40px_-24px_rgba(20,20,20,0.35)]">
+                  <div data-egim className="flex h-full flex-col rounded-2xl bg-white p-6 hover:shadow-[0_18px_40px_-24px_rgba(20,20,20,0.35)]">
                     <span className="flex size-11 items-center justify-center rounded-xl bg-[#f6f4ef] text-[#c2410c]">
                       <Ikon className="size-5" />
                     </span>
@@ -201,34 +163,8 @@ export default function AnaSayfa() {
                   Ralliler ve galeri <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
                 </Link>
               </div>
-              {/* Netice tablosu görünümünde ralli listesi */}
-              <div className="rounded-2xl bg-white/[0.05] p-5 sm:p-6">
-                <div className="mono flex justify-between text-xs text-[#f6f4ef]/40">
-                  <span>SEZON · RALLİ</span>
-                  <span>ŞEHİR</span>
-                </div>
-                <ol className="mt-4 space-y-2">
-                  {tosfed.ralliler.slice(0, 5).map((r, i) => (
-                    <li key={i} className="flex items-center justify-between gap-4 rounded-xl bg-white/[0.04] px-4 py-3.5">
-                      <span className="flex min-w-0 items-center gap-4">
-                        <span className="mono text-sm text-[#fb923c]">{r.yil}</span>
-                        <span className="truncate text-[15px]">{r.ad}</span>
-                      </span>
-                      <span className="mono shrink-0 text-sm text-[#f6f4ef]/55">{r.sehir}</span>
-                    </li>
-                  ))}
-                </ol>
-                <div className="mono mt-5 grid grid-cols-2 gap-2 text-center">
-                  <div className="rounded-xl bg-white/[0.04] py-4">
-                    <p className="text-2xl">{tosfed.ralliler.length}</p>
-                    <p className="mt-1 text-xs text-[#f6f4ef]/45">RALLİ</p>
-                  </div>
-                  <div className="rounded-xl bg-white/[0.04] py-4">
-                    <p className="text-2xl">{sehirSayisi}</p>
-                    <p className="mt-1 text-xs text-[#f6f4ef]/45">ŞEHİR</p>
-                  </div>
-                </div>
-              </div>
+              {/* Oynanabilir kronometre */}
+              <Kronometre />
             </div>
           </div>
         </Kap>

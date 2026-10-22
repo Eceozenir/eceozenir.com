@@ -79,6 +79,7 @@ export function SiteHeader() {
           ))}
           <Link
             href="/#iletisim"
+            data-miknatis
             className="ml-2 inline-flex items-center gap-1.5 rounded-full bg-[#c2410c] px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-[#9a3412]"
           >
             İletişim <ArrowUpRight className="size-4" />

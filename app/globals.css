@@ -268,13 +268,10 @@
 
 /* ── Yazı stili ───────────────────────────────────────────────
    Kurumsal: Schibsted Grotesk. Sayılar hizalı dursun diye tabular rakamlar. */
-h1, h2, h3 {
-  font-family: var(--font-serif), Georgia, serif;
-  letter-spacing: -0.035em;
-  text-wrap: balance;
-}
-h1, h2 { font-weight: 500; }
-h3 { font-weight: 600; letter-spacing: -0.02em; }
+h1, h2, h3 { letter-spacing: -0.04em; text-wrap: balance; }
+h1 { font-weight: 300; }
+h2 { font-weight: 400; }
+h3 { font-weight: 500; letter-spacing: -0.02em; }
 .tema-giris h1, .tema-giris h2, .tema-giris h3 { font-family: inherit; }
 .mono { font-variant-numeric: tabular-nums; }
 .vurgu { color: #c2410c; }
@@ -321,4 +318,41 @@ h1.giris-baslik { font-weight: 300 !important; letter-spacing: -0.04em !importan
 /* Telefonlarda ağır, sürekli çalışan bulanık arka plan animasyonlarını kapat (bellek/pil) */
 @media (max-width: 767px), (pointer: coarse) {
   .float-blob { animation: none !important; }
+}
+
+/* ── Fare etkileşimleri (components/site/etkilesim.tsx) ── */
+html.ozel-imlec, html.ozel-imlec a, html.ozel-imlec button, html.ozel-imlec summary, html.ozel-imlec [role=tab] { cursor: none; }
+.imlec-nokta, .imlec-halka {
+  position: fixed; top: 0; left: 0; z-index: 9999; pointer-events: none; opacity: 0;
+  transition: opacity 0.2s ease;
+}
+.imlec-nokta { width: 6px; height: 6px; border-radius: 9999px; background: #c2410c; }
+.imlec-halka {
+  width: 36px; height: 36px; border-radius: 9999px;
+  border: 1.5px solid rgba(194, 65, 12, 0.55);
+  display: flex; align-items: center; justify-content: center;
+  transition: opacity 0.2s ease, background-color 0.25s ease, border-color 0.25s ease;
+}
+.imlec-halka span { font-size: 4px; line-height: 1.1; font-weight: 600; color: #fff; text-align: center; white-space: nowrap; }
+.imlec-halka.imlec-dolu { background: #c2410c; border-color: #c2410c; }
+html:not(.ozel-imlec) .imlec-nokta, html:not(.ozel-imlec) .imlec-halka { display: none; }
+
+/* Mıknatıs ve 3B eğim: yumuşak geri dönüş */
+[data-miknatis] { transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1); }
+[data-egim] { transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.4s ease; transform-style: preserve-3d; position: relative; }
+[data-egim]::after {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; opacity: 0;
+  background: radial-gradient(420px circle at var(--gx, 50%) var(--gy, 50%), rgba(255,255,255,0.55), transparent 45%);
+  mix-blend-mode: soft-light; transition: opacity 0.3s ease;
+}
+[data-egim]:hover::after { opacity: 1; }
+
+/* Giriş: el feneri. Fare yokken hafif karartma, fare varken imlecin çevresi aydınlanır */
+.hero-karanlik { background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.25) 50%, rgba(0,0,0,0.4)); }
+.hero-fener.fener-acik .hero-karanlik {
+  background:
+    radial-gradient(320px circle at var(--mx, 70%) var(--my, 40%), transparent 0%, rgba(0,0,0,0.15) 45%, transparent 100%),
+    linear-gradient(to top, rgba(0,0,0,0.85), rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.55));
+  -webkit-mask: radial-gradient(300px circle at var(--mx, 70%) var(--my, 40%), rgba(0,0,0,0.25) 0%, #000 70%);
+  mask: radial-gradient(300px circle at var(--mx, 70%) var(--my, 40%), rgba(0,0,0,0.25) 0%, #000 70%);
 }

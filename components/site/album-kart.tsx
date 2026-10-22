@@ -15,7 +15,7 @@ const KATEGORI: Record<string, string> = { ralli: "Ralli", etkinlik: "Etkinlik" 
 
 export function AlbumKart({ a }: { a: AlbumOzet }) {
   return (
-    <Link href={`/galeri/${a.slug}`} className="group block">
+    <Link href={`/galeri/${a.slug}`} data-imlec="Aç" className="group block">
       <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-[#ebe6dc]">
         {a.kapakFoto ? (
           // eslint-disable-next-line @next/next/no-img-element

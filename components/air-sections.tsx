@@ -145,9 +145,8 @@ export function GiantStatement({ satirlar, elYazisi }: { satirlar: string[]; elY
             }}
             className="text-center leading-[1] whitespace-nowrap text-[#141414] uppercase will-change-transform"
             style={{
-              fontFamily: "var(--font-serif), Georgia, serif",
-              fontWeight: 500,
-              letterSpacing: "-0.04em",
+              fontWeight: 300,
+              letterSpacing: "-0.05em",
               fontSize: "clamp(76px, 17vw, 240px)",
             }}
           >
