@@ -37,7 +37,7 @@ export function SiteHeader() {
     <header
       className={`sticky top-0 z-50 transition-colors duration-300 ${
         // Not: menü açıkken bulanıklık efekti kapalı; yoksa açılan menü ekranı kaplayamıyor
-        acik ? "bg-[#f6f4ef]" : kaydi ? "bg-[#f6f4ef]/90 shadow-[0_1px_0_rgba(20,20,20,0.06)] backdrop-blur-md" : "bg-transparent"
+        acik ? "bg-[#f6f4ef]" : kaydi ? "bg-[#f6f4ef]/90 backdrop-blur-md" : "bg-transparent"
       }`}
     >
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-6 px-5 sm:h-[72px] sm:px-8">
@@ -92,11 +92,10 @@ export function SiteHeader() {
             <Link
               key={m.href}
               href={m.href}
-              className="foto-gir flex items-center justify-between py-4 text-3xl font-semibold tracking-tight"
+              className="foto-gir block py-4 text-3xl font-semibold tracking-tight"
               style={{ animationDelay: `${i * 40}ms` }}
             >
               <span className={aktif(m.href) ? "text-[#c2410c]" : ""}>{m.ad}</span>
-              <span className="mono text-sm text-[#6b665e]">0{i + 1}</span>
             </Link>
           ))}
           <Link

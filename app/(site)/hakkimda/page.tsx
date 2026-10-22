@@ -156,8 +156,7 @@ export default function HakkimdaSayfa() {
             {yetkinlikler.map((g, i) => (
               <Reveal key={g.baslik} delay={i * 70} className="h-full">
                 <div className="flex h-full flex-col rounded-2xl bg-white p-6">
-                  <p className="mono text-xs text-[#c2410c]">0{i + 1}</p>
-                  <h3 className="mt-4 text-xl font-semibold">{g.baslik}</h3>
+                  <h3 className="text-xl font-semibold">{g.baslik}</h3>
                   <p className="mt-2 text-[15px] leading-relaxed text-[#6b665e]">{g.aciklama}</p>
                   <ul className="mt-6 flex flex-wrap gap-x-3 gap-y-1.5 text-sm text-[#141414]/80">
                     {g.maddeler.map((m) => (

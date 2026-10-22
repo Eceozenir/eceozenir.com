@@ -122,7 +122,7 @@ export function GiantStatement({ satirlar, elYazisi }: { satirlar: string[]; elY
         viewBox="0 0 1000 1000"
         className="pointer-events-none absolute top-1/2 left-1/2 size-[min(150vw,1100px)] -translate-x-1/2 -translate-y-1/2"
         fill="none"
-        stroke="#2a1708"
+        stroke="#141414"
         strokeOpacity="0.14"
       >
         <circle cx="500" cy="500" r="250" vectorEffect="non-scaling-stroke" />
@@ -143,10 +143,10 @@ export function GiantStatement({ satirlar, elYazisi }: { satirlar: string[]; elY
             ref={(el) => {
               refs.current[i] = el
             }}
-            className="text-center leading-[1] whitespace-nowrap text-[#2a1708] uppercase will-change-transform"
+            className="text-center leading-[1] whitespace-nowrap text-[#141414] uppercase will-change-transform"
             style={{
-              fontWeight: 400,
-              letterSpacing: "0.005em",
+              fontWeight: 600,
+              letterSpacing: "-0.035em",
               fontSize: "clamp(76px, 17vw, 240px)",
             }}
           >

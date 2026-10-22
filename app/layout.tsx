@@ -1,10 +1,9 @@
 import type { Metadata } from "next"
-import { Geist, Geist_Mono } from "next/font/google"
+import { Schibsted_Grotesk } from "next/font/google"
 import "./globals.css"
 
-// Yazı tipleri: Geist (metin ve başlıklar), Geist Mono (tarihler, sayılar, zaman tabloları).
-const sans = Geist({ subsets: ["latin", "latin-ext"], display: "swap", variable: "--font-sans" })
-const mono = Geist_Mono({ subsets: ["latin", "latin-ext"], display: "swap", variable: "--font-mono" })
+// Yazı tipi: Schibsted Grotesk (editoryal, kurumsal). Değiştirmek için buradaki adı değiştir.
+const sans = Schibsted_Grotesk({ subsets: ["latin", "latin-ext"], display: "swap", variable: "--font-sans" })
 
 export const metadata: Metadata = {
   title: { default: "Ece Özenir | Proje Yöneticisi", template: "%s | Ece Özenir" },
@@ -20,7 +19,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="tr" className={`${sans.variable} ${mono.variable}`}>
+    <html lang="tr" className={sans.variable}>
       <body className={`${sans.className} bg-[#f6f4ef] text-[#141414] antialiased`}>{children}</body>
     </html>
   )

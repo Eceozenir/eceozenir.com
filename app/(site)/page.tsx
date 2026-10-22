@@ -12,6 +12,8 @@ import {
   UtensilsCrossed,
 } from "lucide-react"
 import { Reveal } from "@/components/reveal"
+import { GiantStatement } from "@/components/air-sections"
+import { Sayac } from "@/components/site/sayac"
 import { Kap, BolumBaslik } from "@/components/site/ui"
 import { ProjeKart } from "@/components/site/proje-kart"
 import { ReferansIzgara } from "@/components/site/referanslar"
@@ -81,7 +83,7 @@ export default function AnaSayfa() {
             </Link>
             <a
               href={`mailto:${iletisim.eposta}`}
-              className="inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 text-[15px] font-medium ring-1 ring-[#141414]/15 transition-colors hover:ring-[#141414]/40"
+              className="inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 text-[15px] font-medium bg-[#141414]/[0.06] transition-colors hover:bg-[#141414]/[0.1]"
             >
               İletişime geç
             </a>
@@ -108,7 +110,7 @@ export default function AnaSayfa() {
           {istatistik.map((s, i) => (
             <Reveal key={s.ad} delay={i * 70}>
               <div className="h-full rounded-2xl bg-white px-6 py-7">
-                <p className="mono text-[clamp(32px,4vw,44px)] leading-none font-medium tracking-tight">{s.deger}</p>
+                <Sayac deger={s.deger} className="mono block text-[clamp(32px,4vw,48px)] leading-none font-semibold tracking-tight" />
                 <p className="mt-3 text-sm text-[#6b665e]">{s.ad}</p>
               </div>
             </Reveal>
@@ -132,7 +134,7 @@ export default function AnaSayfa() {
               const Ikon = IKON[c.ikon as keyof typeof IKON] ?? Globe
               return (
                 <Reveal key={c.baslik} delay={(i % 4) * 60} className="h-full">
-                  <div className="flex h-full flex-col rounded-2xl bg-white p-6">
+                  <div className="flex h-full flex-col rounded-2xl bg-white p-6 transition duration-300 hover:-translate-y-1 hover:shadow-[0_18px_40px_-24px_rgba(20,20,20,0.35)]">
                     <span className="flex size-11 items-center justify-center rounded-xl bg-[#f6f4ef] text-[#c2410c]">
                       <Ikon className="size-5" />
                     </span>
@@ -157,8 +159,13 @@ export default function AnaSayfa() {
         </Kap>
       </section>
 
+      {/* ── FİKİRDEN TESLİMATA (kaydırdıkça satırlar kayar, küre büyür) ── */}
+      <div className="pt-12 sm:pt-16">
+        <GiantStatement satirlar={["Fikirden", "teslimata"]} />
+      </div>
+
       {/* ── ÖNE ÇIKAN PROJELER ── */}
-      <section className="pt-24 sm:pt-32">
+      <section className="pt-8 sm:pt-12">
         <Kap>
           <BolumBaslik
             baslik="Öne çıkan projeler"
@@ -205,7 +212,7 @@ export default function AnaSayfa() {
                 </Link>
               </div>
               {/* Netice tablosu görünümünde ralli listesi */}
-              <div className="rounded-2xl bg-white/[0.04] p-5 ring-1 ring-white/10 sm:p-6">
+              <div className="rounded-2xl bg-white/[0.05] p-5 sm:p-6">
                 <div className="mono flex justify-between text-xs text-[#f6f4ef]/40">
                   <span>SEZON · RALLİ</span>
                   <span>ŞEHİR</span>

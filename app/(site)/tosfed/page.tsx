@@ -50,10 +50,9 @@ export default function TosfedSayfa() {
               </p>
             ))}
             <div className="mt-10 grid gap-3 sm:grid-cols-3">
-              {tosfed.gorevler.map((g, i) => (
+              {tosfed.gorevler.map((g) => (
                 <div key={g.baslik} className="rounded-2xl bg-[#f6f4ef] p-5">
-                  <p className="mono text-xs text-[#c2410c]">0{i + 1}</p>
-                  <p className="mt-3 font-semibold">{g.baslik}</p>
+                  <p className="font-semibold">{g.baslik}</p>
                   <p className="mt-1.5 text-sm leading-relaxed text-[#6b665e]">{g.aciklama}</p>
                 </div>
               ))}

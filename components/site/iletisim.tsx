@@ -26,7 +26,7 @@ export function IletisimBolum() {
               {tel && (
                 <a
                   href={tel}
-                  className="mono inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 text-[15px] ring-1 ring-[#141414]/15 transition-colors hover:ring-[#141414]/40"
+                  className="mono inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 text-[15px] bg-[#141414]/[0.06] transition-colors hover:bg-[#141414]/[0.1]"
                 >
                   <Phone className="size-4" /> {iletisim.telefon}
                 </a>

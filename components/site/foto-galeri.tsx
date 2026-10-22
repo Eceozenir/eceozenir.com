@@ -66,7 +66,7 @@ export function FotoGaleri({ fotolar, baslik }: { fotolar: string[]; baslik: str
         >
           <div className="flex items-center justify-between px-4 py-3 text-sm text-white/70 sm:px-6">
             <span className="mono">
-              {String(acik + 1).padStart(2, "0")} / {String(fotolar.length).padStart(2, "0")}
+              {acik + 1} / {fotolar.length}
             </span>
             <button
               type="button"

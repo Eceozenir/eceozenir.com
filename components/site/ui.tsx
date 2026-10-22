@@ -31,7 +31,7 @@ export function BolumBaslik({
         <Link
           href={link}
           className={`group inline-flex shrink-0 items-center gap-2 self-start rounded-full px-5 py-2.5 text-sm font-medium transition-colors md:self-auto ${
-            koyu ? "bg-[#f6f4ef] text-[#141414] hover:bg-white" : "bg-white text-[#141414] ring-1 ring-[#141414]/10 hover:ring-[#141414]/30"
+            koyu ? "bg-[#f6f4ef] text-[#141414] hover:bg-white" : "bg-white text-[#141414] hover:bg-[#141414] hover:text-[#f6f4ef]"
           }`}
         >
           {linkYazi} <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />

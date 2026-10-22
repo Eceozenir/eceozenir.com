@@ -267,10 +267,9 @@
 @media (prefers-reduced-motion: reduce) { .simdi-nabiz { animation: none; } }
 
 /* ── Yazı stili ───────────────────────────────────────────────
-   Kurumsal: Geist (metin ve başlıklar), Geist Mono (tarih ve sayılar). */
-body { font-feature-settings: "ss01", "cv11"; }
-h1, h2, h3 { letter-spacing: -0.03em; text-wrap: balance; }
-.mono { font-family: var(--font-mono), ui-monospace, monospace; letter-spacing: 0; font-variant-numeric: tabular-nums; }
+   Kurumsal: Schibsted Grotesk. Sayılar hizalı dursun diye tabular rakamlar. */
+h1, h2, h3 { letter-spacing: -0.025em; text-wrap: balance; }
+.mono { font-variant-numeric: tabular-nums; }
 .vurgu { color: #c2410c; }
 .vurgu-acik { color: #fb923c; }
 
