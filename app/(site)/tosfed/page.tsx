@@ -37,9 +37,9 @@ export default function TosfedSayfa() {
               { d: String(tosfed.ralliler.length), a: "Ralli" },
               { d: String(sehirSayisi), a: "Şehir" },
             ].map((s) => (
-              <div key={s.a} className="rounded-2xl bg-[#0b252a] px-5 py-6 text-[#f6f4ef] sm:px-6">
+              <div key={s.a} className="rounded-2xl bg-[#813413] px-5 py-6 text-[#fbfaf6] sm:px-6">
                 <p className="text-[clamp(26px,4vw,44px)] leading-none">{s.d}</p>
-                <p className="mt-3 font-sans text-sm text-[#f6f4ef]/55">{s.a}</p>
+                <p className="mt-3 font-sans text-sm text-[#fbfaf6]/55">{s.a}</p>
               </div>
             ))}
           </div>
@@ -51,7 +51,7 @@ export default function TosfedSayfa() {
             ))}
             <div className="mt-10 grid gap-3 sm:grid-cols-3">
               {tosfed.gorevler.map((g) => (
-                <div key={g.baslik} className="rounded-2xl bg-[#f6f4ef] p-5">
+                <div key={g.baslik} className="rounded-2xl bg-[#fbfaf6] p-5">
                   <p className="font-semibold">{g.baslik}</p>
                   <p className="mt-1.5 text-sm leading-relaxed text-[#6b665e]">{g.aciklama}</p>
                 </div>
@@ -69,7 +69,7 @@ export default function TosfedSayfa() {
             {sezonlar.map(([yil, liste]) => (
               <Reveal key={yil}>
                 <div className="grid gap-4 md:grid-cols-[160px_1fr]">
-                  <p className="mono text-3xl text-[#c2410c]">{yil}</p>
+                  <p className="mono text-3xl text-[#813413]">{yil}</p>
                   <div className="grid gap-3 sm:grid-cols-2">
                     {liste.map((r, i) => {
                       const alb = r.album ? tum.find((a) => a.slug === r.album) : undefined
@@ -82,7 +82,7 @@ export default function TosfedSayfa() {
                             </p>
                           </div>
                           {alb && (
-                            <span className="mt-6 inline-flex items-center gap-2 text-sm text-[#6b665e] group-hover:text-[#c2410c]">
+                            <span className="mt-6 inline-flex items-center gap-2 text-sm text-[#6b665e] group-hover:text-[#813413]">
                               <Camera className="size-4" />
                               {alb.fotolar.length ? `${alb.fotolar.length} fotoğraf` : "Albüm"}
                               <ArrowUpRight className="size-4" />

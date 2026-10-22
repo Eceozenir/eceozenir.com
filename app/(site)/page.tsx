@@ -22,7 +22,7 @@ import { ReferansIzgara } from "@/components/site/referanslar"
 import { AlbumKart } from "@/components/site/album-kart"
 import { IletisimBolum } from "@/components/site/iletisim"
 import { albumler } from "@/lib/galeri"
-import { cozumler, firma, giris, hakkimda, iletisim, projeler, rakamlar, sertifikalar, tosfed } from "../bilgilerim"
+import { cozumler, firma, fotograf, giris, hakkimda, iletisim, projeler, rakamlar, referanslar, sertifikalar, tosfed } from "../bilgilerim"
 
 const IKON = {
   sepet: ShoppingCart,
@@ -50,14 +50,35 @@ export default function AnaSayfa() {
       {/* ── GİRİŞ: tam ekran video, el feneri ve kaçan harfler ── */}
       <Hero
         video={giris.video}
+        isim="Ece Özenir"
         slogan={giris.slogan}
-        vurgu={giris.sloganVurgu}
-        rozet={`Proje Yöneticisi · ${firma.ad}`}
-        metin={`${hakkimda.trim()} ${firma.metin}`}
+        referanslar={referanslar.map((r) => r.ad)}
       />
 
+      {/* ── İKİLİ PANEL: fotoğraf + kiremit metin paneli ── */}
+      <Kap className="pt-6 sm:pt-8">
+        <div className="grid overflow-hidden rounded-2xl md:grid-cols-2">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={fotograf} alt="Ece Özenir" className="aspect-[4/5] w-full object-cover md:aspect-auto md:h-full" />
+          <div className="flex flex-col justify-between gap-10 bg-[#813413] p-8 text-[#fbfaf6] sm:p-12 lg:p-14">
+            <div>
+              <h2 className="text-[clamp(36px,4.6vw,60px)] leading-[1.02] font-light">Merhaba, ben Ece.</h2>
+              <p className="mt-6 text-xl leading-snug font-light text-[#fbfaf6]">{hakkimda.trim()}</p>
+              <p className="mt-4 leading-relaxed text-[#fbfaf6]/75">{firma.metin}</p>
+            </div>
+            <Link href="/hakkimda" data-miknatis className="group inline-flex items-center gap-2.5 self-start text-[13px] tracking-[0.06em] uppercase">
+              <span className="flex size-7 items-center justify-center rounded-full bg-[#fbfaf6] text-[#813413] transition-transform group-hover:rotate-45">
+                <ArrowUpRight className="size-4" />
+              </span>
+              Hakkımda
+            </Link>
+          </div>
+        </div>
+      </Kap>
+
+
       {/* ── RAKAMLAR ── */}
-      <Kap className="pt-16 sm:pt-20">
+      <Kap className="pt-6 sm:pt-8">
         <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
           {istatistik.map((s, i) => (
             <Reveal key={s.ad} delay={i * 70}>
@@ -87,7 +108,7 @@ export default function AnaSayfa() {
               return (
                 <Reveal key={c.baslik} delay={(i % 4) * 60} className="h-full">
                   <div data-egim className="flex h-full flex-col rounded-2xl bg-white p-6 hover:shadow-[0_18px_40px_-24px_rgba(20,20,20,0.35)]">
-                    <span className="flex size-11 items-center justify-center rounded-xl bg-[#f6f4ef] text-[#c2410c]">
+                    <span className="flex size-11 items-center justify-center rounded-xl bg-[#fbfaf6] text-[#813413]">
                       <Ikon className="size-5" />
                     </span>
                     <h3 className="mt-6 text-lg leading-snug font-semibold">{c.baslik}</h3>
@@ -99,10 +120,10 @@ export default function AnaSayfa() {
             <Reveal delay={180} className="h-full">
               <a
                 href={`mailto:${iletisim.eposta}?subject=${encodeURIComponent("Proje hakkında bilgi almak istiyorum")}`}
-                className="group flex h-full flex-col justify-between rounded-2xl bg-[#0b252a] p-6 text-[#f6f4ef]"
+                className="group flex h-full flex-col justify-between rounded-2xl bg-[#813413] p-6 text-[#fbfaf6]"
               >
                 <p className="text-lg leading-snug font-semibold">Aklınızda bir proje mi var?</p>
-                <span className="mt-8 inline-flex items-center gap-2 text-sm text-[#f6f4ef]/70 transition-colors group-hover:text-white">
+                <span className="mt-8 inline-flex items-center gap-2 text-sm text-[#fbfaf6]/70 transition-colors group-hover:text-white">
                   Bilgi alın <ArrowUpRight className="size-4" />
                 </span>
               </a>
@@ -148,17 +169,17 @@ export default function AnaSayfa() {
       {/* ── TOSFED ── */}
       <section className="pt-24 sm:pt-32">
         <Kap>
-          <div className="overflow-hidden rounded-[32px] bg-[#0b252a] text-[#f6f4ef]">
+          <div className="overflow-hidden rounded-[32px] bg-[#813413] text-[#fbfaf6]">
             <div className="grid gap-12 p-8 sm:p-12 lg:grid-cols-[1fr_1.1fr] lg:gap-16 lg:p-16">
               <div className="flex flex-col">
-                <p className="mono text-sm text-[#f6f4ef]/50">
+                <p className="mono text-sm text-[#fbfaf6]/50">
                   {tosfed.kurum} · {tosfed.kurumTam}
                 </p>
                 <h2 className="mt-5 text-[clamp(32px,4.4vw,52px)] leading-[1.05] font-semibold">{tosfed.rol}</h2>
-                <p className="mt-5 max-w-md text-lg leading-relaxed text-[#f6f4ef]/65">{tosfed.ozet}</p>
+                <p className="mt-5 max-w-md text-lg leading-relaxed text-[#fbfaf6]/65">{tosfed.ozet}</p>
                 <Link
                   href="/tosfed"
-                  className="group mt-10 inline-flex items-center gap-2 self-start rounded-full bg-[#f6f4ef] px-5 py-3 text-sm font-medium text-[#141414] lg:mt-auto"
+                  className="group mt-10 inline-flex items-center gap-2 self-start rounded-full bg-[#fbfaf6] px-5 py-3 text-sm font-medium text-[#141414] lg:mt-auto"
                 >
                   Ralliler ve galeri <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
                 </Link>

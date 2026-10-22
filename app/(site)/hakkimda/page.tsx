@@ -59,7 +59,7 @@ export default function HakkimdaSayfa() {
               <a
                 href={CV}
                 download
-                className="mt-8 inline-flex items-center gap-2 self-start rounded-full bg-[#141414] px-6 py-3.5 text-[15px] font-medium text-[#f6f4ef] transition-colors hover:bg-[#c2410c]"
+                className="mt-8 inline-flex items-center gap-2 self-start rounded-full bg-[#141414] px-6 py-3.5 text-[15px] font-medium text-[#fbfaf6] transition-colors hover:bg-[#813413]"
               >
                 <Download className="size-4" /> CV&apos;mi indir
               </a>
@@ -79,15 +79,15 @@ export default function HakkimdaSayfa() {
                   const simdi = /bugün/i.test(d.tarih)
                   return (
                     <Reveal key={i} delay={i * 60}>
-                      <div className={`rounded-2xl p-6 ${simdi ? "bg-[#0b252a] text-[#f6f4ef]" : "bg-white"}`}>
-                        <p className={`mono flex items-center gap-2 text-sm ${simdi ? "text-[#fb923c]" : "text-[#6b665e]"}`}>
+                      <div className={`rounded-2xl p-6 ${simdi ? "bg-[#813413] text-[#fbfaf6]" : "bg-white"}`}>
+                        <p className={`mono flex items-center gap-2 text-sm ${simdi ? "text-[#f4c7a1]" : "text-[#6b665e]"}`}>
                           {simdi && <span className="size-2 animate-pulse rounded-full bg-[#4ade80]" />}
                           {d.tarih}
                         </p>
                         <p className="mt-3 text-xl font-semibold tracking-tight">{d.rol}</p>
-                        <p className={`mt-1 ${simdi ? "text-[#f6f4ef]/70" : "text-[#6b665e]"}`}>{d.sirket}</p>
+                        <p className={`mt-1 ${simdi ? "text-[#fbfaf6]/70" : "text-[#6b665e]"}`}>{d.sirket}</p>
                         {d.aciklama && (
-                          <p className={`mt-3 text-[15px] leading-relaxed ${simdi ? "text-[#f6f4ef]/60" : "text-[#6b665e]"}`}>{d.aciklama}</p>
+                          <p className={`mt-3 text-[15px] leading-relaxed ${simdi ? "text-[#fbfaf6]/60" : "text-[#6b665e]"}`}>{d.aciklama}</p>
                         )}
                       </div>
                     </Reveal>
@@ -123,7 +123,7 @@ export default function HakkimdaSayfa() {
         <section className="pt-24 sm:pt-32">
           <Kap>
             <div className="grid items-center gap-10 rounded-[32px] bg-white p-6 sm:p-10 lg:grid-cols-[1.3fr_1fr] lg:gap-14 lg:p-14">
-              <div className="rounded-3xl bg-[#f6f4ef] px-4 pt-10 pb-8 sm:px-10 sm:pt-14">
+              <div className="rounded-3xl bg-[#fbfaf6] px-4 pt-10 pb-8 sm:px-10 sm:pt-14">
                 <Certificate3D
                   gorsel={sertifika3d.gorsel}
                   baslik={sertifika3d.ad}

@@ -274,8 +274,8 @@ h2 { font-weight: 400; }
 h3 { font-weight: 500; letter-spacing: -0.02em; }
 .tema-giris h1, .tema-giris h2, .tema-giris h3 { font-family: inherit; }
 .mono { font-variant-numeric: tabular-nums; }
-.vurgu { color: #c2410c; }
-.vurgu-acik { color: #fb923c; }
+.vurgu { color: #813413; }
+.vurgu-acik { color: #f4c7a1; }
 
 /* Galeri: tam ekran görüntüleyicide fotoğraf yumuşakça gelir */
 @keyframes foto-gir { from { opacity: 0; transform: scale(0.98); } to { opacity: 1; transform: none; } }
@@ -294,7 +294,7 @@ h3 { font-weight: 500; letter-spacing: -0.02em; }
 /* Yanardöner küre: sitenin tek büyük renk anı */
 .kure {
   border-radius: 9999px;
-  background: linear-gradient(255deg, #f8a55e, #f47b2a 28%, #fbbf91 62%, #fffaf2);
+  background: linear-gradient(255deg, #d98a5f, #813413 40%, #e9b896 75%, #fbfaf6);
 }
 
 /* ── /giris deneme sayfası ── */
@@ -326,15 +326,15 @@ html.ozel-imlec, html.ozel-imlec a, html.ozel-imlec button, html.ozel-imlec summ
   position: fixed; top: 0; left: 0; z-index: 9999; pointer-events: none; opacity: 0;
   transition: opacity 0.2s ease;
 }
-.imlec-nokta { width: 6px; height: 6px; border-radius: 9999px; background: #c2410c; }
+.imlec-nokta { width: 6px; height: 6px; border-radius: 9999px; background: #813413; }
 .imlec-halka {
   width: 36px; height: 36px; border-radius: 9999px;
-  border: 1.5px solid rgba(194, 65, 12, 0.55);
+  border: 1.5px solid rgba(129, 52, 19, 0.55);
   display: flex; align-items: center; justify-content: center;
   transition: opacity 0.2s ease, background-color 0.25s ease, border-color 0.25s ease;
 }
 .imlec-halka span { font-size: 4px; line-height: 1.1; font-weight: 600; color: #fff; text-align: center; white-space: nowrap; }
-.imlec-halka.imlec-dolu { background: #c2410c; border-color: #c2410c; }
+.imlec-halka.imlec-dolu { background: #813413; border-color: #813413; }
 html:not(.ozel-imlec) .imlec-nokta, html:not(.ozel-imlec) .imlec-halka { display: none; }
 
 /* Mıknatıs ve 3B eğim: yumuşak geri dönüş */

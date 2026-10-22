@@ -2,39 +2,60 @@
 
 import { useEffect, useRef } from "react"
 import Link from "next/link"
-import { ArrowRight } from "lucide-react"
+import { ArrowUpRight } from "lucide-react"
 
 // Giriş: tam ekran video.
-//  - Fare: video karanlık, imlecin olduğu yer el feneri gibi aydınlanır.
-//  - Başlığın harfleri fareden kaçar, sonra yerine döner.
+//  - Üstte ekran genişliğini dolduran dev isim (harfleri fareden kaçar)
+//  - Ortada kısa slogan ve çerçeveli düğme
+//  - Altta akan referans isimleri
+//  - Fare: video karanlık, imlecin olduğu yer el feneri gibi aydınlanır
 export function Hero({
   video,
+  isim,
   slogan,
-  vurgu,
-  rozet,
-  metin,
+  referanslar,
 }: {
   video: string
+  isim: string
   slogan: string
-  vurgu: string
-  rozet: string
-  metin: string
+  referanslar: string[]
 }) {
   const bolumRef = useRef<HTMLElement>(null)
-  const baslikRef = useRef<HTMLHeadingElement>(null)
+  const kapRef = useRef<HTMLDivElement>(null)
+  const isimRef = useRef<HTMLHeadingElement>(null)
 
+  // Dev ismi ekran genişliğine sığdır
+  useEffect(() => {
+    const kap = kapRef.current
+    const yazi = isimRef.current
+    if (!kap || !yazi) return
+    const sigdir = () => {
+      yazi.style.fontSize = "100px"
+      const st = getComputedStyle(kap)
+      const alan = kap.clientWidth - parseFloat(st.paddingLeft) - parseFloat(st.paddingRight)
+      yazi.style.fontSize = `${Math.floor(100 * (alan / yazi.scrollWidth) * 0.98)}px`
+    }
+    sigdir()
+    document.fonts?.ready.then(sigdir)
+    const ro = new ResizeObserver(sigdir)
+    ro.observe(kap)
+    return () => ro.disconnect()
+  }, [])
+
+  // El feneri + kaçan harfler (yalnızca fare olan cihazlarda)
   useEffect(() => {
     const bolum = bolumRef.current
-    const baslik = baslikRef.current
-    if (!bolum || !baslik) return
+    const yazi = isimRef.current
+    if (!bolum || !yazi) return
     const fare = window.matchMedia("(hover: hover) and (pointer: fine)").matches
     const sakin = window.matchMedia("(prefers-reduced-motion: reduce)").matches
     if (!fare || sakin) return
     bolum.classList.add("fener-acik")
 
-    const harfler = Array.from(baslik.querySelectorAll<HTMLSpanElement>("[data-harf]"))
+    const harfler = Array.from(yazi.querySelectorAll<HTMLSpanElement>("[data-harf]"))
     let merkezler: { x: number; y: number }[] = []
     const olc = () => {
+      harfler.forEach((h) => (h.style.transform = ""))
       merkezler = harfler.map((h) => {
         const r = h.getBoundingClientRect()
         return { x: r.left + r.width / 2, y: r.top + r.height / 2 + window.scrollY }
@@ -42,32 +63,34 @@ export function Hero({
     }
     olc()
     const ro = new ResizeObserver(olc)
-    ro.observe(baslik)
+    ro.observe(yazi)
     document.fonts?.ready.then(olc)
     const gec = window.setTimeout(olc, 1300)
 
     let mx = -9999, my = -9999, raf = 0
-    const ofset = harfler.map(() => ({ x: 0, y: 0 }))
-    const YARICAP = 110
-
+    const ofset = harfler.map(() => ({ x: 0, y: 0, d: 0 }))
     const kare = () => {
       const sy = window.scrollY
+      const yaricap = Math.max(140, (merkezler[1]?.x ?? 0) - (merkezler[0]?.x ?? 0)) * 1.4
       harfler.forEach((h, i) => {
         const m = merkezler[i]
         if (!m) return
         const dx = m.x - mx
         const dy = m.y - sy - my
         const d = Math.hypot(dx, dy)
-        let tx = 0, ty = 0
-        if (d < YARICAP && d > 0.1) {
-          const g = (1 - d / YARICAP) ** 2 * 22
-          tx = (dx / d) * g
-          ty = (dy / d) * g
+        let tx = 0, ty = 0, rot = 0
+        if (d < yaricap && d > 0.1) {
+          const g = (1 - d / yaricap) ** 2
+          tx = (dx / d) * g * 46
+          ty = (dy / d) * g * 46
+          rot = (dx / d) * g * 14
         }
         const o = ofset[i]
-        o.x += (tx - o.x) * 0.16
-        o.y += (ty - o.y) * 0.16
-        h.style.transform = Math.abs(o.x) + Math.abs(o.y) > 0.05 ? `translate(${o.x.toFixed(2)}px, ${o.y.toFixed(2)}px)` : ""
+        o.x += (tx - o.x) * 0.14
+        o.y += (ty - o.y) * 0.14
+        o.d += (rot - o.d) * 0.14
+        h.style.transform =
+          Math.abs(o.x) + Math.abs(o.y) > 0.05 ? `translate(${o.x.toFixed(1)}px, ${o.y.toFixed(1)}px) rotate(${o.d.toFixed(1)}deg)` : ""
       })
       raf = requestAnimationFrame(kare)
     }
@@ -80,9 +103,7 @@ export function Hero({
       bolum.style.setProperty("--mx", `${e.clientX - r.left}px`)
       bolum.style.setProperty("--my", `${e.clientY - r.top}px`)
     }
-    const cik = () => {
-      mx = my = -9999
-    }
+    const cik = () => (mx = my = -9999)
     bolum.addEventListener("mousemove", hareket)
     bolum.addEventListener("mouseleave", cik)
     return () => {
@@ -94,71 +115,71 @@ export function Hero({
     }
   }, [])
 
-  // Başlığı harflere böl (kelimeler bölünmesin diye kelime kelime sarılır)
-  const parcala = (yazi: string, italik = false) =>
-    yazi.split(/(\s+)/).map((kelime, k) =>
-      /^\s+$/.test(kelime) ? (
-        kelime
-      ) : (
-        <span key={k} className={`inline-block whitespace-nowrap ${italik ? "text-[#fdba74]" : ""}`}>
-          {Array.from(kelime).map((h, i) => (
-            <span key={i} data-harf className="inline-block will-change-transform">
-              {h}
-            </span>
-          ))}
-        </span>
-      )
-    )
-  const parcalar = slogan.split(vurgu)
+  const seritYazilari = [...referanslar, ...referanslar]
 
   return (
     <section
       ref={bolumRef}
-      className="hero-fener relative -mt-16 flex min-h-[100svh] items-end overflow-hidden bg-[#0b252a] text-white sm:-mt-[72px]"
+      className="hero-fener relative -mt-16 flex min-h-[100svh] flex-col overflow-hidden bg-[#1a0f0a] text-[#fbfaf6] sm:-mt-[72px]"
     >
       <video src={video} autoPlay muted loop playsInline preload="metadata" className="absolute inset-0 size-full object-cover" />
       <div aria-hidden className="hero-karanlik absolute inset-0" />
-      <div className="relative mx-auto w-full max-w-6xl px-5 pt-40 pb-14 sm:px-8 sm:pb-20">
-        <span className="foto-gir inline-flex items-center gap-2 rounded-lg bg-black/35 px-3 py-1.5 text-sm backdrop-blur-sm">
-          <span className="size-1.5 rounded-full bg-[#4ade80]" />
-          {rozet}
-        </span>
+
+      {/* Dev isim */}
+      <div ref={kapRef} className="relative mx-auto w-full max-w-[1400px] px-4 pt-24 sm:px-8 sm:pt-28">
         <h1
-          ref={baslikRef}
-          aria-label={slogan}
-          className="foto-gir mt-6 max-w-5xl text-[clamp(42px,6.8vw,104px)] leading-[1] text-white"
-          style={{ animationDelay: "120ms" }}
+          ref={isimRef}
+          aria-label={isim}
+          className="foto-gir inline-block leading-[0.86] font-light whitespace-nowrap uppercase"
+          style={{ fontSize: "17vw", letterSpacing: "-0.055em", whiteSpace: "nowrap", textWrap: "nowrap" }}
         >
-          <span aria-hidden>
-            {parcalar.length > 1 ? (
-              <>
-                {parcala(parcalar[0])}
-                {parcala(vurgu, true)}
-                {parcala(parcalar.slice(1).join(vurgu))}
-              </>
+          {Array.from(isim).map((h, i) =>
+            h === " " ? (
+              <span key={i} aria-hidden className="inline-block w-[0.22em]" />
             ) : (
-              parcala(slogan)
-            )}
-          </span>
+              <span key={i} aria-hidden data-harf className="inline-block will-change-transform">
+                {h}
+              </span>
+            )
+          )}
         </h1>
-        <p className="foto-gir mt-6 max-w-xl text-lg leading-relaxed text-white/80" style={{ animationDelay: "240ms" }}>
-          {metin}
+      </div>
+
+      {/* Ortada slogan ve düğmeler */}
+      <div className="relative mx-auto flex w-full max-w-3xl flex-1 flex-col items-center justify-center px-5 py-12 text-center">
+        <p className="foto-gir text-[clamp(22px,2.6vw,30px)] leading-[1.2] font-light text-[#fbfaf6]" style={{ animationDelay: "200ms" }}>
+          {slogan}
         </p>
-        <div className="foto-gir mt-9 flex flex-col gap-3 sm:flex-row" style={{ animationDelay: "360ms" }}>
+        <div className="foto-gir mt-8 flex flex-col items-center gap-3 sm:flex-row" style={{ animationDelay: "320ms" }}>
           <Link
             href="/projeler"
             data-miknatis
-            className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-6 py-3.5 text-[15px] font-medium text-black transition-[background-color] hover:bg-[#f6f4ef]"
+            className="inline-flex items-center gap-2 rounded-full border border-[#fbfaf6] px-8 py-3.5 text-[13px] tracking-[0.06em] uppercase transition-colors hover:bg-[#fbfaf6] hover:text-black"
           >
-            Projeleri incele <ArrowRight className="size-4" />
+            <ArrowUpRight className="size-4" /> Projeleri gör
           </Link>
           <a
             href="#iletisim"
             data-miknatis
-            className="inline-flex items-center justify-center gap-2 rounded-full bg-white/15 px-6 py-3.5 text-[15px] font-medium text-white backdrop-blur-sm transition-[background-color] hover:bg-white/25"
+            className="inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-[13px] tracking-[0.06em] text-[#fbfaf6]/80 uppercase transition-colors hover:text-[#fbfaf6]"
           >
             İletişime geç
           </a>
+        </div>
+      </div>
+
+      {/* Altta akan referans isimleri */}
+      <div aria-label="Referanslar" className="relative overflow-hidden pb-6 sm:pb-8">
+        <div className="marquee-track flex w-max">
+          {seritYazilari.map((r, i) => (
+            <span
+              key={i}
+              className="flex shrink-0 items-center px-6 text-[clamp(34px,5.4vw,72px)] leading-[1.3] font-light tracking-[-0.03em] whitespace-nowrap text-[#fbfaf6]/85 sm:px-10"
+            >
+              {r}
+              <span aria-hidden className="ml-12 inline-block size-2 rounded-full bg-[#fbfaf6]/50 sm:ml-20" />
+            </span>
+          ))}
         </div>
       </div>
     </section>

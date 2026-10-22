@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="tr" className={sans.variable}>
-      <body className={`${sans.className} bg-[#f6f4ef] text-[#141414] antialiased`}>{children}</body>
+      <body className={`${sans.className} bg-[#fbfaf6] text-[#141414] antialiased`}>{children}</body>
     </html>
   )
 }

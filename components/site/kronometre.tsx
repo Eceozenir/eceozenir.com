@@ -51,7 +51,7 @@ export function Kronometre() {
 
   return (
     <div className="rounded-2xl bg-white/[0.05] p-5 sm:p-6">
-      <div className="flex items-center justify-between text-xs text-[#f6f4ef]/45">
+      <div className="flex items-center justify-between text-xs text-[#fbfaf6]/45">
         <span>ETAP ZAMANI</span>
         <span className="flex items-center gap-1.5">
           <span className={`size-1.5 rounded-full ${calisiyor ? "animate-pulse bg-[#4ade80]" : "bg-white/30"}`} />
@@ -65,7 +65,7 @@ export function Kronometre() {
           onClick={baslatDurdur}
           data-miknatis
           className={`flex items-center justify-center gap-2 rounded-full py-3 text-sm font-medium transition-colors ${
-            calisiyor ? "bg-[#fb923c] text-[#0b252a]" : "bg-[#f6f4ef] text-[#0b252a]"
+            calisiyor ? "bg-[#f4c7a1] text-[#813413]" : "bg-[#fbfaf6] text-[#813413]"
           }`}
         >
           {calisiyor ? <Square className="size-3.5" /> : <Play className="size-3.5" />}
@@ -95,7 +95,7 @@ export function Kronometre() {
             const fark = t - (turlar[i + 1] ?? 0)
             return (
               <li key={t} className="foto-gir flex justify-between rounded-lg bg-white/[0.04] px-4 py-2.5">
-                <span className="text-[#f6f4ef]/55">Tur {turlar.length - i}</span>
+                <span className="text-[#fbfaf6]/55">Tur {turlar.length - i}</span>
                 <span className={fark === enIyi && turlar.length > 1 ? "text-[#4ade80]" : ""}>+{bicim(fark)}</span>
               </li>
             )

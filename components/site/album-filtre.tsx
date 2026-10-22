@@ -28,7 +28,7 @@ export function AlbumFiltre({ albumler }: { albumler: AlbumOzet[] }) {
               aria-selected={secili === s.id}
               onClick={() => setSecili(s.id)}
               className={`rounded-full px-4 py-2 text-sm transition-colors ${
-                secili === s.id ? "bg-[#141414] text-[#f6f4ef]" : "bg-white text-[#141414]/70 hover:text-[#141414]"
+                secili === s.id ? "bg-[#141414] text-[#fbfaf6]" : "bg-white text-[#141414]/70 hover:text-[#141414]"
               }`}
             >
               {s.ad} <span className="mono ml-1 opacity-60">{sayi}</span>

@@ -20,7 +20,7 @@ export function IletisimBolum() {
               <a
                 data-miknatis
                 href={`mailto:${iletisim.eposta}`}
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-[#141414] px-6 py-3.5 text-[15px] font-medium text-[#f6f4ef] transition-colors hover:bg-[#c2410c]"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-[#141414] px-6 py-3.5 text-[15px] font-medium text-[#fbfaf6] transition-colors hover:bg-[#813413]"
               >
                 <Mail className="size-4" /> {iletisim.eposta}
               </a>
