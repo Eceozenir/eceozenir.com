@@ -267,18 +267,17 @@
 @media (prefers-reduced-motion: reduce) { .simdi-nabiz { animation: none; } }
 
 /* ── Yazı stili ───────────────────────────────────────────────
-   Editoryal: bölüm başlıkları büyük harf, ince (400), sıkı satır aralığı.
-   Vurgulu kelimeler aynı yazı tipinde, düz turuncu. */
-body { letter-spacing: 0.005em; }
-h1, h2 {
-  text-transform: uppercase;
-  line-height: 1.06 !important; /* İ noktaları üst satıra değmesin */
-  letter-spacing: 0.005em !important;
-  font-weight: 500 !important;
-}
-h3 { font-weight: 600 !important; letter-spacing: -0.01em; }
-.vurgu { color: #d4581b; }
-.vurgu-acik { color: #f8a55e; }
+   Kurumsal: Geist (metin ve başlıklar), Geist Mono (tarih ve sayılar). */
+body { font-feature-settings: "ss01", "cv11"; }
+h1, h2, h3 { letter-spacing: -0.03em; text-wrap: balance; }
+.mono { font-family: var(--font-mono), ui-monospace, monospace; letter-spacing: 0; font-variant-numeric: tabular-nums; }
+.vurgu { color: #c2410c; }
+.vurgu-acik { color: #fb923c; }
+
+/* Galeri: tam ekran görüntüleyicide fotoğraf yumuşakça gelir */
+@keyframes foto-gir { from { opacity: 0; transform: scale(0.98); } to { opacity: 1; transform: none; } }
+.foto-gir { animation: foto-gir 0.35s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+@media (prefers-reduced-motion: reduce) { .foto-gir { animation: none; } }
 
 /* Kareli kâğıt dokusu (proje kartları) */
 .kareli {

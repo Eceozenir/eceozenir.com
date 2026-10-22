@@ -274,6 +274,12 @@ export const sertifikalar = [
 
 export const deneyim = [
   {
+    tarih: "[Yıl]-Bugün",
+    rol: "Zaman Kayıt Netice Sorumlusu",
+    sirket: "TOSFED · Türkiye Otomobil Sporları Federasyonu",
+    aciklama: "Ralli yarışlarında etap sürelerinin kaydından resmi sonuçların yayınlanmasına kadar zaman kayıt ve netice sürecini yürütüyorum.",
+  },
+  {
     tarih: "2025-Bugün",
     rol: "Proje Yöneticisi",
     sirket: "Webadası Bilgi Teknolojileri",
@@ -333,3 +339,77 @@ export const kartvizit = {
   on: "/kartvizit/tr.jpg",
   arka: "/kartvizit/en.jpg",
 }
+
+// ─────────────────────────────────────────────────────────────
+// TOSFED (/tosfed sayfası ve ana sayfadaki TOSFED bölümü)
+// ─────────────────────────────────────────────────────────────
+export const tosfed = {
+  rol: "Zaman Kayıt Netice Sorumlusu",
+  kurum: "TOSFED",
+  kurumTam: "Türkiye Otomobil Sporları Federasyonu",
+  baslangic: "[Yıl]", // TOSFED'de görev almaya başladığın yıl
+  ozet:
+    "Ralli yarışlarında her saniyenin, hatta salisenin sonucu değiştirdiği bir ortamda zaman kayıt ve netice sürecinden sorumluyum.",
+  metin: [
+    "Türkiye'nin dört bir yanındaki ralli yarışlarında etap sürelerinin doğru kaydedilmesini, sonuçların hesaplanmasını ve resmi netice tablolarının zamanında yayınlanmasını sağlıyorum.",
+    "Proje yönetiminde kullandığım titizlik ve planlama alışkanlığı, yarış günü dakikalarla yarışan bu süreçte de en büyük dayanağım.",
+  ],
+  // Görevin aşamaları (kartlar hâlinde gösterilir). İstediğin gibi düzenleyebilirsin.
+  gorevler: [
+    { baslik: "Zaman kaydı", aciklama: "Etap başlangıç ve bitiş zamanlarının saniyesi saniyesine kaydedilmesi." },
+    { baslik: "Netice hesaplama", aciklama: "Etap süreleri, cezalar ve sınıf sıralamalarının hesaplanması ve kontrolü." },
+    { baslik: "Resmi sonuçlar", aciklama: "Geçici ve kesin sonuç tablolarının hazırlanıp zamanında yayınlanması." },
+  ],
+  // Görev aldığın ralliler. album: galerideki albümün "slug"ı (varsa fotoğraflarına bağlanır).
+  ralliler: [
+    { yil: "[2025]", ad: "[Ralli adı]", sehir: "[Şehir]", tarih: "[Gün Ay]", album: "ornek-ralli" },
+    { yil: "[2025]", ad: "[Ralli adı]", sehir: "[Şehir]", tarih: "[Gün Ay]", album: "" },
+    { yil: "[2024]", ad: "[Ralli adı]", sehir: "[Şehir]", tarih: "[Gün Ay]", album: "" },
+  ],
+}
+
+// ─────────────────────────────────────────────────────────────
+// GALERİ (/galeri). Her albüm için public/galeri/<slug> klasörü aç ve
+// fotoğrafları içine at; site klasördeki fotoğrafları kendisi bulur.
+// kategori: "ralli" | "etkinlik"
+// kapak: boş bırakırsan klasördeki ilk fotoğraf kapak olur.
+// ─────────────────────────────────────────────────────────────
+export const galeri = [
+  {
+    slug: "ornek-ralli",
+    baslik: "[Ralli adı] [Yıl]",
+    kategori: "ralli",
+    yer: "[Şehir]",
+    tarih: "[Tarih]",
+    aciklama: "TOSFED zaman kayıt ve netice ekibiyle görev aldığım yarıştan kareler.",
+    kapak: "",
+  },
+  {
+    slug: "fujifilm-toplantisi",
+    baslik: "Fujifilm toplantısı",
+    kategori: "etkinlik",
+    yer: "[Yer]",
+    tarih: "[Tarih]",
+    aciklama: "Fujifilm ile yürüttüğümüz proje toplantılarından kareler.",
+    kapak: "",
+  },
+]
+
+// ─────────────────────────────────────────────────────────────
+// REFERANSLAR: logosunu koymak istediğin firmalar.
+// Logoyu public/referanslar klasörüne koy ve "logo" alanına yolunu yaz
+// (örn: "/referanslar/fujifilm.svg"; svg veya şeffaf zeminli png en iyisi).
+// Logo yoksa firmanın adı yazı olarak görünür.
+// ─────────────────────────────────────────────────────────────
+export const referanslar = [
+  { ad: "Fujifilm", logo: "", link: "https://fujifilmbaskicozumleri.com/" },
+  { ad: "CNS Woman", logo: "", link: "https://www.cnswoman.com.tr/" },
+  { ad: "NATO Concept", logo: "", link: "https://www.natoconcept.com/" },
+  { ad: "Tevekkel Yedek Parça", logo: "", link: "https://www.tevekkelparca.com.tr/" },
+  { ad: "QuickSnap Türkiye", logo: "", link: "https://quicksnapturkiye.com/" },
+  { ad: "Acoustera", logo: "", link: "https://www.acoustera.com/" },
+  { ad: "Cihat Arslan APC", logo: "", link: "https://cihatarslan.com.tr/" },
+  { ad: "Arya Yapı Cephe", logo: "", link: "https://www.aryayapicephe.com/" },
+  { ad: "Dr. Özgür Sabah", logo: "", link: "https://www.drozgursabah.com/" },
+  { ad: "Ala by Konsopa", logo: "", link: "https://alakonsopa.com/" },
+]
