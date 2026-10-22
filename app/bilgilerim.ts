@@ -7,7 +7,7 @@
 // ─────────────────────────────────────────────────────────────
 
 export const giris = {
-  video: "/giris-video.mp4",
+  video: "/giris-video-mezuniyet.mp4", // önceki: "/giris-video.mp4"
   baslik: "MERHABA",
   altBaslik: "Ben Ece Özenir.",
   altBaslikVurgu: "Ece Özenir", // alt başlıkta renkli ve altı çizili kısım
