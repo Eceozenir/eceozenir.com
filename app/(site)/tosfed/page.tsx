@@ -37,7 +37,7 @@ export default function TosfedSayfa() {
               { d: String(tosfed.ralliler.length), a: "Ralli" },
               { d: String(sehirSayisi), a: "Şehir" },
             ].map((s) => (
-              <div key={s.a} className="rounded-2xl bg-[#141414] px-5 py-6 text-[#f6f4ef] sm:px-6">
+              <div key={s.a} className="rounded-2xl bg-[#0b252a] px-5 py-6 text-[#f6f4ef] sm:px-6">
                 <p className="text-[clamp(26px,4vw,44px)] leading-none">{s.d}</p>
                 <p className="mt-3 font-sans text-sm text-[#f6f4ef]/55">{s.a}</p>
               </div>

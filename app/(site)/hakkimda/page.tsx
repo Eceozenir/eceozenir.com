@@ -79,7 +79,7 @@ export default function HakkimdaSayfa() {
                   const simdi = /bugün/i.test(d.tarih)
                   return (
                     <Reveal key={i} delay={i * 60}>
-                      <div className={`rounded-2xl p-6 ${simdi ? "bg-[#141414] text-[#f6f4ef]" : "bg-white"}`}>
+                      <div className={`rounded-2xl p-6 ${simdi ? "bg-[#0b252a] text-[#f6f4ef]" : "bg-white"}`}>
                         <p className={`mono flex items-center gap-2 text-sm ${simdi ? "text-[#fb923c]" : "text-[#6b665e]"}`}>
                           {simdi && <span className="size-2 animate-pulse rounded-full bg-[#4ade80]" />}
                           {d.tarih}

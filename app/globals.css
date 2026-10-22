@@ -268,7 +268,14 @@
 
 /* ── Yazı stili ───────────────────────────────────────────────
    Kurumsal: Schibsted Grotesk. Sayılar hizalı dursun diye tabular rakamlar. */
-h1, h2, h3 { letter-spacing: -0.025em; text-wrap: balance; }
+h1, h2, h3 {
+  font-family: var(--font-serif), Georgia, serif;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+h1, h2 { font-weight: 500; }
+h3 { font-weight: 600; letter-spacing: -0.02em; }
+.tema-giris h1, .tema-giris h2, .tema-giris h3 { font-family: inherit; }
 .mono { font-variant-numeric: tabular-nums; }
 .vurgu { color: #c2410c; }
 .vurgu-acik { color: #fb923c; }

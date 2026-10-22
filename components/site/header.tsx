@@ -32,6 +32,8 @@ export function SiteHeader() {
   }, [acik])
 
   const aktif = (href: string) => (href === "/" ? yol === "/" : yol.startsWith(href))
+  // Ana sayfanın en üstünde menü videonun üstünde durur: şeffaf zemin, beyaz yazı
+  const beyaz = yol === "/" && !kaydi && !acik
 
   return (
     <header
@@ -42,12 +44,16 @@ export function SiteHeader() {
     >
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-6 px-5 sm:h-[72px] sm:px-8">
         <Link href="/" className="group flex items-center gap-3" aria-label="Ana sayfa">
-          <span className="flex size-9 items-center justify-center rounded-full bg-[#141414] text-[13px] font-semibold tracking-tight text-[#f6f4ef]">
+          <span
+            className={`flex size-9 items-center justify-center rounded-full text-[13px] font-semibold tracking-tight transition-colors ${
+              beyaz ? "bg-white text-[#141414]" : "bg-[#141414] text-[#f6f4ef]"
+            }`}
+          >
             EÖ
           </span>
-          <span className="leading-tight">
+          <span className={`leading-tight transition-colors ${beyaz ? "text-white" : ""}`}>
             <span className="block text-[15px] font-semibold tracking-tight">Ece Özenir</span>
-            <span className="block text-xs text-[#6b665e]">Proje Yöneticisi</span>
+            <span className={`block text-xs ${beyaz ? "text-white/70" : "text-[#6b665e]"}`}>Proje Yöneticisi</span>
           </span>
         </Link>
 
@@ -59,7 +65,13 @@ export function SiteHeader() {
               href={m.href}
               aria-current={aktif(m.href) ? "page" : undefined}
               className={`rounded-full px-4 py-2 text-sm transition-colors ${
-                aktif(m.href) ? "bg-[#141414] text-[#f6f4ef]" : "text-[#141414]/70 hover:bg-[#141414]/5 hover:text-[#141414]"
+                aktif(m.href)
+                  ? beyaz
+                    ? "bg-white text-[#141414]"
+                    : "bg-[#141414] text-[#f6f4ef]"
+                  : beyaz
+                    ? "text-white/80 hover:bg-white/10 hover:text-white"
+                    : "text-[#141414]/70 hover:bg-[#141414]/5 hover:text-[#141414]"
               }`}
             >
               {m.ad}
@@ -79,7 +91,7 @@ export function SiteHeader() {
           onClick={() => setAcik((a) => !a)}
           aria-expanded={acik}
           aria-label={acik ? "Menüyü kapat" : "Menüyü aç"}
-          className="flex size-11 items-center justify-center rounded-full bg-[#141414] text-[#f6f4ef] md:hidden"
+          className={`flex size-11 items-center justify-center rounded-full md:hidden ${beyaz ? "bg-white text-[#141414]" : "bg-[#141414] text-[#f6f4ef]"}`}
         >
           {acik ? <X className="size-5" /> : <Menu className="size-5" />}
         </button>

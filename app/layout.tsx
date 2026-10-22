@@ -1,9 +1,11 @@
 import type { Metadata } from "next"
-import { Schibsted_Grotesk } from "next/font/google"
+import { Bodoni_Moda, Schibsted_Grotesk } from "next/font/google"
 import "./globals.css"
 
 // Yazı tipi: Schibsted Grotesk (editoryal, kurumsal). Değiştirmek için buradaki adı değiştir.
 const sans = Schibsted_Grotesk({ subsets: ["latin", "latin-ext"], display: "swap", variable: "--font-sans" })
+// Başlıklar: Bodoni Moda (dergi kapağı havası veren, yüksek kontrastlı serif)
+const serif = Bodoni_Moda({ subsets: ["latin", "latin-ext"], display: "swap", variable: "--font-serif", axes: ["opsz"], style: ["normal", "italic"] })
 
 export const metadata: Metadata = {
   title: { default: "Ece Özenir | Proje Yöneticisi", template: "%s | Ece Özenir" },
@@ -19,7 +21,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="tr" className={sans.variable}>
+    <html lang="tr" className={`${sans.variable} ${serif.variable}`}>
       <body className={`${sans.className} bg-[#f6f4ef] text-[#141414] antialiased`}>{children}</body>
     </html>
   )

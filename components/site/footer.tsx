@@ -5,7 +5,7 @@ import { firma, iletisim, tosfed } from "@/app/bilgilerim"
 export function SiteFooter() {
   const tel = iletisim.telefon ? `tel:+9${iletisim.telefon.replace(/\D/g, "")}` : ""
   return (
-    <footer className="mt-24 bg-[#141414] text-[#f6f4ef]">
+    <footer className="mt-24 bg-[#0b252a] text-[#f6f4ef]">
       <div className="mx-auto grid max-w-6xl gap-12 px-5 py-16 sm:px-8 md:grid-cols-[1.4fr_1fr_1fr]">
         <div>
           <p className="text-2xl font-semibold tracking-tight">Ece Özenir</p>

@@ -46,66 +46,56 @@ export default function AnaSayfa() {
 
   return (
     <>
-      {/* ── GİRİŞ ── */}
-      <Kap className="grid items-center gap-10 pt-8 pb-16 sm:pt-14 lg:grid-cols-[1.15fr_1fr] lg:gap-16 lg:pb-24">
-        <div>
-          <p className="mono text-sm text-[#6b665e]">Ece Özenir</p>
-          <h1 className="mt-5 text-[clamp(36px,4.9vw,62px)] leading-[1.04] font-semibold">
+      {/* ── GİRİŞ: tam ekran video üstünde büyük serif başlık ── */}
+      <section className="relative -mt-16 flex min-h-[100svh] items-end overflow-hidden bg-[#0b252a] text-white sm:-mt-[72px]">
+        <video
+          src={giris.video}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          className="absolute inset-0 size-full object-cover"
+        />
+        <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-black/40" />
+        <Kap className="relative w-full pt-40 pb-14 sm:pb-20">
+          <span className="foto-gir inline-flex items-center gap-2 rounded-lg bg-black/35 px-3 py-1.5 text-sm backdrop-blur-sm">
+            <span className="size-1.5 rounded-full bg-[#4ade80]" />
+            Proje Yöneticisi · {firma.ad}
+          </span>
+          <h1 className="foto-gir mt-6 max-w-5xl text-[clamp(44px,7.2vw,108px)] leading-[0.98] text-white" style={{ animationDelay: "120ms" }}>
             {vurguParcalari.length > 1 ? (
               <>
                 {vurguParcalari[0]}
-                <span className="vurgu">{giris.sloganVurgu}</span>
+                <em className="italic">{giris.sloganVurgu}</em>
                 {vurguParcalari.slice(1).join(giris.sloganVurgu)}
               </>
             ) : (
               giris.slogan
             )}
           </h1>
-          <p className="mt-6 max-w-xl text-lg leading-relaxed text-[#6b665e]">
+          <p className="foto-gir mt-6 max-w-xl text-lg leading-relaxed text-white/80" style={{ animationDelay: "240ms" }}>
             {hakkimda.trim()} {firma.metin}
           </p>
-          <dl className="mt-8 grid gap-3 text-[15px] sm:grid-cols-2">
-            <div className="rounded-2xl bg-white px-5 py-4">
-              <dt className="font-semibold">Proje Yöneticisi</dt>
-              <dd className="mt-0.5 text-[#6b665e]">{firma.ad}</dd>
-            </div>
-            <div className="rounded-2xl bg-white px-5 py-4">
-              <dt className="font-semibold">{tosfed.rol}</dt>
-              <dd className="mt-0.5 text-[#6b665e]">{tosfed.kurumTam}</dd>
-            </div>
-          </dl>
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+          <div className="foto-gir mt-9 flex flex-col gap-3 sm:flex-row" style={{ animationDelay: "360ms" }}>
             <Link
               href="/projeler"
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-[#141414] px-6 py-3.5 text-[15px] font-medium text-[#f6f4ef] transition-colors hover:bg-[#c2410c]"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-6 py-3.5 text-[15px] font-medium text-black transition-colors hover:bg-[#f6f4ef]"
             >
               Projeleri incele <ArrowRight className="size-4" />
             </Link>
             <a
-              href={`mailto:${iletisim.eposta}`}
-              className="inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 text-[15px] font-medium bg-[#141414]/[0.06] transition-colors hover:bg-[#141414]/[0.1]"
+              href="#iletisim"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-white/15 px-6 py-3.5 text-[15px] font-medium text-white backdrop-blur-sm transition-colors hover:bg-white/25"
             >
               İletişime geç
             </a>
           </div>
-        </div>
-        <div className="relative">
-          <div className="overflow-hidden rounded-[28px] bg-[#141414]">
-            <video
-              src={giris.video}
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="metadata"
-              className="aspect-[4/5] w-full object-cover sm:aspect-[5/6]"
-            />
-          </div>
-        </div>
-      </Kap>
+        </Kap>
+      </section>
 
       {/* ── RAKAMLAR ── */}
-      <Kap>
+      <Kap className="pt-16 sm:pt-20">
         <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
           {istatistik.map((s, i) => (
             <Reveal key={s.ad} delay={i * 70}>
@@ -147,7 +137,7 @@ export default function AnaSayfa() {
             <Reveal delay={180} className="h-full">
               <a
                 href={`mailto:${iletisim.eposta}?subject=${encodeURIComponent("Proje hakkında bilgi almak istiyorum")}`}
-                className="group flex h-full flex-col justify-between rounded-2xl bg-[#141414] p-6 text-[#f6f4ef]"
+                className="group flex h-full flex-col justify-between rounded-2xl bg-[#0b252a] p-6 text-[#f6f4ef]"
               >
                 <p className="text-lg leading-snug font-semibold">Aklınızda bir proje mi var?</p>
                 <span className="mt-8 inline-flex items-center gap-2 text-sm text-[#f6f4ef]/70 transition-colors group-hover:text-white">
@@ -196,7 +186,7 @@ export default function AnaSayfa() {
       {/* ── TOSFED ── */}
       <section className="pt-24 sm:pt-32">
         <Kap>
-          <div className="overflow-hidden rounded-[32px] bg-[#141414] text-[#f6f4ef]">
+          <div className="overflow-hidden rounded-[32px] bg-[#0b252a] text-[#f6f4ef]">
             <div className="grid gap-12 p-8 sm:p-12 lg:grid-cols-[1fr_1.1fr] lg:gap-16 lg:p-16">
               <div className="flex flex-col">
                 <p className="mono text-sm text-[#f6f4ef]/50">
