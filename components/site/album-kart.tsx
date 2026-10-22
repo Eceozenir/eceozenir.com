@@ -11,7 +11,7 @@ type AlbumOzet = {
   kapakFoto: string
 }
 
-const KATEGORI: Record<string, string> = { ralli: "Ralli", etkinlik: "Etkinlik", ofis: "Ofis" }
+const KATEGORI: Record<string, string> = { ralli: "Ralli", etkinlik: "Toplantı", ofis: "Ofis" }
 
 export function AlbumKart({ a }: { a: AlbumOzet }) {
   return (

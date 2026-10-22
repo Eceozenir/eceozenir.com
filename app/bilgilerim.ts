@@ -371,7 +371,7 @@ export const tosfed = {
 // ─────────────────────────────────────────────────────────────
 // GALERİ (/galeri). Her albüm için public/galeri/<slug> klasörü aç ve
 // fotoğrafları içine at; site klasördeki fotoğrafları kendisi bulur.
-// kategori: "ralli" | "etkinlik" | "ofis"
+// kategori: "ofis" (Ofis görselleri) | "ralli" (Ralli görselleri) | "etkinlik" (Toplantı görselleri)
 // kapak: boş bırakırsan klasördeki ilk fotoğraf kapak olur.
 // ─────────────────────────────────────────────────────────────
 export const galeri = [
