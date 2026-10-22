@@ -17,6 +17,7 @@ export function Journey({ duraklar }: { duraklar: Durak[] }) {
   const wrapRef = useRef<HTMLDivElement>(null)
   const fillRef = useRef<HTMLDivElement>(null)
   const lineRef = useRef<HTMLDivElement>(null)
+  const ucRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const wrap = wrapRef.current
@@ -48,6 +49,11 @@ export function Journey({ duraklar }: { duraklar: Durak[] }) {
       const vh = window.innerHeight
       const p = Math.min(1, Math.max(0, (vh * 0.6 - r.top) / Math.max(1, r.height)))
       if (fillRef.current) fillRef.current.style.transform = `scaleY(${p})`
+      // Çizginin ucundaki parlak nokta dolan kısımla birlikte ilerler
+      if (ucRef.current) {
+        ucRef.current.style.transform = `translate(-50%, ${(p * r.height).toFixed(1)}px)`
+        ucRef.current.style.opacity = p > 0.001 && p < 0.999 ? "1" : "0"
+      }
     }
     olc()
     const ro = new ResizeObserver(() => {
@@ -89,8 +95,22 @@ export function Journey({ duraklar }: { duraklar: Durak[] }) {
   return (
     <div ref={wrapRef} className="relative">
       {/* Çizgi: ilk duraktan son durağa kadar, aşağı indikçe dolar (mobilde solda, masaüstünde ortada) */}
-      <div ref={lineRef} className="absolute top-7 left-[26px] w-[3px] rounded-full bg-[#141414]/10 md:left-1/2 md:-translate-x-1/2">
-        <div ref={fillRef} className="h-full w-full origin-top rounded-full bg-[#4a2b1d]" style={{ transform: "scaleY(0)" }} />
+      <div ref={lineRef} className="absolute top-7 left-[26px] w-1.5 -translate-x-1/2 rounded-full bg-[#e6cdb6]/45 md:left-1/2">
+        <div
+          ref={fillRef}
+          className="h-full w-full origin-top rounded-full bg-gradient-to-b from-[#e6cdb6] via-[#a87556] to-[#4a2b1d] shadow-[0_0_14px_rgba(168,117,86,0.45)]"
+          style={{ transform: "scaleY(0)" }}
+        />
+        {/* Uçtaki parlak nokta */}
+        <div
+          ref={ucRef}
+          aria-hidden
+          className="absolute top-0 left-1/2 -mt-2.5 size-5 rounded-full opacity-0 transition-opacity duration-300"
+          style={{ transform: "translate(-50%, 0)" }}
+        >
+          <span className="absolute inset-0 animate-ping rounded-full bg-[#a87556]/50" />
+          <span className="absolute inset-0 rounded-full bg-[#4a2b1d] ring-4 ring-[#fbfaf6] shadow-[0_0_18px_rgba(74,43,29,0.55)]" />
+        </div>
       </div>
 
       <ol className="relative space-y-12 md:space-y-16">
