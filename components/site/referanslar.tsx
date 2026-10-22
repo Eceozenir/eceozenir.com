@@ -3,7 +3,7 @@ import { referanslar } from "@/app/bilgilerim"
 // Logo ızgarası. Logosu eklenmemiş firmalar adlarıyla görünür.
 export function ReferansIzgara() {
   return (
-    <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
+    <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
       {referanslar.map((r) => {
         const Kap = r.link ? "a" : "div"
         return (

@@ -7,7 +7,7 @@ import { Journey } from "@/components/journey"
 import { Certificate3D } from "@/components/cert-3d"
 import { Kap, BolumBaslik, SayfaBaslik } from "@/components/site/ui"
 import { IletisimBolum } from "@/components/site/iletisim"
-import { deneyim, egitim, firma, fotograf, hakkimda, sertifikalar, tosfed, yetkinlikler } from "../../bilgilerim"
+import { deneyim, egitim, firma, fotograf, hakkimda, sertifikalar, yetkinlikler } from "../../bilgilerim"
 
 export const metadata: Metadata = {
   title: "Hakkımda",
@@ -52,7 +52,7 @@ export default function HakkimdaSayfa() {
             <p className="text-[clamp(22px,2.4vw,30px)] leading-snug font-medium tracking-tight">{hakkimda.trim()}</p>
             <p className="mt-6 text-lg leading-relaxed text-[#6b665e]">{firma.metin}</p>
             <p className="mt-4 text-lg leading-relaxed text-[#6b665e]">
-              Bunun yanında {tosfed.kurumTam}&apos;nda {tosfed.rol.toLocaleLowerCase("tr-TR")} olarak ralli yarışlarında görev alıyorum.
+              Bunun yanında Türkiye&apos;nin dört bir yanındaki ralli yarışlarında zaman kayıt ekibinde görev alıyorum; parkurdan kareleri galeride bulabilirsiniz.
             </p>
             {cvVar && (
               <a

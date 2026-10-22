@@ -15,6 +15,7 @@ import { Reveal } from "@/components/reveal"
 import { GiantStatement } from "@/components/air-sections"
 import { Sayac } from "@/components/site/sayac"
 import { Hero } from "@/components/site/hero"
+import { HizmetVitrini } from "@/components/site/hizmet-vitrini"
 import { YakinlasanFoto } from "@/components/site/yakinlasan-foto"
 import { Kap, BolumBaslik } from "@/components/site/ui"
 import { ProjeKart } from "@/components/site/proje-kart"
@@ -22,7 +23,7 @@ import { ReferansIzgara } from "@/components/site/referanslar"
 import { AlbumKart } from "@/components/site/album-kart"
 import { IletisimBolum } from "@/components/site/iletisim"
 import { albumler } from "@/lib/galeri"
-import { cozumler, firma, fotograf, giris, hakkimda, iletisim, projeler, rakamlar, referanslar, sertifikalar, tosfed } from "../bilgilerim"
+import { cozumler, firma, fotograf, giris, hakkimda, iletisim, projeler, rakamlar, referanslar, sertifikalar } from "../bilgilerim"
 
 const IKON = {
   sepet: ShoppingCart,
@@ -39,7 +40,6 @@ export default function AnaSayfa() {
   const egitimSaati = sertifikalar.find((s) => s.saat)?.saat
   const istatistik = [
     ...rakamlar.map((r) => ({ deger: r.deger, ad: r.aciklama })),
-    { deger: String(tosfed.ralliler.length), ad: "Görev alınan ralli" },
     ...(egitimSaati ? [{ deger: egitimSaati, ad: "Saat yazılım eğitimi" }] : []),
   ]
   const vurguParcalari = giris.slogan.split(giris.sloganVurgu)
@@ -103,46 +103,8 @@ export default function AnaSayfa() {
         </div>
       </section>
 
-      {/* ── HİZMETLER ── */}
-      <section className="pt-24 sm:pt-32">
-        <Kap>
-          <BolumBaslik
-            baslik={
-              <>
-                {firma.ad} ile <span className="vurgu">neler yapıyoruz?</span>
-              </>
-            }
-            aciklama="İşletmelere fikirden canlıya kadar uçtan uca yazılım çözümleri."
-          />
-          <div className="mt-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            {cozumler.map((c, i) => {
-              const Ikon = IKON[c.ikon as keyof typeof IKON] ?? Globe
-              return (
-                <Reveal key={c.baslik} delay={(i % 4) * 60} className="h-full">
-                  <div data-egim className="flex h-full flex-col rounded-2xl bg-white p-6 hover:shadow-[0_18px_40px_-24px_rgba(20,20,20,0.35)]">
-                    <span className="flex size-11 items-center justify-center rounded-xl bg-[#fbfaf6] text-[#4a2b1d]">
-                      <Ikon className="size-5" />
-                    </span>
-                    <h3 className="mt-6 text-lg leading-snug font-semibold">{c.baslik}</h3>
-                    <p className="mt-2 text-[15px] leading-relaxed text-[#6b665e]">{c.aciklama}</p>
-                  </div>
-                </Reveal>
-              )
-            })}
-            <Reveal delay={180} className="h-full">
-              <a
-                href={`mailto:${iletisim.eposta}?subject=${encodeURIComponent("Proje hakkında bilgi almak istiyorum")}`}
-                className="group flex h-full flex-col justify-between rounded-2xl bg-[#4a2b1d] p-6 text-[#fbfaf6]"
-              >
-                <p className="text-lg leading-snug font-semibold">Aklınızda bir proje mi var?</p>
-                <span className="mt-8 inline-flex items-center gap-2 text-sm text-[#fbfaf6]/70 transition-colors group-hover:text-white">
-                  Bilgi alın <ArrowUpRight className="size-4" />
-                </span>
-              </a>
-            </Reveal>
-          </div>
-        </Kap>
-      </section>
+      {/* ── HİZMETLER: Webadası vitrini ── */}
+      <HizmetVitrini hizmetler={cozumler} firmaAd={firma.ad} eposta={iletisim.eposta} telefon={iletisim.telefon} />
 
       {/* ── FİKİRDEN TESLİMATA (kaydırdıkça satırlar kayar, küre büyür) ── */}
       <div className="pt-12 sm:pt-16">

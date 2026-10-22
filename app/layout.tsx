@@ -9,10 +9,10 @@ const sans = Inter({ subsets: ["latin", "latin-ext"], display: "swap", variable:
 export const metadata: Metadata = {
   title: { default: "Ece Özenir | Proje Yöneticisi", template: "%s | Ece Özenir" },
   description:
-    "Ece Özenir: Webadası Bilgi Teknolojileri'nde proje yöneticisi, TOSFED'de zaman kayıt netice sorumlusu. Projeler, referanslar, ralli galerisi ve iletişim.",
+    "Ece Özenir: Webadası Bilgi Teknolojileri'nde proje yöneticisi. Projeler, referanslar, galeri ve iletişim.",
   openGraph: {
     title: "Ece Özenir | Proje Yöneticisi",
-    description: "Projeler, referanslar, TOSFED ralli galerisi ve iletişim.",
+    description: "Projeler, referanslar, galeri ve iletişim.",
     type: "website",
     locale: "tr_TR",
   },

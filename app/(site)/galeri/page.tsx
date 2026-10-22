@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 // Galeri üç bölümden oluşur. Albümler bilgilerim.ts'teki "kategori" alanına göre dağılır.
 const BOLUMLER = [
   { id: "ofis", baslik: "Ofis görselleri", aciklama: "Webadası ekibiyle ofisteki günlerimizden kareler." },
-  { id: "ralli", baslik: "Ralli görselleri", aciklama: "TOSFED zaman kayıt ve netice görevlerimde parkurdan kareler." },
+  { id: "ralli", baslik: "Ralli görselleri", aciklama: "Görev aldığım ralli yarışlarından, parkurdan ve ralli merkezinden kareler." },
   { id: "etkinlik", baslik: "Toplantı görselleri", aciklama: "Proje toplantılarından ve iş görüşmelerinden kareler." },
 ]
 

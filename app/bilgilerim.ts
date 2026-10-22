@@ -211,8 +211,8 @@ export const katkilar = [
   },
   {
     ad: "QuickSnap Türkiye",
-    aciklama: "FUJIFILM QuickSnap tek kullanımlık film kameraları için e-ticaret sitesi. Ürün tanıtımı, çekim ipuçları ve baskı merkezi bilgileri.",
-    etiketler: ["E-ticaret", "FUJIFILM"],
+    aciklama: "FUJIFILM QuickSnap tek kullanımlık film kameraları için web sitesi. Ürün tanıtımı, çekim ipuçları ve baskı merkezi bilgileri.",
+    etiketler: ["FUJIFILM"],
     link: "https://quicksnapturkiye.com/",
     onizleme: "",
   },
@@ -335,7 +335,7 @@ export const kartvizit = {
 }
 
 // ─────────────────────────────────────────────────────────────
-// TOSFED (/tosfed sayfası ve ana sayfadaki TOSFED bölümü)
+// TOSFED: şu an sitede ayrı bir sayfa olarak gösterilmiyor (ileride lazım olursa diye duruyor)
 // ─────────────────────────────────────────────────────────────
 export const tosfed = {
   rol: "Zaman Kayıt Netice Sorumlusu",
@@ -384,7 +384,7 @@ export const galeri = [
     kategori: "ralli",
     yer: "Eskişehir",
     tarih: "18-20 Eylül 2026",
-    aciklama: "TOSFED zaman kayıt ekibinde görev aldığım yarıştan kareler: ralli merkezi, servis alanı ve parkur.",
+    aciklama: "Zaman kayıt ekibinde görev aldığım yarıştan kareler: ralli merkezi, servis alanı ve parkur.",
     kapak: "",
   },
   {
@@ -415,13 +415,9 @@ export const galeri = [
 // ─────────────────────────────────────────────────────────────
 export const referanslar = [
   { ad: "Fujifilm", logo: "", link: "https://fujifilmbaskicozumleri.com/" },
+  { ad: "TOSFED", logo: "", link: "https://www.tosfed.org.tr/" },
+  { ad: "Dadaş Motor", logo: "", link: "" },
   { ad: "CNS Woman", logo: "", link: "https://www.cnswoman.com.tr/" },
-  { ad: "NATO Concept", logo: "", link: "https://www.natoconcept.com/" },
+  { ad: "Flora Natural", logo: "", link: "" },
   { ad: "Tevekkel Yedek Parça", logo: "", link: "https://www.tevekkelparca.com.tr/" },
-  { ad: "QuickSnap Türkiye", logo: "", link: "https://quicksnapturkiye.com/" },
-  { ad: "Acoustera", logo: "", link: "https://www.acoustera.com/" },
-  { ad: "Cihat Arslan APC", logo: "", link: "https://cihatarslan.com.tr/" },
-  { ad: "Arya Yapı Cephe", logo: "", link: "https://www.aryayapicephe.com/" },
-  { ad: "Dr. Özgür Sabah", logo: "", link: "https://www.drozgursabah.com/" },
-  { ad: "Ala by Konsopa", logo: "", link: "https://alakonsopa.com/" },
 ]

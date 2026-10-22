@@ -171,7 +171,8 @@ export function ProjeOnizleme({
   const cerceve = koyu ? "bg-[#141414] text-[#fbfaf6]" : "bg-white text-[#141414]"
   const alanAdi = link ? link.replace(/^https?:\/\//, "").replace(/\/$/, "") : ad
   // Mobilde site sadece dokununca, masaüstünde kart ekrandayken yüklenir
-  const canli = Boolean(link && gorunur && (mobil ? odak && geziyor : izinli))
+  // Telefonda canlı site sayfa içinde açılmaz (telefonlar kaldıramıyor); dokununca yeni sekmede açılır
+  const canli = Boolean(link && gorunur && !mobil && izinli)
   const kapak = src && !kapakHata ? src : ""
 
   return (
@@ -257,8 +258,24 @@ export function ProjeOnizleme({
           </div>
         )}
 
-        {/* "Tıkla, aşağı kaydır" */}
-        {link && !geziyor && (
+        {/* Telefon: siteyi yeni sekmede aç */}
+        {link && mobil && (
+          <a
+            href={link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="absolute inset-0 flex items-end justify-center bg-gradient-to-t from-black/35 via-transparent to-transparent p-3"
+            aria-label={`${ad} sitesini yeni sekmede aç`}
+          >
+            <span className="inline-flex items-center gap-2 rounded-full bg-white/95 px-3.5 py-2 text-[11px] font-semibold text-[#141414] shadow-lg">
+              <ExternalLink className="size-3.5 text-[#4a2b1d]" />
+              Siteyi ziyaret et
+            </span>
+          </a>
+        )}
+
+        {/* Bilgisayar: "Tıkla, aşağı kaydır" */}
+        {link && !mobil && !geziyor && (
           <button
             type="button"
             onClick={gezmeyeBasla}

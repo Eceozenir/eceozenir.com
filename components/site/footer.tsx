@@ -1,6 +1,6 @@
 import Link from "next/link"
 import { MENU } from "./menu"
-import { firma, iletisim, tosfed } from "@/app/bilgilerim"
+import { firma, iletisim } from "@/app/bilgilerim"
 
 export function SiteFooter() {
   const tel = iletisim.telefon ? `tel:+9${iletisim.telefon.replace(/\D/g, "")}` : ""
@@ -21,8 +21,6 @@ export function SiteFooter() {
           <p className="text-2xl font-semibold tracking-tight">Ece Özenir</p>
           <p className="mt-3 max-w-sm text-sm leading-relaxed text-[#fbfaf6]/60">
             Proje Yöneticisi, {firma.ad}.
-            <br />
-            {tosfed.rol}, {tosfed.kurum}.
           </p>
         </div>
         <div>
