@@ -362,9 +362,9 @@ export const tosfed = {
   ],
   // Görev aldığın ralliler. album: galerideki albümün "slug"ı (varsa fotoğraflarına bağlanır).
   ralliler: [
-    { yil: "[2025]", ad: "[Ralli adı]", sehir: "[Şehir]", tarih: "[Gün Ay]", album: "ornek-ralli" },
-    { yil: "[2025]", ad: "[Ralli adı]", sehir: "[Şehir]", tarih: "[Gün Ay]", album: "" },
-    { yil: "[2024]", ad: "[Ralli adı]", sehir: "[Şehir]", tarih: "[Gün Ay]", album: "" },
+    // Yeni ralli eklemek için bu satırı kopyala:
+    // { yil: "2026", ad: "Ralli adı", sehir: "Şehir", tarih: "Gün Ay", album: "galerideki albümün slug'ı" },
+    { yil: "2026", ad: "ETİ Odunpazarı Esok Rally", sehir: "Eskişehir", tarih: "18-20 Eylül", album: "2026-eskisehir-esok-rally" },
   ],
 }
 
@@ -376,30 +376,39 @@ export const tosfed = {
 // ─────────────────────────────────────────────────────────────
 export const galeri = [
   {
-    slug: "ornek-ralli",
-    baslik: "[Ralli adı] [Yıl]",
+    slug: "ofisten-kareler",
+    baslik: "Ofisten kareler",
+    kategori: "ofis",
+    yer: "Webadası Bilgi Teknolojileri",
+    tarih: "",
+    aciklama: "Webadası ekibiyle ofisteki günlerimizden kareler. Ofisin kedisi de ekibin bir parçası.",
+    kapak: "",
+  },
+  {
+    slug: "2026-eskisehir-esok-rally",
+    baslik: "ETİ Odunpazarı Esok Rally",
     kategori: "ralli",
-    yer: "[Şehir]",
-    tarih: "[Tarih]",
-    aciklama: "TOSFED zaman kayıt ve netice ekibiyle görev aldığım yarıştan kareler.",
+    yer: "Eskişehir",
+    tarih: "18-20 Eylül 2026",
+    aciklama: "TOSFED zaman kayıt ekibinde görev aldığım yarıştan kareler: ralli merkezi, servis alanı ve parkur.",
     kapak: "",
   },
   {
     slug: "fujifilm-toplantisi",
     baslik: "Fujifilm toplantısı",
     kategori: "etkinlik",
-    yer: "[Yer]",
-    tarih: "[Tarih]",
+    yer: "Fujifilm",
+    tarih: "",
     aciklama: "Fujifilm ile yürüttüğümüz proje toplantılarından kareler.",
     kapak: "",
   },
   {
-    slug: "ofisten-kareler",
-    baslik: "Ofisten kareler",
-    kategori: "ofis",
-    yer: "Webadası Bilgi Teknolojileri",
-    tarih: "[Yıl]",
-    aciklama: "Webadası ekibiyle ofisteki günlük çalışmalarımızdan kareler.",
+    slug: "flora-natural-cekimi",
+    baslik: "Flora Natural ürün çekimi",
+    kategori: "etkinlik",
+    yer: "Flora Natural",
+    tarih: "",
+    aciklama: "Flora Natural için yaptığımız ürün çekiminden bir kare.",
     kapak: "",
   },
 ]

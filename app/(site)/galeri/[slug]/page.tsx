@@ -31,7 +31,7 @@ export default async function AlbumSayfa({ params }: { params: Promise<{ slug: s
           <ArrowLeft className="size-4" /> Galeri
         </Link>
         <p className="mono mt-8 text-sm text-[#6b665e]">
-          {KATEGORI_AD[a.kategori] ?? a.kategori} · {a.yer} · {a.tarih}
+          {[KATEGORI_AD[a.kategori] ?? a.kategori, a.yer, a.tarih].filter(Boolean).join(" · ")}
         </p>
         <h1 className="mt-4 max-w-4xl text-[clamp(36px,5.6vw,68px)] leading-[1.04] font-semibold">{a.baslik}</h1>
         {a.aciklama && <p className="mt-5 max-w-2xl text-lg leading-relaxed text-[#6b665e]">{a.aciklama}</p>}

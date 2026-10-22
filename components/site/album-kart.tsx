@@ -39,8 +39,7 @@ export function AlbumKart({ a }: { a: AlbumOzet }) {
         <div>
           <h3 className="text-lg leading-snug font-semibold">{a.baslik}</h3>
           <p className="mono mt-1 text-sm text-[#6b665e]">
-            {a.yer} · {a.tarih}
-            {a.fotolar.length > 0 && ` · ${a.fotolar.length} fotoğraf`}
+            {[a.yer, a.tarih, a.fotolar.length ? `${a.fotolar.length} fotoğraf` : ""].filter(Boolean).join(" · ")}
           </p>
         </div>
         <ArrowUpRight className="mt-1 size-5 shrink-0 text-[#6b665e] transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-[#4a2b1d]" />
