@@ -15,6 +15,7 @@ import { Reveal } from "@/components/reveal"
 import { GiantStatement } from "@/components/air-sections"
 import { Sayac } from "@/components/site/sayac"
 import { Hero } from "@/components/site/hero"
+import { YakinlasanFoto } from "@/components/site/yakinlasan-foto"
 import { Kap, BolumBaslik } from "@/components/site/ui"
 import { ProjeKart } from "@/components/site/proje-kart"
 import { ReferansIzgara } from "@/components/site/referanslar"
@@ -54,45 +55,51 @@ export default function AnaSayfa() {
         referanslar={referanslar.map((r) => r.ad)}
       />
 
-      {/* ── TANITIM: ekran genişliğinde fotoğraf + acı kahve panel ── */}
-      <section className="px-2 pt-2 sm:px-3 sm:pt-3">
-        <div className="grid overflow-hidden rounded-2xl md:min-h-[88svh] md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={fotograf} alt="Ece Özenir" className="aspect-[4/5] w-full object-cover md:aspect-auto md:h-full" />
-          <div className="flex flex-col justify-between gap-14 bg-[#4a2b1d] p-7 text-[#fbfaf6] sm:p-12 lg:p-16">
-            <div>
-              <h2 className="text-[clamp(48px,7.4vw,128px)] leading-[0.95] font-light">
+      {/* ── TANITIM: üstte metin, altta geniş fotoğraf bandı ── */}
+      <section className="pt-24 sm:pt-32">
+        <Kap>
+          <div className="grid items-end gap-8 lg:grid-cols-[1.15fr_1fr] lg:gap-16">
+            <Reveal>
+              <h2 className="text-[clamp(52px,8vw,128px)] leading-[0.92] font-light">
                 Merhaba,
                 <br />
-                ben Ece.
+                ben <span className="text-[#4a2b1d]">Ece.</span>
               </h2>
-              <div className="mt-10 grid gap-6 lg:grid-cols-2 lg:gap-12">
-                <p className="text-[clamp(20px,1.8vw,26px)] leading-snug font-light">{hakkimda.trim()}</p>
-                <div>
-                  <p className="leading-relaxed text-[#fbfaf6]/70">{firma.metin}</p>
-                  <Link
-                    href="/hakkimda"
-                    data-miknatis
-                    className="group mt-6 inline-flex items-center gap-2.5 text-[13px] tracking-[0.06em] uppercase"
-                  >
-                    <span className="flex size-7 items-center justify-center rounded-full bg-[#fbfaf6] text-[#4a2b1d] transition-transform group-hover:rotate-45">
-                      <ArrowUpRight className="size-4" />
-                    </span>
-                    Hakkımda
-                  </Link>
-                </div>
-              </div>
-            </div>
-            {/* Rakamlar */}
-            <div className="grid grid-cols-2 gap-x-6 gap-y-8 lg:grid-cols-4">
+            </Reveal>
+            <Reveal delay={120} className="lg:pb-3">
+              <p className="text-[clamp(20px,1.9vw,26px)] leading-snug font-light">{hakkimda.trim()}</p>
+              <p className="mt-4 leading-relaxed text-[#6b665e]">{firma.metin}</p>
+              <Link
+                href="/hakkimda"
+                data-miknatis
+                className="group mt-6 inline-flex items-center gap-2.5 text-[13px] tracking-[0.06em] uppercase"
+              >
+                <span className="flex size-7 items-center justify-center rounded-full bg-[#4a2b1d] text-[#fbfaf6] transition-transform group-hover:rotate-45">
+                  <ArrowUpRight className="size-4" />
+                </span>
+                Hakkımda
+              </Link>
+            </Reveal>
+          </div>
+        </Kap>
+
+        {/* Geniş fotoğraf bandı: aşağı indikçe yakınlaşır, rakamlar alt kısımda */}
+        <div className="mt-12 px-2 sm:mt-16 sm:px-3">
+          <YakinlasanFoto
+            src={fotograf}
+            alt="Ece Özenir"
+            className="aspect-square rounded-2xl bg-[#141414] sm:aspect-[16/9] lg:aspect-[21/9]"
+          >
+            <div aria-hidden className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/70 via-black/25 to-transparent" />
+            <div className="absolute inset-x-0 bottom-0 grid grid-cols-2 gap-x-6 gap-y-6 p-6 text-[#fbfaf6] sm:p-10 lg:grid-cols-4 lg:p-14">
               {istatistik.map((s) => (
                 <div key={s.ad}>
-                  <Sayac deger={s.deger} className="mono block text-[clamp(36px,4vw,56px)] leading-none font-light tracking-tight" />
-                  <p className="mt-2 text-sm text-[#fbfaf6]/60">{s.ad}</p>
+                  <Sayac deger={s.deger} className="mono block text-[clamp(34px,4vw,60px)] leading-none font-light tracking-tight" />
+                  <p className="mt-2 text-sm text-[#fbfaf6]/70">{s.ad}</p>
                 </div>
               ))}
             </div>
-          </div>
+          </YakinlasanFoto>
         </div>
       </section>
 
