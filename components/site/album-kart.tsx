@@ -11,7 +11,6 @@ type AlbumOzet = {
   kapakFoto: string
 }
 
-const KATEGORI: Record<string, string> = { ralli: "Ralli", etkinlik: "Toplantı", ofis: "Ofis" }
 
 export function AlbumKart({ a }: { a: AlbumOzet }) {
   return (
@@ -31,9 +30,6 @@ export function AlbumKart({ a }: { a: AlbumOzet }) {
             <span className="text-sm">Fotoğraflar yakında</span>
           </div>
         )}
-        <span className="absolute top-3 left-3 rounded-full bg-white/90 px-3 py-1 text-xs font-medium backdrop-blur">
-          {KATEGORI[a.kategori] ?? a.kategori}
-        </span>
       </div>
       <div className="mt-4 flex items-start justify-between gap-3">
         <div>

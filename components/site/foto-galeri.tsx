@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react"
 import { ChevronLeft, ChevronRight, X } from "lucide-react"
 
 // Fotoğraf ızgarası + tam ekran görüntüleyici (klavye oklarıyla ve parmakla kaydırarak gezilir).
-export function FotoGaleri({ fotolar, baslik }: { fotolar: string[]; baslik: string }) {
+export function FotoGaleri({ fotolar, baslik, onizleme }: { fotolar: string[]; baslik: string; onizleme?: number }) {
   const [acik, setAcik] = useState<number | null>(null)
   const dokunX = useRef(0)
 
@@ -31,13 +31,13 @@ export function FotoGaleri({ fotolar, baslik }: { fotolar: string[]; baslik: str
 
   return (
     <>
-      <div className="columns-2 gap-3 sm:gap-4 lg:columns-3">
-        {fotolar.map((f, i) => (
+      <div className={onizleme ? "grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4" : "columns-2 gap-3 sm:gap-4 lg:columns-3"}>
+        {(onizleme ? fotolar.slice(0, onizleme) : fotolar).map((f, i) => (
           <button
             key={f}
             type="button"
             onClick={() => setAcik(i)}
-            className="group mb-3 block w-full overflow-hidden rounded-xl bg-[#ebe6dc] sm:mb-4"
+            className={`group block w-full overflow-hidden rounded-xl bg-[#ebe6dc] ${onizleme ? "" : "mb-3 sm:mb-4"}`}
             aria-label={`${baslik}, fotoğraf ${i + 1}`}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -46,7 +46,7 @@ export function FotoGaleri({ fotolar, baslik }: { fotolar: string[]; baslik: str
               alt=""
               loading="lazy"
               decoding="async"
-              className="w-full transition-transform duration-700 group-hover:scale-[1.03]"
+              className={`w-full transition-transform duration-700 group-hover:scale-[1.03] ${onizleme ? "aspect-[4/5] object-cover" : ""}`}
             />
           </button>
         ))}
