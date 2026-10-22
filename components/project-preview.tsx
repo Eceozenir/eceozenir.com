@@ -14,6 +14,10 @@ const VIDEO = /\.(mp4|webm|mov)$/i
 const SANAL_GENISLIK = 1280 // sitenin masaüstü genişliği; pencereye sığacak şekilde küçültülür
 const KAYMA_YUKSEKLIGI = 3 // otomatik kaymada sitenin kaç ekran boyu gösterileceği
 const AKTIF_OLAY = "onizleme-aktif"
+// Bilgisayarda aynı anda en fazla bu kadar canlı site çalışır (site kasmasın diye)
+const EN_FAZLA_CANLI = 2
+const SINIR_OLAY = "onizleme-sinir"
+const canliListe: string[] = []
 
 
 function Iskelet() {
@@ -63,6 +67,7 @@ export function ProjeOnizleme({
   const [olcek, setOlcek] = useState(0.3)
   const [kapakHata, setKapakHata] = useState(false)
   const [odak, setOdak] = useState(false) // mobil: ekranın ortasındaki kart (canlı açılan tek kart)
+  const [izinli, setIzinli] = useState(false) // masaüstü: canlı açılma sırası geldi mi
 
   useEffect(() => {
     const mq = window.matchMedia("(max-width: 1023px), (pointer: coarse)")
@@ -93,15 +98,50 @@ export function ProjeOnizleme({
           setGeziyor(false)
         }
       },
-      { rootMargin: "150px" }
+      { threshold: 0.25 }
     )
     io.observe(el)
     return () => io.disconnect()
   }, [link])
 
-  // Başka bir önizleme açılınca bu kapanır (mobilde aynı anda tek site)
+  // Masaüstü: görünür olunca sıraya gir; sıra dolunca en eski önizleme kapanır
+  useEffect(() => {
+    if (mobil || !link) return
+    const cikar = () => {
+      const i = canliListe.indexOf(kimlik)
+      if (i >= 0) canliListe.splice(i, 1)
+    }
+    if (!gorunur) {
+      cikar()
+      setIzinli(false)
+      return
+    }
+    cikar()
+    canliListe.push(kimlik)
+    setIzinli(true)
+    while (canliListe.length > EN_FAZLA_CANLI) {
+      const eski = canliListe.shift()
+      window.dispatchEvent(new CustomEvent(SINIR_OLAY, { detail: eski }))
+    }
+    return cikar
+  }, [gorunur, mobil, link, kimlik])
+
   useEffect(() => {
     const dinle = (e: Event) => {
+      if ((e as CustomEvent<string>).detail === kimlik) {
+        setIzinli(false)
+        setYuklendi(false)
+        setGeziyor(false)
+      }
+    }
+    window.addEventListener(SINIR_OLAY, dinle)
+    return () => window.removeEventListener(SINIR_OLAY, dinle)
+  }, [kimlik])
+
+  // Mobil: başka bir önizleme açılınca bu kapanır (aynı anda tek site)
+  useEffect(() => {
+    const dinle = (e: Event) => {
+      if (!mobil) return
       if ((e as CustomEvent<string>).detail !== kimlik) {
         setOdak(false)
         setGeziyor(false)
@@ -110,10 +150,20 @@ export function ProjeOnizleme({
     }
     window.addEventListener(AKTIF_OLAY, dinle)
     return () => window.removeEventListener(AKTIF_OLAY, dinle)
-  }, [kimlik])
+  }, [kimlik, mobil])
 
   const gezmeyeBasla = () => {
     window.dispatchEvent(new CustomEvent(AKTIF_OLAY, { detail: kimlik }))
+    if (!mobil && !izinli) {
+      // Sıra dışı bir karta tıklandıysa onu canlı aç, en eskiyi kapat
+      const i = canliListe.indexOf(kimlik)
+      if (i >= 0) canliListe.splice(i, 1)
+      canliListe.push(kimlik)
+      while (canliListe.length > EN_FAZLA_CANLI) {
+        window.dispatchEvent(new CustomEvent(SINIR_OLAY, { detail: canliListe.shift() }))
+      }
+      setIzinli(true)
+    }
     setOdak(true)
     setGeziyor(true)
   }
@@ -121,7 +171,7 @@ export function ProjeOnizleme({
   const cerceve = koyu ? "bg-[#2a1708] text-[#fffaf2]" : "bg-white text-[#2a1708]"
   const alanAdi = link ? link.replace(/^https?:\/\//, "").replace(/\/$/, "") : ad
   // Mobilde site sadece dokununca, masaüstünde kart ekrandayken yüklenir
-  const canli = Boolean(link && gorunur && (mobil ? odak && geziyor : true))
+  const canli = Boolean(link && gorunur && (mobil ? odak && geziyor : izinli))
   const kapak = src && !kapakHata ? src : ""
 
   return (

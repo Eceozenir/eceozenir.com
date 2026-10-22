@@ -59,7 +59,7 @@ export default function HakkimdaSayfa() {
               <a
                 href={CV}
                 download
-                className="mt-8 inline-flex items-center gap-2 self-start rounded-full bg-[#141414] px-6 py-3.5 text-[15px] font-medium text-[#fbfaf6] transition-colors hover:bg-[#813413]"
+                className="mt-8 inline-flex items-center gap-2 self-start rounded-full bg-[#141414] px-6 py-3.5 text-[15px] font-medium text-[#fbfaf6] transition-colors hover:bg-[#4a2b1d]"
               >
                 <Download className="size-4" /> CV&apos;mi indir
               </a>
@@ -79,8 +79,8 @@ export default function HakkimdaSayfa() {
                   const simdi = /bugün/i.test(d.tarih)
                   return (
                     <Reveal key={i} delay={i * 60}>
-                      <div className={`rounded-2xl p-6 ${simdi ? "bg-[#813413] text-[#fbfaf6]" : "bg-white"}`}>
-                        <p className={`mono flex items-center gap-2 text-sm ${simdi ? "text-[#f4c7a1]" : "text-[#6b665e]"}`}>
+                      <div className={`rounded-2xl p-6 ${simdi ? "bg-[#4a2b1d] text-[#fbfaf6]" : "bg-white"}`}>
+                        <p className={`mono flex items-center gap-2 text-sm ${simdi ? "text-[#e6cdb6]" : "text-[#6b665e]"}`}>
                           {simdi && <span className="size-2 animate-pulse rounded-full bg-[#4ade80]" />}
                           {d.tarih}
                         </p>

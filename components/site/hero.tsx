@@ -70,6 +70,8 @@ export function Hero({
     let mx = -9999, my = -9999, raf = 0
     const ofset = harfler.map(() => ({ x: 0, y: 0, d: 0 }))
     const kare = () => {
+      raf = 0
+      let hareketli = mx > -9000
       const sy = window.scrollY
       const yaricap = Math.max(140, (merkezler[1]?.x ?? 0) - (merkezler[0]?.x ?? 0)) * 1.4
       harfler.forEach((h, i) => {
@@ -89,12 +91,16 @@ export function Hero({
         o.x += (tx - o.x) * 0.14
         o.y += (ty - o.y) * 0.14
         o.d += (rot - o.d) * 0.14
+        if (Math.abs(o.x) + Math.abs(o.y) > 0.05) hareketli = true
         h.style.transform =
           Math.abs(o.x) + Math.abs(o.y) > 0.05 ? `translate(${o.x.toFixed(1)}px, ${o.y.toFixed(1)}px) rotate(${o.d.toFixed(1)}deg)` : ""
       })
-      raf = requestAnimationFrame(kare)
+      // Fare dışarıda ve harfler yerine oturduysa dur (boşuna çalışmasın)
+      if (hareketli) raf = requestAnimationFrame(kare)
     }
-    raf = requestAnimationFrame(kare)
+    const baslat = () => {
+      if (!raf) raf = requestAnimationFrame(kare)
+    }
 
     const hareket = (e: MouseEvent) => {
       const r = bolum.getBoundingClientRect()
@@ -102,8 +108,12 @@ export function Hero({
       my = e.clientY
       bolum.style.setProperty("--mx", `${e.clientX - r.left}px`)
       bolum.style.setProperty("--my", `${e.clientY - r.top}px`)
+      baslat()
     }
-    const cik = () => (mx = my = -9999)
+    const cik = () => {
+      mx = my = -9999
+      baslat()
+    }
     bolum.addEventListener("mousemove", hareket)
     bolum.addEventListener("mouseleave", cik)
     return () => {

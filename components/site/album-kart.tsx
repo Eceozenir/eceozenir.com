@@ -43,7 +43,7 @@ export function AlbumKart({ a }: { a: AlbumOzet }) {
             {a.fotolar.length > 0 && ` · ${a.fotolar.length} fotoğraf`}
           </p>
         </div>
-        <ArrowUpRight className="mt-1 size-5 shrink-0 text-[#6b665e] transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-[#813413]" />
+        <ArrowUpRight className="mt-1 size-5 shrink-0 text-[#6b665e] transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-[#4a2b1d]" />
       </div>
     </Link>
   )

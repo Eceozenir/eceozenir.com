@@ -11,7 +11,7 @@ export function ProjeKart({ p, kucuk = false }: { p: Proje; kucuk?: boolean }) {
         <p className="mono text-xs text-[#6b665e]">{p.etiketler.join(" · ")}</p>
         <a href={p.link} target="_blank" rel="noopener noreferrer" className="mt-2 flex items-start justify-between gap-3">
           <h3 className={`${kucuk ? "text-lg" : "text-xl sm:text-2xl"} leading-snug font-semibold`}>{p.ad}</h3>
-          <ArrowUpRight className="mt-1 size-5 shrink-0 text-[#6b665e] transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-[#813413]" />
+          <ArrowUpRight className="mt-1 size-5 shrink-0 text-[#6b665e] transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-[#4a2b1d]" />
         </a>
         <p className="mt-2 line-clamp-3 text-[15px] leading-relaxed text-[#6b665e]">{p.aciklama}</p>
       </div>

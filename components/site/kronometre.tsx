@@ -65,7 +65,7 @@ export function Kronometre() {
           onClick={baslatDurdur}
           data-miknatis
           className={`flex items-center justify-center gap-2 rounded-full py-3 text-sm font-medium transition-colors ${
-            calisiyor ? "bg-[#f4c7a1] text-[#813413]" : "bg-[#fbfaf6] text-[#813413]"
+            calisiyor ? "bg-[#e6cdb6] text-[#4a2b1d]" : "bg-[#fbfaf6] text-[#4a2b1d]"
           }`}
         >
           {calisiyor ? <Square className="size-3.5" /> : <Play className="size-3.5" />}

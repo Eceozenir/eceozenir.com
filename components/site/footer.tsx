@@ -11,7 +11,7 @@ export function SiteFooter() {
         <a
           href={`mailto:${iletisim.eposta}`}
           data-miknatis
-          className="mt-4 inline-block text-[clamp(32px,6vw,72px)] leading-none font-light tracking-[-0.04em] transition-colors hover:text-[#f4c7a1]"
+          className="mt-4 inline-block text-[clamp(32px,6vw,72px)] leading-none font-light tracking-[-0.04em] transition-colors hover:text-[#e6cdb6]"
         >
           {iletisim.eposta}
         </a>

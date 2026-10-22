@@ -60,14 +60,14 @@ export default function AnaSayfa() {
         <div className="grid overflow-hidden rounded-2xl md:grid-cols-2">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={fotograf} alt="Ece Özenir" className="aspect-[4/5] w-full object-cover md:aspect-auto md:h-full" />
-          <div className="flex flex-col justify-between gap-10 bg-[#813413] p-8 text-[#fbfaf6] sm:p-12 lg:p-14">
+          <div className="flex flex-col justify-between gap-10 bg-[#4a2b1d] p-8 text-[#fbfaf6] sm:p-12 lg:p-14">
             <div>
               <h2 className="text-[clamp(36px,4.6vw,60px)] leading-[1.02] font-light">Merhaba, ben Ece.</h2>
               <p className="mt-6 text-xl leading-snug font-light text-[#fbfaf6]">{hakkimda.trim()}</p>
               <p className="mt-4 leading-relaxed text-[#fbfaf6]/75">{firma.metin}</p>
             </div>
             <Link href="/hakkimda" data-miknatis className="group inline-flex items-center gap-2.5 self-start text-[13px] tracking-[0.06em] uppercase">
-              <span className="flex size-7 items-center justify-center rounded-full bg-[#fbfaf6] text-[#813413] transition-transform group-hover:rotate-45">
+              <span className="flex size-7 items-center justify-center rounded-full bg-[#fbfaf6] text-[#4a2b1d] transition-transform group-hover:rotate-45">
                 <ArrowUpRight className="size-4" />
               </span>
               Hakkımda
@@ -108,7 +108,7 @@ export default function AnaSayfa() {
               return (
                 <Reveal key={c.baslik} delay={(i % 4) * 60} className="h-full">
                   <div data-egim className="flex h-full flex-col rounded-2xl bg-white p-6 hover:shadow-[0_18px_40px_-24px_rgba(20,20,20,0.35)]">
-                    <span className="flex size-11 items-center justify-center rounded-xl bg-[#fbfaf6] text-[#813413]">
+                    <span className="flex size-11 items-center justify-center rounded-xl bg-[#fbfaf6] text-[#4a2b1d]">
                       <Ikon className="size-5" />
                     </span>
                     <h3 className="mt-6 text-lg leading-snug font-semibold">{c.baslik}</h3>
@@ -120,7 +120,7 @@ export default function AnaSayfa() {
             <Reveal delay={180} className="h-full">
               <a
                 href={`mailto:${iletisim.eposta}?subject=${encodeURIComponent("Proje hakkında bilgi almak istiyorum")}`}
-                className="group flex h-full flex-col justify-between rounded-2xl bg-[#813413] p-6 text-[#fbfaf6]"
+                className="group flex h-full flex-col justify-between rounded-2xl bg-[#4a2b1d] p-6 text-[#fbfaf6]"
               >
                 <p className="text-lg leading-snug font-semibold">Aklınızda bir proje mi var?</p>
                 <span className="mt-8 inline-flex items-center gap-2 text-sm text-[#fbfaf6]/70 transition-colors group-hover:text-white">
@@ -169,7 +169,7 @@ export default function AnaSayfa() {
       {/* ── TOSFED ── */}
       <section className="pt-24 sm:pt-32">
         <Kap>
-          <div className="overflow-hidden rounded-[32px] bg-[#813413] text-[#fbfaf6]">
+          <div className="overflow-hidden rounded-[32px] bg-[#4a2b1d] text-[#fbfaf6]">
             <div className="grid gap-12 p-8 sm:p-12 lg:grid-cols-[1fr_1.1fr] lg:gap-16 lg:p-16">
               <div className="flex flex-col">
                 <p className="mono text-sm text-[#fbfaf6]/50">

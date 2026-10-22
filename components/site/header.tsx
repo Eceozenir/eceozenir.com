@@ -80,7 +80,7 @@ export function SiteHeader() {
           <Link
             href="/#iletisim"
             data-miknatis
-            className="ml-2 inline-flex items-center gap-1.5 rounded-full bg-[#813413] px-4 py-2 text-[12.5px] tracking-[0.06em] text-white uppercase transition-colors hover:bg-[#5f260e]"
+            className="ml-2 inline-flex items-center gap-1.5 rounded-full bg-[#4a2b1d] px-4 py-2 text-[12.5px] tracking-[0.06em] text-white uppercase transition-colors hover:bg-[#331c12]"
           >
             İletişim <ArrowUpRight className="size-4" />
           </Link>
@@ -108,12 +108,12 @@ export function SiteHeader() {
               className="foto-gir block py-4 text-3xl font-semibold tracking-tight"
               style={{ animationDelay: `${i * 40}ms` }}
             >
-              <span className={aktif(m.href) ? "text-[#813413]" : ""}>{m.ad}</span>
+              <span className={aktif(m.href) ? "text-[#4a2b1d]" : ""}>{m.ad}</span>
             </Link>
           ))}
           <Link
             href="/#iletisim"
-            className="mt-auto flex items-center justify-center gap-2 rounded-full bg-[#813413] py-4 text-base font-medium text-white"
+            className="mt-auto flex items-center justify-center gap-2 rounded-full bg-[#4a2b1d] py-4 text-base font-medium text-white"
           >
             İletişime geç <ArrowUpRight className="size-5" />
           </Link>

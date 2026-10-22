@@ -16,16 +16,32 @@ function useScrollProgress(cb: (p: number) => void) {
     const el = ref.current
     if (!el) return
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    // Sadece bölüm ekrandayken ve sayfa kaydırılırken hesapla (sürekli çalışmasın)
     let raf = 0
-    const frame = () => {
+    let gorunur = false
+    const hesapla = () => {
+      raf = 0
       const r = el.getBoundingClientRect()
       const vh = window.innerHeight
-      const p = clamp((vh - r.top) / (vh + r.height))
-      cb(reduce ? 0.5 : p)
-      raf = requestAnimationFrame(frame)
+      cb(reduce ? 0.5 : clamp((vh - r.top) / (vh + r.height)))
     }
-    raf = requestAnimationFrame(frame)
-    return () => cancelAnimationFrame(raf)
+    const kaydir = () => {
+      if (gorunur && !raf) raf = requestAnimationFrame(hesapla)
+    }
+    const io = new IntersectionObserver(([e]) => {
+      gorunur = e.isIntersecting
+      if (gorunur) kaydir()
+    })
+    io.observe(el)
+    hesapla()
+    window.addEventListener("scroll", kaydir, { passive: true })
+    window.addEventListener("resize", kaydir)
+    return () => {
+      io.disconnect()
+      cancelAnimationFrame(raf)
+      window.removeEventListener("scroll", kaydir)
+      window.removeEventListener("resize", kaydir)
+    }
   }, [cb])
   return ref
 }

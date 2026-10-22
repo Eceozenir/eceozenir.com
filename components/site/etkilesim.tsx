@@ -47,6 +47,7 @@ export function Etkilesim() {
     const hareket = (e: MouseEvent) => {
       x = e.clientX
       y = e.clientY
+      baslat()
       if (!gorunur) goster(true)
       const hedef = e.target as HTMLElement
 
@@ -96,18 +97,28 @@ export function Etkilesim() {
         birak()
       }
     }
-    const bas = () => (hedefOlcek *= 0.75)
-    const birakTus = () => (hedefOlcek /= 0.75)
+    const bas = () => {
+      hedefOlcek *= 0.75
+      baslat()
+    }
+    const birakTus = () => {
+      hedefOlcek /= 0.75
+      baslat()
+    }
 
     const kare = () => {
+      raf = 0
       hx += (x - hx) * 0.18
       hy += (y - hy) * 0.18
       olcek += (hedefOlcek - olcek) * 0.2
       nokta.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%)`
       halka.style.transform = `translate(${hx}px, ${hy}px) translate(-50%, -50%) scale(${olcek})`
-      raf = requestAnimationFrame(kare)
+      // Halka yerine oturunca dur; fare kıpırdayınca yeniden başlar
+      if (Math.abs(x - hx) + Math.abs(y - hy) > 0.1 || Math.abs(hedefOlcek - olcek) > 0.002) raf = requestAnimationFrame(kare)
     }
-    raf = requestAnimationFrame(kare)
+    const baslat = () => {
+      if (!raf) raf = requestAnimationFrame(kare)
+    }
 
     window.addEventListener("mousemove", hareket, { passive: true })
     document.addEventListener("mouseout", cikis)
