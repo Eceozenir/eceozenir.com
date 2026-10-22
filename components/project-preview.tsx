@@ -22,24 +22,24 @@ const canliListe: string[] = []
 
 function Iskelet() {
   return (
-    <div className="absolute inset-0 flex flex-col gap-2 p-4 text-[#2a1708]">
+    <div className="iskelet-parilti absolute inset-0 flex flex-col gap-2 p-4 text-[#141414]">
       <div className="flex items-center justify-between">
-        <span className="h-2.5 w-14 rounded-full bg-[#2a1708]/25" />
+        <span className="h-2.5 w-14 rounded-full bg-[#141414]/15" />
         <span className="flex gap-1.5">
-          <span className="h-2 w-6 rounded-full bg-[#2a1708]/15" />
-          <span className="h-2 w-6 rounded-full bg-[#2a1708]/15" />
-          <span className="h-2 w-6 rounded-full bg-[#2a1708]/15" />
+          <span className="h-2 w-6 rounded-full bg-[#141414]/10" />
+          <span className="h-2 w-6 rounded-full bg-[#141414]/10" />
+          <span className="h-2 w-6 rounded-full bg-[#141414]/10" />
         </span>
       </div>
       <div className="mt-2 flex flex-1 gap-3">
         <div className="flex flex-1 flex-col justify-center gap-2">
-          <span className="h-3 w-4/5 rounded-full bg-[#2a1708]/30" />
-          <span className="h-3 w-3/5 rounded-full bg-[#2a1708]/30" />
-          <span className="mt-1 h-2 w-full rounded-full bg-[#2a1708]/12" />
-          <span className="h-2 w-5/6 rounded-full bg-[#2a1708]/12" />
-          <span className="mt-2 h-4 w-16 rounded-[4px] bg-[#f47b2a]" />
+          <span className="h-3 w-4/5 rounded-full bg-[#141414]/15" />
+          <span className="h-3 w-3/5 rounded-full bg-[#141414]/15" />
+          <span className="mt-1 h-2 w-full rounded-full bg-[#141414]/[0.07]" />
+          <span className="h-2 w-5/6 rounded-full bg-[#141414]/[0.07]" />
+          <span className="mt-2 h-4 w-16 rounded-full bg-[#4a2b1d]/80" />
         </div>
-        <div className="w-2/5 rounded-[8px] bg-gradient-to-br from-[#f8a55e] via-[#f47b2a] to-[#fbbf91] opacity-80" />
+        <div className="w-2/5 rounded-[8px] bg-[#e6d8ca]" />
       </div>
     </div>
   )
@@ -168,7 +168,7 @@ export function ProjeOnizleme({
     setGeziyor(true)
   }
 
-  const cerceve = koyu ? "bg-[#2a1708] text-[#fffaf2]" : "bg-white text-[#2a1708]"
+  const cerceve = koyu ? "bg-[#141414] text-[#fbfaf6]" : "bg-white text-[#141414]"
   const alanAdi = link ? link.replace(/^https?:\/\//, "").replace(/\/$/, "") : ad
   // Mobilde site sadece dokununca, masaüstünde kart ekrandayken yüklenir
   const canli = Boolean(link && gorunur && (mobil ? odak && geziyor : izinli))
@@ -210,7 +210,7 @@ export function ProjeOnizleme({
         )}
       </div>
 
-      <div ref={ekranRef} className="relative aspect-[16/10] w-full overflow-hidden bg-[#ffeedd]">
+      <div ref={ekranRef} className="relative aspect-[16/10] w-full overflow-hidden bg-[#f1ece4]">
         {/* Kapak: fotoğraf / video / iskelet */}
         {(!canli || !yuklendi) &&
           (kapak ? (
@@ -253,7 +253,7 @@ export function ProjeOnizleme({
         {/* Yükleniyor */}
         {canli && !yuklendi && (
           <div className="absolute inset-0 flex items-center justify-center bg-white/40">
-            <span className="size-6 animate-spin rounded-full border-2 border-[#f47b2a] border-t-transparent" />
+            <span className="size-6 animate-spin rounded-full border-2 border-[#4a2b1d] border-t-transparent" />
           </div>
         )}
 
@@ -262,11 +262,11 @@ export function ProjeOnizleme({
           <button
             type="button"
             onClick={gezmeyeBasla}
-            className="group/gez absolute inset-0 flex items-end justify-center bg-gradient-to-t from-[#2a1708]/50 via-transparent to-transparent p-3 sm:p-4"
+            className="group/gez absolute inset-0 flex items-end justify-center bg-gradient-to-t from-black/35 via-transparent to-transparent p-3 sm:p-4"
             aria-label={`${ad} sitesini burada gez`}
           >
-            <span className="inline-flex items-center gap-2 rounded-full bg-white/95 px-3.5 py-2 text-[11px] font-extrabold text-[#2a1708] shadow-lg transition-transform group-hover/gez:scale-105 sm:text-xs">
-              <MousePointerClick className="onizleme-fare size-4 text-[#d4581b]" />
+            <span className="inline-flex items-center gap-2 rounded-full bg-white/95 px-3.5 py-2 text-[11px] font-semibold text-[#141414] shadow-lg transition-transform group-hover/gez:scale-105 sm:text-xs">
+              <MousePointerClick className="onizleme-fare size-4 text-[#4a2b1d]" />
               Tıkla, aşağı kaydır
             </span>
           </button>
