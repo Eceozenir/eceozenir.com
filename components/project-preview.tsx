@@ -20,6 +20,52 @@ const SINIR_OLAY = "onizleme-sinir"
 const canliListe: string[] = []
 
 
+// Sitenin ekran görüntüsü (WordPress mShots servisi, ücretsiz). Telefonu yormaz:
+// canlı site yerine tek bir görsel yüklenir ve kart ekrandayken yavaşça aşağı kayar.
+function ekranGoruntusu(link: string, deneme = 0) {
+  const u = encodeURIComponent(link)
+  return `https://s0.wp.com/mshots/v1/${u}?vpw=1280&vph=2400&w=720&h=1350${deneme ? `&r=${deneme}` : ""}`
+}
+
+function SiteGorseli({ link, ad, kaysin }: { link: string; ad: string; kaysin: boolean }) {
+  const kutuRef = useRef<HTMLDivElement>(null)
+  const [deneme, setDeneme] = useState(0)
+  const [hazir, setHazir] = useState(false)
+  const [hata, setHata] = useState(false)
+  const [mesafe, setMesafe] = useState(0)
+
+  const yuklendi = (e: React.SyntheticEvent<HTMLImageElement>) => {
+    const img = e.currentTarget
+    // Servis görüntüyü ilk kez hazırlarken geçici küçük bir görsel döndürür; biraz bekleyip tekrar dene
+    if (img.naturalWidth < 600) {
+      if (deneme < 4) setTimeout(() => setDeneme((d) => d + 1), 3500)
+      else setHata(true)
+      return
+    }
+    const kutu = kutuRef.current
+    if (kutu) setMesafe(Math.max(0, img.clientHeight - kutu.clientHeight))
+    setHazir(true)
+  }
+
+  if (hata) return <Iskelet />
+  return (
+    <div ref={kutuRef} className="absolute inset-0 overflow-hidden bg-white">
+      {!hazir && <Iskelet />}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={ekranGoruntusu(link, deneme)}
+        alt={`${ad} sitesinin görünümü`}
+        loading="lazy"
+        referrerPolicy="no-referrer"
+        onLoad={yuklendi}
+        onError={() => setHata(true)}
+        className={`absolute top-0 left-0 w-full transition-opacity duration-500 ${hazir ? "opacity-100" : "opacity-0"} ${kaysin && mesafe ? "gorsel-kayma" : ""}`}
+        style={{ "--kayma": `-${mesafe}px` } as React.CSSProperties}
+      />
+    </div>
+  )
+}
+
 function Iskelet() {
   return (
     <div className="iskelet-parilti absolute inset-0 flex flex-col gap-2 p-4 text-[#141414]">
@@ -227,6 +273,8 @@ export function ProjeOnizleme({
                 className="absolute inset-0 size-full bg-white object-cover object-top"
               />
             )
+          ) : link ? (
+            <SiteGorseli link={link} ad={ad} kaysin={gorunur} />
           ) : (
             <Iskelet />
           ))}

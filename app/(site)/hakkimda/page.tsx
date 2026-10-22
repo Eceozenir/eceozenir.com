@@ -87,8 +87,8 @@ export default function HakkimdaSayfa() {
       {sertifika3d && (
         <section className="pt-24 sm:pt-32">
           <Kap>
-            <div className="grid items-center gap-10 rounded-[32px] bg-white p-6 sm:p-10 lg:grid-cols-[1.3fr_1fr] lg:gap-14 lg:p-14">
-              <div className="rounded-3xl bg-[#fbfaf6] px-4 pt-10 pb-8 sm:px-10 sm:pt-14">
+            <div className="grid items-center gap-8 rounded-[32px] bg-white p-4 sm:p-6 lg:grid-cols-[1.6fr_1fr] lg:gap-12 lg:p-8 lg:pr-12">
+              <div className="rounded-3xl bg-[#fbfaf6] px-3 py-6 sm:px-6 sm:py-8">
                 <Certificate3D
                   gorsel={sertifika3d.gorsel}
                   baslik={sertifika3d.ad}

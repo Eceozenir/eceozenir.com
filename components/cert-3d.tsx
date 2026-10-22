@@ -116,30 +116,15 @@ export function Certificate3D({
   return (
     <div
       ref={wrapRef}
-      className="relative mx-auto w-full max-w-[600px] cursor-grab touch-pan-y select-none active:cursor-grabbing"
+      className="relative mx-auto w-full max-w-[760px] cursor-grab touch-pan-y select-none active:cursor-grabbing"
       style={{ perspective: "1400px" }}
       role="img"
       aria-label={`${kurum}, ${baslik} sertifikası`}
     >
       {/* Arkadaki sıcak hale */}
-      <div aria-hidden className="absolute inset-[8%] rounded-[40px] bg-gradient-to-br from-[#f8a55e]/40 via-[#f47b2a]/30 to-[#fbbf91]/30 blur-3xl" />
+      <div aria-hidden className="absolute inset-[8%] rounded-[40px] bg-[#4a2b1d]/15 blur-3xl" />
 
       <div className="relative">
-      {/* 360° dönüş halkası: arka yarısı (kartın arkasında kalır) */}
-      <svg aria-hidden viewBox="0 0 400 100" preserveAspectRatio="none" className="pointer-events-none absolute -inset-x-[9%] top-[52%] h-[72%] w-[118%]">
-        <defs>
-          <linearGradient id="halka-renk" x1="0" x2="1">
-            <stop offset="0" stopColor="#f8a55e" />
-            <stop offset="0.5" stopColor="#f47b2a" />
-            <stop offset="1" stopColor="#fbbf91" />
-          </linearGradient>
-          <marker id="halka-ok" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
-            <path d="M0,0 L10,5 L0,10 z" fill="#fbbf91" />
-          </marker>
-        </defs>
-        <path d="M12,50 A188,40 0 0 1 388,50" fill="none" stroke="url(#halka-renk)" strokeOpacity="0.45" strokeWidth="2" strokeDasharray="4 8" className="halka-akis" vectorEffect="non-scaling-stroke" />
-      </svg>
-
       <div ref={cardRef} className="relative aspect-[1754/1240] w-full will-change-transform" style={{ transformStyle: "preserve-3d" }}>
         {/* Kenar kalınlığı */}
         {Array.from({ length: KALINLIK }).map((_, i) => (
@@ -148,7 +133,7 @@ export function Certificate3D({
             className="absolute inset-0 rounded-[14px]"
             style={{
               transform: `translateZ(${i - KALINLIK / 2}px)`,
-              background: i % 2 ? "#f6e1cc" : "#ecd2bb",
+              background: i % 2 ? "#5a3727" : "#4a2b1d",
             }}
           />
         ))}
@@ -156,7 +141,7 @@ export function Certificate3D({
         {/* Ön yüz: sertifika */}
         <div
           className="absolute inset-0 overflow-hidden rounded-[14px] bg-white ring-1 ring-black/10"
-          style={{ transform: `translateZ(${KALINLIK / 2}px)`, backfaceVisibility: "hidden" }}
+          style={{ transform: `translateZ(${KALINLIK / 2}px)`, backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden" }}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={gorsel} alt={`${baslik} sertifikası`} draggable={false} className="size-full object-cover" />
@@ -170,51 +155,30 @@ export function Certificate3D({
 
         {/* Arka yüz */}
         <div
-          className="absolute inset-0 flex flex-col justify-between overflow-hidden rounded-[14px] bg-gradient-to-br from-[#f8a55e] via-[#f47b2a] to-[#fbbf91] p-6 text-[#2a1708] sm:p-10"
-          style={{ transform: `rotateY(180deg) translateZ(${KALINLIK / 2}px)`, backfaceVisibility: "hidden" }}
+          className="absolute inset-0 overflow-hidden rounded-[14px] bg-gradient-to-br from-[#5a3727] via-[#4a2b1d] to-[#2e1a10] text-[#fbfaf6] [container-type:size]"
+          style={{ transform: `rotateY(180deg) translateZ(${KALINLIK / 2}px)`, backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden" }}
         >
-          <p className="text-xs font-extrabold tracking-[0.25em] sm:text-sm">SERTİFİKA</p>
-          <div>
-            <p className="text-3xl leading-[0.95] font-extrabold tracking-tight sm:text-5xl">{baslik}</p>
-            <p className="mt-2 text-sm font-bold opacity-80 sm:text-lg">{kurum}</p>
-            {detay && <p className="mt-3 max-w-md text-xs leading-relaxed font-semibold opacity-75 sm:text-sm">{detay}</p>}
-          </div>
-          <div className="flex items-end justify-between text-xs font-bold sm:text-sm">
-            <span>{tarih}</span>
-            <span className="opacity-70">Ece Özenir</span>
+          <div className="flex size-full flex-col justify-between p-[6cqw]">
+            <p className="text-[2.6cqw] font-semibold tracking-[0.25em] text-[#e6cdb6]">SERTİFİKA</p>
+            <div className="min-w-0">
+              <p className="text-[6.2cqw] leading-[1.05] font-semibold tracking-tight">{baslik}</p>
+              <p className="mt-[1.5cqw] text-[3cqw] text-[#e6cdb6]">{kurum}</p>
+              {detay && <p className="mt-[2cqw] line-clamp-3 max-w-[85%] text-[2.5cqw] leading-relaxed text-[#fbfaf6]/75">{detay}</p>}
+            </div>
+            <div className="flex items-end justify-between text-[2.5cqw] text-[#fbfaf6]/80">
+              <span>{tarih}</span>
+              <span>Ece Özenir</span>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* 360° dönüş halkası: ön yarısı, uçlarında oklar */}
-      <svg aria-hidden viewBox="0 0 400 100" preserveAspectRatio="none" className="pointer-events-none absolute -inset-x-[9%] top-[52%] h-[72%] w-[118%] overflow-visible">
-        <path
-          d="M388,50 A188,40 0 0 1 12,50"
-          fill="none"
-          stroke="url(#halka-renk)"
-          strokeWidth="3"
-          strokeLinecap="round"
-          markerEnd="url(#halka-ok)"
-          vectorEffect="non-scaling-stroke"
-        />
-        <path d="M388,50 A188,40 0 0 1 12,50" fill="none" stroke="#fffaf2" strokeWidth="3" strokeDasharray="2 22" className="halka-akis" vectorEffect="non-scaling-stroke" />
-      </svg>
-      {/* 360° etiketi */}
-      <div className="pointer-events-none absolute top-[118%] left-1/2 -translate-x-1/2">
-        <span className="inline-flex items-center gap-1.5 text-sm font-extrabold tracking-[0.15em] text-[#d4581b]">
-          <svg viewBox="0 0 24 24" className="size-3.5" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-            <path d="M21 12a9 9 0 1 1-3-6.7" />
-            <path d="M21 4v5h-5" />
-          </svg>
-          360°
-        </span>
-      </div>
       </div>
 
       {/* Kullanım ipucu */}
       <div
         ref={ipucuRef}
-        className="pointer-events-none mt-24 text-center text-sm font-semibold text-[#2a1708]/55 transition-opacity duration-500 sm:mt-28"
+        className="pointer-events-none mt-6 text-center text-sm text-[#6b665e] transition-opacity duration-500"
       >
         Sürükleyerek çevir · tıklayınca arkası dönsün
       </div>

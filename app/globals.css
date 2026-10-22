@@ -353,3 +353,12 @@ h1.giris-baslik { font-weight: 300 !important; letter-spacing: -0.04em !importan
   animation: iskelet-parilti 1.8s ease-in-out infinite;
 }
 @media (prefers-reduced-motion: reduce) { .iskelet-parilti { animation: none; } }
+
+/* Telefonda site ekran görüntüsü yavaşça aşağı kayar */
+@keyframes gorsel-kay {
+  0%, 12% { transform: translateY(0); }
+  50%, 62% { transform: translateY(var(--kayma)); }
+  100% { transform: translateY(0); }
+}
+.gorsel-kayma { animation: gorsel-kay 16s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { .gorsel-kayma { animation: none; } }
