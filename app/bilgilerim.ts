@@ -274,12 +274,6 @@ export const sertifikalar = [
 
 export const deneyim = [
   {
-    tarih: "[Yıl]-Bugün",
-    rol: "Zaman Kayıt Netice Sorumlusu",
-    sirket: "TOSFED · Türkiye Otomobil Sporları Federasyonu",
-    aciklama: "Ralli yarışlarında etap sürelerinin kaydından resmi sonuçların yayınlanmasına kadar zaman kayıt ve netice sürecini yürütüyorum.",
-  },
-  {
     tarih: "2025-Bugün",
     rol: "Proje Yöneticisi",
     sirket: "Webadası Bilgi Teknolojileri",

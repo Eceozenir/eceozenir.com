@@ -88,7 +88,12 @@ export function Journey({ duraklar }: { duraklar: Durak[] }) {
 
   return (
     <div ref={wrapRef} className="relative">
-      <ol className="space-y-12 md:space-y-16">
+      {/* Çizgi: ilk duraktan son durağa kadar, aşağı indikçe dolar (mobilde solda, masaüstünde ortada) */}
+      <div ref={lineRef} className="absolute top-7 left-[26px] w-[3px] rounded-full bg-[#141414]/10 md:left-1/2 md:-translate-x-1/2">
+        <div ref={fillRef} className="h-full w-full origin-top rounded-full bg-[#4a2b1d]" style={{ transform: "scaleY(0)" }} />
+      </div>
+
+      <ol className="relative space-y-12 md:space-y-16">
         {duraklar.map((d, i) => {
           const sag = i % 2 === 1
           const Ikon = d.tur === "okul" ? GraduationCap : d.tur === "sertifika" ? Award : Briefcase
