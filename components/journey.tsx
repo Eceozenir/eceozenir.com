@@ -73,7 +73,7 @@ export function Journey({ duraklar }: { duraklar: Durak[] }) {
           }
         })
       },
-      { threshold: 0, rootMargin: "0px 0px -12% 0px" }
+      { threshold: 0, rootMargin: "0px 0px -18% 0px" }
     )
     items.forEach((el) => io.observe(el))
 

@@ -202,20 +202,20 @@
 /* Ters yöne akan şerit */
 .marquee-reverse { animation-direction: reverse; animation-duration: 36s; }
 
-/* Yolculuk durakları: ayçiçeği açar, kart yandan kayarak gelir */
+/* Yolculuk durakları: simge büyüyerek belirir, kart yandan kayarak gelir */
 .durak .durak-cicek {
-  transform: scale(0.4);
+  transform: scale(0.2) rotate(-90deg);
   opacity: 0;
   transition: transform 0.9s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.5s ease;
 }
 .durak .durak-kart {
   opacity: 0;
-  transform: translateY(30px);
-  transition: transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.15s, opacity 0.8s ease 0.15s;
+  transform: translateY(70px) scale(0.96);
+  transition: transform 1.1s cubic-bezier(0.16, 1, 0.3, 1) 0.15s, opacity 0.9s ease 0.15s;
 }
 @media (min-width: 768px) {
-  .durak-sol .durak-kart { transform: translateX(-60px) rotate(-2deg); }
-  .durak-sag .durak-kart { transform: translateX(60px) rotate(2deg); }
+  .durak-sol .durak-kart { transform: translateX(-160px) rotate(-4deg); }
+  .durak-sag .durak-kart { transform: translateX(160px) rotate(4deg); }
 }
 .durak.is-open .durak-cicek { transform: none; opacity: 1; }
 .durak.is-open .durak-kart { transform: none; opacity: 1; }
@@ -263,7 +263,7 @@
 /* Yolculuk: şu anki işin noktası nabız gibi atar */
 @keyframes simdi-nabiz { 0% { transform: scale(1); opacity: 0.7; } 100% { transform: scale(1.9); opacity: 0; } }
 .simdi-nabiz { animation: simdi-nabiz 2s cubic-bezier(0, 0, 0.2, 1) infinite; }
-@media (min-width: 768px) { .durak-simdi .durak-kart { transform: translateY(50px); } }
+@media (min-width: 768px) { .durak-simdi .durak-kart { transform: translateY(90px) scale(0.94); } }
 @media (prefers-reduced-motion: reduce) { .simdi-nabiz { animation: none; } }
 
 /* ── Yazı stili ───────────────────────────────────────────────
