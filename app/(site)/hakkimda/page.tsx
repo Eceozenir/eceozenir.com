@@ -3,6 +3,7 @@ import fs from "node:fs"
 import path from "node:path"
 import { Download } from "lucide-react"
 import { Reveal } from "@/components/reveal"
+import { Journey } from "@/components/journey"
 import { Certificate3D } from "@/components/cert-3d"
 import { Kap, BolumBaslik, SayfaBaslik } from "@/components/site/ui"
 import { IletisimBolum } from "@/components/site/iletisim"
@@ -26,8 +27,6 @@ const CV = "/cv.pdf"
 export default function HakkimdaSayfa() {
   const fotoVar = fs.existsSync(path.join(process.cwd(), "public", fotograf))
   const cvVar = fs.existsSync(path.join(process.cwd(), "public", CV))
-  const isler = [...deneyim].sort((a, b) => yil(b.tarih) - yil(a.tarih))
-  const okullar = [...egitim].sort((a, b) => yil(b.tarih) - yil(a.tarih))
   const sertifika3d = sertifikalar.find((s) => s.gorsel)
 
   return (
@@ -68,52 +67,18 @@ export default function HakkimdaSayfa() {
         </div>
       </Kap>
 
-      {/* Deneyim ve eğitim */}
+      {/* Yolculuk: aşağı indikçe kartlar sağdan ve soldan kayarak gelir */}
       <section className="pt-24 sm:pt-32">
         <Kap>
-          <div className="grid gap-12 lg:grid-cols-2 lg:gap-8">
-            <div>
-              <h2 className="text-[clamp(28px,3.4vw,40px)] font-semibold">Deneyim</h2>
-              <div className="mt-8 space-y-3">
-                {isler.map((d, i) => {
-                  const simdi = /bugün/i.test(d.tarih)
-                  return (
-                    <Reveal key={i} delay={i * 60}>
-                      <div className={`rounded-2xl p-6 ${simdi ? "bg-[#4a2b1d] text-[#fbfaf6]" : "bg-white"}`}>
-                        <p className={`mono flex items-center gap-2 text-sm ${simdi ? "text-[#e6cdb6]" : "text-[#6b665e]"}`}>
-                          {simdi && <span className="size-2 animate-pulse rounded-full bg-[#4ade80]" />}
-                          {d.tarih}
-                        </p>
-                        <p className="mt-3 text-xl font-semibold tracking-tight">{d.rol}</p>
-                        <p className={`mt-1 ${simdi ? "text-[#fbfaf6]/70" : "text-[#6b665e]"}`}>{d.sirket}</p>
-                        {d.aciklama && (
-                          <p className={`mt-3 text-[15px] leading-relaxed ${simdi ? "text-[#fbfaf6]/60" : "text-[#6b665e]"}`}>{d.aciklama}</p>
-                        )}
-                      </div>
-                    </Reveal>
-                  )
-                })}
-              </div>
-            </div>
-            <div>
-              <h2 className="text-[clamp(28px,3.4vw,40px)] font-semibold">Eğitim ve sertifikalar</h2>
-              <div className="mt-8 space-y-3">
-                {[
-                  ...okullar.map((e) => ({ tarih: e.tarih, baslik: e.okul, alt: e.bolum })),
-                  ...sertifikalar.map((s) => ({ tarih: s.tarih, baslik: s.ad, alt: s.kurum })),
-                ]
-                  .sort((a, b) => yil(b.tarih) - yil(a.tarih))
-                  .map((e, i) => (
-                    <Reveal key={i} delay={i * 60}>
-                      <div className="rounded-2xl bg-white p-6">
-                        <p className="mono text-sm text-[#6b665e]">{e.tarih}</p>
-                        <p className="mt-3 text-xl font-semibold tracking-tight">{e.baslik}</p>
-                        <p className="mt-1 text-[#6b665e]">{e.alt}</p>
-                      </div>
-                    </Reveal>
-                  ))}
-              </div>
-            </div>
+          <h2 className="text-center text-[clamp(34px,4.8vw,60px)] leading-[1.02] font-light">Bugüne kadarki yolculuğum</h2>
+          <div className="mt-14 md:mt-20">
+            <Journey
+              duraklar={[
+                ...deneyim.map((d) => ({ tur: "is" as const, tarih: d.tarih, baslik: d.rol, alt: d.sirket, aciklama: d.aciklama })),
+                ...egitim.map((e) => ({ tur: "okul" as const, tarih: e.tarih, baslik: e.okul, alt: e.bolum, aciklama: e.not })),
+                ...sertifikalar.map((c) => ({ tur: "sertifika" as const, tarih: c.tarih, baslik: c.ad, alt: c.kurum, aciklama: "" })),
+              ].sort((a, b) => yil(a.tarih) - yil(b.tarih))}
+            />
           </div>
         </Kap>
       </section>
