@@ -358,6 +358,7 @@ export const tosfed = {
   ralliler: [
     // Yeni ralli eklemek için bu satırı kopyala:
     // { yil: "2026", ad: "Ralli adı", sehir: "Şehir", tarih: "Gün Ay", album: "galerideki albümün slug'ı" },
+    { yil: "2026", ad: "Kapadokya Rallisi", sehir: "Nevşehir", tarih: "21-23 Ağustos", album: "2026-kapadokya-ralli" },
     { yil: "2026", ad: "ETİ Odunpazarı Esok Rally", sehir: "Eskişehir", tarih: "18-20 Eylül", album: "2026-eskisehir-esok-rally" },
   ],
 }
@@ -385,6 +386,15 @@ export const galeri = [
     yer: "Eskişehir",
     tarih: "18-20 Eylül 2026",
     aciklama: "Zaman kayıt ekibinde görev aldığım yarıştan kareler: ralli merkezi, servis alanı ve parkur.",
+    kapak: "",
+  },
+  {
+    slug: "2026-kapadokya-ralli",
+    baslik: "Kapadokya Rallisi",
+    kategori: "ralli",
+    yer: "Nevşehir",
+    tarih: "21-23 Ağustos 2026",
+    aciklama: "Zaman kayıt ekibinde görev aldığım yarıştan kareler: ralli merkezi, zaman kayıt masası, servis alanı ve balonlar eşliğinde Kapadokya.",
     kapak: "",
   },
   {
