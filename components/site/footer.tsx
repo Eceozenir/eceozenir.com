@@ -28,9 +28,8 @@ export function SiteFooter() {
             rel="noopener noreferrer"
             data-miknatis
             aria-label={`${firma.ad} web sitesi`}
-            className="group mt-8 inline-flex flex-col gap-3 rounded-2xl bg-[#fbfaf6]/[0.05] p-5 pr-7 ring-1 ring-[#fbfaf6]/10 transition-colors hover:bg-[#fbfaf6]/[0.09]"
+            className="group mt-8 inline-flex rounded-2xl bg-[#fbfaf6]/[0.05] px-6 py-5 ring-1 ring-[#fbfaf6]/10 transition-colors hover:bg-[#fbfaf6]/[0.09]"
           >
-            <span className="text-xs text-[#fbfaf6]/45">Birlikte çalıştığım ekip</span>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/webadasi-logo-acik.png"
