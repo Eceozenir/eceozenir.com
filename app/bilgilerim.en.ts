@@ -265,7 +265,7 @@ export const galeri: typeof tr.galeri = [
   { ...a("2026-kapadokya-ralli"), baslik: "Cappadocia Rally", yer: "Nevşehir", tarih: "21-23 August 2026", aciklama: RALLI + "Cappadocia Rally." },
   { ...a("2026-bursa-ralli"), baslik: "50th Green Bursa Rally", tarih: "5-7 June 2026", aciklama: RALLI + "50th Green Bursa Rally." },
   { ...a("2026-bodrum-ralli"), tarih: "May 2026", aciklama: RALLI + "Rally Bodrum." },
-  { ...a("2026-marmaris-ege-rallisi"), baslik: "Marmaris Aegean Rally", tarih: "April 2026", aciklama: RALLI + "Marmaris Aegean Rally." },
+  { ...a("2026-marmaris-ege-rallisi"), baslik: "Marmaris Rally", tarih: "April 2026", aciklama: RALLI + "Marmaris Rally." },
   {
     ...a("fujifilm-toplantisi"),
     baslik: "Fujifilm meeting",
