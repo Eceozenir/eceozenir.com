@@ -358,6 +358,7 @@ export const tosfed = {
   ralliler: [
     // Yeni ralli eklemek için bu satırı kopyala:
     // { yil: "2026", ad: "Ralli adı", sehir: "Şehir", tarih: "Gün Ay", album: "galerideki albümün slug'ı" },
+    { yil: "2026", ad: "Rally Bodrum", sehir: "Muğla", tarih: "Mayıs", album: "2026-bodrum-ralli" },
     { yil: "2026", ad: "50. Yeşil Bursa Rallisi", sehir: "Bursa", tarih: "5-7 Haziran", album: "2026-bursa-ralli" },
     { yil: "2026", ad: "Kapadokya Rallisi", sehir: "Nevşehir", tarih: "21-23 Ağustos", album: "2026-kapadokya-ralli" },
     { yil: "2026", ad: "ETİ Odunpazarı Esok Rally", sehir: "Eskişehir", tarih: "18-20 Eylül", album: "2026-eskisehir-esok-rally" },
@@ -405,6 +406,15 @@ export const galeri = [
     yer: "Bursa",
     tarih: "5-7 Haziran 2026",
     aciklama: "Zaman kayıt ekibinde görev aldığım yarıştan kareler: start rampası, ralli merkezi, zaman kayıt odası, servis alanı ve kupalar.",
+    kapak: "",
+  },
+  {
+    slug: "2026-bodrum-ralli",
+    baslik: "Rally Bodrum",
+    kategori: "ralli",
+    yer: "Bodrum",
+    tarih: "Mayıs 2026",
+    aciklama: "Zaman kayıt ekibinde görev aldığım yarıştan kareler: ralli merkezi, zaman kayıt salonu ve parkur.",
     kapak: "",
   },
   {
