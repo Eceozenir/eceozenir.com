@@ -434,10 +434,9 @@ export const galeri = [
 // Logo yoksa firmanın adı yazı olarak görünür.
 // ─────────────────────────────────────────────────────────────
 export const referanslar = [
-  { ad: "Fujifilm", logo: "", link: "https://fujifilmbaskicozumleri.com/" },
-  { ad: "TOSFED", logo: "", link: "https://www.tosfed.org.tr/" },
-  { ad: "Dadaş Motor", logo: "", link: "" },
-  { ad: "CNS Woman", logo: "", link: "https://www.cnswoman.com.tr/" },
-  { ad: "Flora Natural", logo: "", link: "" },
-  { ad: "Tevekkel Yedek Parça", logo: "", link: "https://www.tevekkelparca.com.tr/" },
+  { ad: "Fujifilm", logo: "/referanslar/fujifilm.png", link: "https://fujifilmbaskicozumleri.com/" },
+  { ad: "TOSFED", logo: "/referanslar/tosfed.png", link: "https://www.tosfed.org.tr/" },
+  { ad: "CNS Woman", logo: "/referanslar/cns.png", link: "https://www.cnswoman.com.tr/" },
+  { ad: "Flora Natural", logo: "/referanslar/flora.png", link: "https://www.floranatural.com.tr/" },
+  { ad: "Tevekkel Yedek Parça", logo: "/referanslar/tevekkel.png", link: "https://www.tevekkelparca.com.tr/" },
 ]
