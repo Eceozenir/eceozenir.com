@@ -326,6 +326,7 @@ export const iletisim = {
   eposta: "ece@webadasi.com",
   telefon: "0549 800 01 81", // örn: "+90 555 555 55 55": boş bırakırsan görünmez
   linkedin: "https://www.linkedin.com/",
+  instagram: "https://www.instagram.com/eceozenirr/",
 }
 
 // İletişim bölümündeki kartvizit (tıklayınca çevrilir). Görseller public/kartvizit içinde.

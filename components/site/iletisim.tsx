@@ -2,6 +2,7 @@ import { Mail, Phone } from "lucide-react"
 import { Kartvizit } from "@/components/business-card"
 import { iletisim, kartvizit } from "@/app/bilgilerim"
 import { Kap } from "./ui"
+import { InstagramIkon } from "./instagram-ikon"
 
 export function IletisimBolum() {
   const tel = iletisim.telefon ? `tel:+9${iletisim.telefon.replace(/\D/g, "")}` : ""
@@ -31,6 +32,17 @@ export function IletisimBolum() {
                   className="mono inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 text-[15px] bg-[#141414]/[0.06] transition-colors hover:bg-[#141414]/[0.1]"
                 >
                   <Phone className="size-4" /> {iletisim.telefon}
+                </a>
+              )}
+              {iletisim.instagram && (
+                <a
+                  data-miknatis
+                  href={iletisim.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-[#141414]/[0.06] px-6 py-3.5 text-[15px] transition-colors hover:bg-[#141414]/[0.1]"
+                >
+                  <InstagramIkon className="size-4" /> @eceozenirr
                 </a>
               )}
             </div>

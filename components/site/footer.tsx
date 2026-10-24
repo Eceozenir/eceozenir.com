@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { MENU } from "./menu"
 import { firma, iletisim } from "@/app/bilgilerim"
+import { InstagramIkon } from "./instagram-ikon"
 
 export function SiteFooter() {
   const tel = iletisim.telefon ? `tel:+9${iletisim.telefon.replace(/\D/g, "")}` : ""
@@ -63,6 +64,18 @@ export function SiteFooter() {
               <li>
                 <a href={tel} className="mono text-[#fbfaf6]/80 transition-colors hover:text-white">
                   {iletisim.telefon}
+                </a>
+              </li>
+            )}
+            {iletisim.instagram && (
+              <li>
+                <a
+                  href={iletisim.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-[#fbfaf6]/80 transition-colors hover:text-white"
+                >
+                  <InstagramIkon className="size-4" /> @eceozenirr
                 </a>
               </li>
             )}
