@@ -27,7 +27,7 @@ export const firma = {
   ad: "Webadası Bilgi Teknolojileri",
   metin:
     "Proje yöneticiliğinin yanında Webadası Bilgi Teknolojileri ile işletmelere özel yazılımlar geliştiriyorum. Fikri dinliyor, planlıyor, kodluyor ve teslim ediyoruz.",
-  site: "", // örn: "https://webadasi.com"
+  site: "https://webadasi.com",
 }
 
 // "İşletmeniz için ne yapabiliriz?" bölümü (içerikler webadasi.com'dan).

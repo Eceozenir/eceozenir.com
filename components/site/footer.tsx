@@ -22,6 +22,23 @@ export function SiteFooter() {
           <p className="mt-3 max-w-sm text-sm leading-relaxed text-[#fbfaf6]/60">
             Proje Yöneticisi, {firma.ad}.
           </p>
+          <a
+            href={firma.site || "https://webadasi.com"}
+            target="_blank"
+            rel="noopener noreferrer"
+            data-miknatis
+            aria-label={`${firma.ad} web sitesi`}
+            className="group mt-8 inline-flex flex-col gap-3 rounded-2xl bg-[#fbfaf6]/[0.05] p-5 pr-7 ring-1 ring-[#fbfaf6]/10 transition-colors hover:bg-[#fbfaf6]/[0.09]"
+          >
+            <span className="text-xs text-[#fbfaf6]/45">Birlikte çalıştığım ekip</span>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/webadasi-logo-acik.png"
+              alt={firma.ad}
+              loading="lazy"
+              className="h-10 w-auto transition-transform duration-300 group-hover:scale-[1.03] sm:h-12"
+            />
+          </a>
         </div>
         <div>
           <p className="text-sm text-[#fbfaf6]/45">Sayfalar</p>
