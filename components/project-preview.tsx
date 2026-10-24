@@ -20,73 +20,39 @@ const SINIR_OLAY = "onizleme-sinir"
 const canliListe: string[] = []
 
 
-// Sitenin ekran görüntüsü (WordPress mShots servisi, ücretsiz). Telefonu yormaz:
-// canlı site yerine tek bir görsel yüklenir ve kart ekrandayken yavaşça aşağı kayar.
-function ekranGoruntusu(link: string, deneme = 0) {
-  const u = encodeURIComponent(link)
-  return `https://s0.wp.com/mshots/v1/${u}?vpw=1280&vph=2400&w=720&h=1350${deneme ? `&r=${deneme}` : ""}`
-}
-
-function SiteGorseli({ link, ad, kaysin }: { link: string; ad: string; kaysin: boolean }) {
-  const kutuRef = useRef<HTMLDivElement>(null)
-  const [deneme, setDeneme] = useState(0)
-  const [hazir, setHazir] = useState(false)
-  const [hata, setHata] = useState(false)
-  const [mesafe, setMesafe] = useState(0)
-
-  const yuklendi = (e: React.SyntheticEvent<HTMLImageElement>) => {
-    const img = e.currentTarget
-    // Servis görüntüyü ilk kez hazırlarken geçici küçük bir görsel döndürür; biraz bekleyip tekrar dene
-    if (img.naturalWidth < 600) {
-      if (deneme < 4) setTimeout(() => setDeneme((d) => d + 1), 3500)
-      else setHata(true)
-      return
-    }
-    const kutu = kutuRef.current
-    if (kutu) setMesafe(Math.max(0, img.clientHeight - kutu.clientHeight))
-    setHazir(true)
-  }
-
-  if (hata) return <Iskelet />
+// Önizleme videosu: yalnızca ekrandayken oynar (telefonu yormaz)
+function OnizlemeVideo({ src }: { src: string }) {
+  const ref = useRef<HTMLVideoElement>(null)
+  useEffect(() => {
+    const v = ref.current
+    if (!v) return
+    const io = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting) v.play().catch(() => {})
+      else v.pause()
+    })
+    io.observe(v)
+    return () => io.disconnect()
+  }, [])
   return (
-    <div ref={kutuRef} className="absolute inset-0 overflow-hidden bg-white">
-      {!hazir && <Iskelet />}
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src={ekranGoruntusu(link, deneme)}
-        alt={`${ad} sitesinin görünümü`}
-        loading="lazy"
-        referrerPolicy="no-referrer"
-        onLoad={yuklendi}
-        onError={() => setHata(true)}
-        className={`absolute top-0 left-0 w-full transition-opacity duration-500 ${hazir ? "opacity-100" : "opacity-0"} ${kaysin && mesafe ? "gorsel-kayma" : ""}`}
-        style={{ "--kayma": `-${mesafe}px` } as React.CSSProperties}
-      />
-    </div>
+    <video
+      ref={ref}
+      src={src}
+      poster={src.replace(/\.(mp4|webm|mov)$/i, ".jpg")}
+      muted
+      loop
+      playsInline
+      preload="metadata"
+      className="absolute inset-0 size-full bg-white object-cover object-top"
+    />
   )
 }
 
-function Iskelet() {
+// Önizlemesi olmayan siteler için sade kapak
+function SiteKapak({ ad, alanAdi }: { ad: string; alanAdi: string }) {
   return (
-    <div className="iskelet-parilti absolute inset-0 flex flex-col gap-2 p-4 text-[#141414]">
-      <div className="flex items-center justify-between">
-        <span className="h-2.5 w-14 rounded-full bg-[#141414]/15" />
-        <span className="flex gap-1.5">
-          <span className="h-2 w-6 rounded-full bg-[#141414]/10" />
-          <span className="h-2 w-6 rounded-full bg-[#141414]/10" />
-          <span className="h-2 w-6 rounded-full bg-[#141414]/10" />
-        </span>
-      </div>
-      <div className="mt-2 flex flex-1 gap-3">
-        <div className="flex flex-1 flex-col justify-center gap-2">
-          <span className="h-3 w-4/5 rounded-full bg-[#141414]/15" />
-          <span className="h-3 w-3/5 rounded-full bg-[#141414]/15" />
-          <span className="mt-1 h-2 w-full rounded-full bg-[#141414]/[0.07]" />
-          <span className="h-2 w-5/6 rounded-full bg-[#141414]/[0.07]" />
-          <span className="mt-2 h-4 w-16 rounded-full bg-[#4a2b1d]/80" />
-        </div>
-        <div className="w-2/5 rounded-[8px] bg-[#e6d8ca]" />
-      </div>
+    <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-[#f1ece4] p-6 text-center">
+      <span className="text-[clamp(18px,2.4vw,28px)] leading-tight font-semibold text-[#4a2b1d]">{ad}</span>
+      {alanAdi && <span className="text-xs text-[#6b665e]">{alanAdi}</span>}
     </div>
   )
 }
@@ -258,11 +224,11 @@ export function ProjeOnizleme({
       </div>
 
       <div ref={ekranRef} className="relative aspect-[16/10] w-full overflow-hidden bg-[#f1ece4]">
-        {/* Kapak: fotoğraf / video / iskelet */}
+        {/* Kapak: video / fotoğraf / site adı */}
         {(!canli || !yuklendi) &&
           (kapak ? (
             VIDEO.test(kapak) ? (
-              <video src={kapak} autoPlay muted loop playsInline className="absolute inset-0 size-full object-cover object-top" />
+              <OnizlemeVideo src={kapak} />
             ) : (
               // eslint-disable-next-line @next/next/no-img-element
               <img
@@ -273,10 +239,8 @@ export function ProjeOnizleme({
                 className="absolute inset-0 size-full bg-white object-cover object-top"
               />
             )
-          ) : link ? (
-            <SiteGorseli link={link} ad={ad} kaysin={gorunur} />
           ) : (
-            <Iskelet />
+            <SiteKapak ad={ad} alanAdi={alanAdi !== ad ? alanAdi : ""} />
           ))}
 
         {/* Canlı site */}
