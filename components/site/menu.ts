@@ -1,7 +1,7 @@
-// Üst menü ve alt bilgideki sayfalar
+// Üst menü ve alt bilgideki sayfalar (adları lib/sozluk.ts içinde)
 export const MENU = [
-  { href: "/", ad: "Ana Sayfa" },
-  { href: "/projeler", ad: "Projeler" },
-  { href: "/galeri", ad: "Galeri" },
-  { href: "/hakkimda", ad: "Hakkımda" },
-]
+  { href: "/", anahtar: "anaSayfa" },
+  { href: "/projeler", anahtar: "projeler" },
+  { href: "/galeri", anahtar: "galeri" },
+  { href: "/hakkimda", anahtar: "hakkimda" },
+] as const

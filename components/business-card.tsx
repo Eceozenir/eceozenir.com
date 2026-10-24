@@ -2,9 +2,11 @@
 
 import { useRef, useState } from "react"
 import { RotateCw } from "lucide-react"
+import { useDil } from "@/components/site/dil"
 
 // Kartvizit: fareyle hafifçe eğilir, tıklayınca çevrilip diğer yüzü (İngilizce) görünür.
 export function Kartvizit({ on, arka }: { on: string; arka?: string }) {
+  const { dil, t } = useDil()
   const [ters, setTers] = useState(false)
   const kartRef = useRef<HTMLDivElement>(null)
 
@@ -30,7 +32,7 @@ export function Kartvizit({ on, arka }: { on: string; arka?: string }) {
         onPointerLeave={sifirla}
         className="block w-full cursor-pointer rounded-[14px] focus-visible:ring-4 focus-visible:ring-[#2a1708]/40 focus-visible:outline-none"
         style={{ perspective: "1200px" }}
-        aria-label={arka ? "Kartviziti çevir" : "Kartvizit"}
+        aria-label={arka ? t.kartviziCevir : t.kartvizit}
       >
         <div
           ref={kartRef}
@@ -40,13 +42,13 @@ export function Kartvizit({ on, arka }: { on: string; arka?: string }) {
             transitionTimingFunction: "cubic-bezier(0.2, 0.8, 0.2, 1)",
           }}
         >
-          <Yuz src={on} alt="Ece Özenir kartviziti, Türkçe" />
-          {arka && <Yuz src={arka} alt="Ece Özenir kartviziti, İngilizce" arka />}
+          <Yuz src={on} alt={t.kartvizitOn} />
+          {arka && <Yuz src={arka} alt={t.kartvizitArka} arka />}
         </div>
       </button>
       {arka && (
         <p className="mt-4 flex items-center justify-center gap-2 text-sm font-bold text-[#2a1708]/70">
-          <RotateCw className="size-4" /> Tıkla, çevir · {ters ? "English" : "Türkçe"}
+          <RotateCw className="size-4" /> {t.tiklaCevir} · {ters !== (dil === "en") ? "English" : "Türkçe"}
         </p>
       )}
     </div>

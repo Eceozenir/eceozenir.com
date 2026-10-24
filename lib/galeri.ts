@@ -1,6 +1,8 @@
 import fs from "node:fs"
 import path from "node:path"
-import { galeri } from "@/app/bilgilerim"
+import { galeri as trGaleri } from "@/app/bilgilerim"
+
+type Galeri = typeof trGaleri
 
 // Galeri fotoğraflarını public/galeri/<slug> klasöründen otomatik okur.
 const FOTO = /\.(jpe?g|png|webp|avif)$/i
@@ -18,17 +20,17 @@ export function albumFotograflari(slug: string): string[] {
   }
 }
 
-export type Album = (typeof galeri)[number] & { fotolar: string[]; kapakFoto: string }
+export type Album = Galeri[number] & { fotolar: string[]; kapakFoto: string }
 
-export function albumler(): Album[] {
+// galeri: seçili dildeki albüm listesi (fotoğraflar iki dilde aynı klasörden gelir)
+export function albumler(galeri: Galeri = trGaleri): Album[] {
   return galeri.map((a) => {
     const fotolar = albumFotograflari(a.slug)
     return { ...a, fotolar, kapakFoto: a.kapak || fotolar[0] || "" }
   })
 }
 
-export function album(slug: string): Album | undefined {
-  return albumler().find((a) => a.slug === slug)
+export function album(slug: string, galeri: Galeri = trGaleri): Album | undefined {
+  return albumler(galeri).find((a) => a.slug === slug)
 }
 
-export const KATEGORI_AD: Record<string, string> = { ralli: "Ralli", etkinlik: "Toplantı", ofis: "Ofis" }

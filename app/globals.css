@@ -91,116 +91,12 @@
   animation: marquee 30s linear infinite;
 }
 
-/* Proje kartlarının etrafında dönen renkli çerçeve */
-@property --angle {
-  syntax: "<angle>";
-  initial-value: 0deg;
-  inherits: false;
-}
-@keyframes spin-angle {
-  to { --angle: 360deg; }
-}
-.spin-border {
-  background: conic-gradient(from var(--angle), #f8a55e, #f47b2a, #fbbf91, #ffd9bd, #f8a55e);
-  animation: spin-angle 4s linear infinite;
-}
-
-/* Yavaşça süzülen arka plan ışıkları */
-@keyframes float-blob {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(30px, -40px) scale(1.08); }
-}
-.float-blob {
-  animation: float-blob 12s ease-in-out infinite;
-}
-
 @media (prefers-reduced-motion: reduce) {
   .reveal { opacity: 1; transform: none; transition: none; }
-  .marquee-track, .spin-border, .float-blob { animation: none; }
+  .marquee-track { animation: none; }
 }
 
-/* ── Giriş (hero) yazı efektleri ─────────────────────────── */
-
-/* MERHABA: harfler açılarak gelir, sonra üzerinden pembe-turuncu ışık geçer */
-.hero-title {
-  letter-spacing: -0.04em;
-  background: linear-gradient(110deg, #f2f4f8 0%, #f2f4f8 38%, #ffcfa8 46%, #f8a55e 54%, #f2f4f8 62%, #f2f4f8 100%);
-  background-size: 250% 100%;
-  background-position: 100% 0;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  animation:
-    hero-tracking-in 1.3s cubic-bezier(0.215, 0.61, 0.355, 1) both,
-    hero-shimmer 4.5s ease-in-out 1.4s infinite;
-}
-@keyframes hero-tracking-in {
-  0% { letter-spacing: 0.6em; opacity: 0; filter: blur(14px); }
-  60% { opacity: 1; }
-  100% { letter-spacing: -0.04em; opacity: 1; filter: blur(0); }
-}
-@keyframes hero-shimmer {
-  0% { background-position: 100% 0; }
-  60%, 100% { background-position: -50% 0; }
-}
-
-/* "Ben Ece Özenir." aşağıdan gelir */
-.hero-sub {
-  animation: hero-fade-up 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) 0.9s both;
-}
-@keyframes hero-fade-up {
-  from { opacity: 0; transform: translateY(18px); filter: blur(6px); }
-  to { opacity: 1; transform: none; filter: blur(0); }
-}
-
-/* İsim ve vurgulu kelimeler: pembe → turuncu */
-.hero-highlight {
-  background: linear-gradient(90deg, #ffcfa8, #f8a55e, #fbbf91);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-/* İsmin altındaki çizgi kendini çizer */
-.hero-underline {
-  stroke-dasharray: 1;
-  stroke-dashoffset: 1;
-  animation: hero-draw 0.9s cubic-bezier(0.65, 0, 0.35, 1) 1.6s forwards;
-}
-@keyframes hero-draw {
-  to { stroke-dashoffset: 0; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hero-title, .hero-sub { animation: none; }
-  .hero-underline { animation: none; stroke-dashoffset: 0; }
-}
-
-/* Renkli kısımlarda pembe-turuncu akış */
-.hero-flow {
-  background: linear-gradient(90deg, #ffcfa8, #f8a55e, #fbbf91, #f8a55e, #ffcfa8);
-  background-size: 300% 100%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  animation: hero-flow 5s linear infinite;
-}
-@keyframes hero-flow {
-  from { background-position: 0% 0; }
-  to { background-position: 300% 0; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .hero-flow { animation: none; }
-}
-
-/* ── Yaratıcı bölümler ───────────────────────────────────── */
-
-/* Yavaş dönen ayçiçekleri */
-@keyframes sf-spin { to { transform: rotate(360deg); } }
-.spin-slow { animation: sf-spin 60s linear infinite; }
-
-/* Ters yöne akan şerit */
-.marquee-reverse { animation-direction: reverse; animation-duration: 36s; }
+/* ── Yolculuk ───────────────────────────────────────────── */
 
 /* Yolculuk durakları: simge büyüyerek belirir, kart yandan kayarak gelir */
 .durak .durak-cicek {
@@ -220,31 +116,8 @@
 .durak.is-open .durak-cicek { transform: none; opacity: 1; }
 .durak.is-open .durak-kart { transform: none; opacity: 1; }
 
-/* Rozetlerin etrafındaki yazı döner, üzerine gelince hızlanır */
-.rozet-yazi { animation: sf-spin 18s linear infinite; }
-.rozet:hover .rozet-yazi, .group:hover .rozet-yazi { animation-duration: 5s; }
-
 @media (prefers-reduced-motion: reduce) {
-  .spin-slow, .rozet-yazi { animation: none; }
   .durak .durak-cicek, .durak .durak-kart { transform: none; opacity: 1; transition: none; }
-}
-
-/* Sertifikanın etrafındaki 360° halkada akan noktalar */
-@keyframes halka-akis { to { stroke-dashoffset: -48; } }
-.halka-akis { animation: halka-akis 1.6s linear infinite; }
-@media (prefers-reduced-motion: reduce) { .halka-akis { animation: none; } }
-
-/* ── Hizmetler (ServicesExplorer) ─────────────────────────── */
-@keyframes hizmet-giris { from { opacity: 0; transform: translateY(14px) scale(0.98); } to { opacity: 1; transform: none; } }
-.hizmet-giris { animation: hizmet-giris 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
-@keyframes hizmet-sure { from { transform: scaleX(0); } to { transform: scaleX(1); } }
-.hizmet-sure { animation-name: hizmet-sure; animation-timing-function: linear; animation-fill-mode: both; }
-@keyframes mock-rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
-.mock-rise { animation: mock-rise 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
-@keyframes mock-pop { 0% { transform: scale(0); } 70% { transform: scale(1.15); } 100% { transform: scale(1); } }
-.mock-pop { animation: mock-pop 0.5s cubic-bezier(0.3, 1.4, 0.5, 1) both; }
-@media (prefers-reduced-motion: reduce) {
-  .hizmet-giris, .hizmet-sure, .mock-rise, .mock-pop { animation: none; }
 }
 
 /* ── Canlı site önizlemesi: kendi kendine yavaşça aşağı-yukarı kayar ── */
@@ -267,57 +140,23 @@
 @media (prefers-reduced-motion: reduce) { .simdi-nabiz { animation: none; } }
 
 /* ── Yazı stili ───────────────────────────────────────────────
-   Kurumsal: Schibsted Grotesk. Sayılar hizalı dursun diye tabular rakamlar. */
+   Yazı tipi Inter. Sayılar hizalı dursun diye tabular rakamlar. */
 h1, h2, h3 { letter-spacing: -0.04em; text-wrap: balance; }
 h1 { font-weight: 300; }
 h2 { font-weight: 400; }
 h3 { font-weight: 500; letter-spacing: -0.02em; }
-.tema-giris h1, .tema-giris h2, .tema-giris h3 { font-family: inherit; }
 .mono { font-variant-numeric: tabular-nums; }
 .vurgu { color: #4a2b1d; }
-.vurgu-acik { color: #e6cdb6; }
 
 /* Galeri: tam ekran görüntüleyicide fotoğraf yumuşakça gelir */
 @keyframes foto-gir { from { opacity: 0; transform: scale(0.98); } to { opacity: 1; transform: none; } }
 .foto-gir { animation: foto-gir 0.35s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
 @media (prefers-reduced-motion: reduce) { .foto-gir { animation: none; } }
 
-/* Kareli kâğıt dokusu (proje kartları) */
-.kareli {
-  background-color: #fff;
-  background-image:
-    linear-gradient(to right, #f3ead8 1px, transparent 1px),
-    linear-gradient(to bottom, #f3ead8 1px, transparent 1px);
-  background-size: 22px 22px;
-}
-
 /* Yanardöner küre: sitenin tek büyük renk anı */
 .kure {
   border-radius: 9999px;
   background: linear-gradient(255deg, #a87556, #4a2b1d 40%, #d9bfa6 75%, #fbfaf6);
-}
-
-/* ── /giris deneme sayfası ── */
-@keyframes giris-harf { from { transform: translateY(0.5em); opacity: 0; } to { transform: none; opacity: 1; } }
-.giris-harf { animation: giris-harf 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
-@keyframes giris-video { from { clip-path: inset(12% 6% 0 6%); } to { clip-path: inset(0 0 0 0); } }
-.giris-video { animation: giris-video 1.4s cubic-bezier(0.2, 0.8, 0.2, 1) 0.5s both; }
-@media (prefers-reduced-motion: reduce) { .giris-harf, .giris-video { animation: none; } }
-h1.giris-baslik { font-weight: 300 !important; letter-spacing: -0.04em !important; line-height: 0.9 !important; }
-
-/* /giris teması: başlıklar ince (300), büyük-küçük harf normal, sıkı harf aralığı */
-.tema-giris h1, .tema-giris h2, .tema-giris h3 {
-  text-transform: none !important;
-  font-weight: 300 !important;
-  letter-spacing: -0.03em !important;
-  line-height: 1.02 !important;
-}
-.tema-giris h2 { letter-spacing: -0.04em !important; }
-.tema-giris h1.giris-baslik { text-transform: uppercase !important; line-height: 0.9 !important; }
-
-/* Telefonlarda ağır, sürekli çalışan bulanık arka plan animasyonlarını kapat (bellek/pil) */
-@media (max-width: 767px), (pointer: coarse) {
-  .float-blob { animation: none !important; }
 }
 
 /* ── Fare etkileşimleri (components/site/etkilesim.tsx) ── */
@@ -344,12 +183,3 @@ h1.giris-baslik { font-weight: 300 !important; letter-spacing: -0.04em !importan
 .hero-fener.fener-acik .hero-karanlik {
   background: radial-gradient(circle at var(--mx, 70%) var(--my, 40%), rgba(0,0,0,0) 0px, rgba(0,0,0,0.05) 110px, rgba(0,0,0,0.62) 340px);
 }
-
-/* Site önizlemesi yüklenirken taslak üzerinde hafif parıltı */
-@keyframes iskelet-parilti { from { background-position: 150% 0; } to { background-position: -50% 0; } }
-.iskelet-parilti {
-  background-image: linear-gradient(100deg, transparent 30%, rgba(255,255,255,0.55) 50%, transparent 70%);
-  background-size: 200% 100%;
-  animation: iskelet-parilti 1.8s ease-in-out infinite;
-}
-@media (prefers-reduced-motion: reduce) { .iskelet-parilti { animation: none; } }

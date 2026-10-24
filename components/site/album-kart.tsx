@@ -1,5 +1,7 @@
 import Link from "next/link"
 import { ArrowUpRight, Camera } from "lucide-react"
+import { icerik } from "@/lib/dil"
+import { doldur } from "@/lib/sozluk"
 
 type AlbumOzet = {
   slug: string
@@ -12,9 +14,10 @@ type AlbumOzet = {
 }
 
 
-export function AlbumKart({ a }: { a: AlbumOzet }) {
+export async function AlbumKart({ a }: { a: AlbumOzet }) {
+  const { t } = await icerik()
   return (
-    <Link href={`/galeri/${a.slug}`} data-imlec="Aç" className="group block">
+    <Link href={`/galeri/${a.slug}`} data-imlec={t.ac} className="group block">
       <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-[#ebe6dc]">
         {a.kapakFoto ? (
           // eslint-disable-next-line @next/next/no-img-element
@@ -27,7 +30,7 @@ export function AlbumKart({ a }: { a: AlbumOzet }) {
         ) : (
           <div className="flex size-full flex-col items-center justify-center gap-2 text-[#6b665e]">
             <Camera className="size-7" />
-            <span className="text-sm">Fotoğraflar yakında</span>
+            <span className="text-sm">{t.fotograflarYakinda}</span>
           </div>
         )}
       </div>
@@ -35,7 +38,7 @@ export function AlbumKart({ a }: { a: AlbumOzet }) {
         <div>
           <h3 className="text-lg leading-snug font-semibold">{a.baslik}</h3>
           <p className="mono mt-1 text-sm text-[#6b665e]">
-            {[a.yer, a.tarih, a.fotolar.length ? `${a.fotolar.length} fotoğraf` : ""].filter(Boolean).join(" · ")}
+            {[a.yer, a.tarih, a.fotolar.length ? doldur(t.fotografSayisi, { n: a.fotolar.length }) : ""].filter(Boolean).join(" · ")}
           </p>
         </div>
         <ArrowUpRight className="mt-1 size-5 shrink-0 text-[#6b665e] transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-[#4a2b1d]" />

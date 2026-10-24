@@ -1,9 +1,6 @@
 "use client"
 
 import { useEffect, useRef } from "react"
-import { ProjeOnizleme } from "@/components/project-preview"
-
-type Proje = { ad: string; yil?: string; onizleme?: string }
 
 function clamp(v: number, a = 0, b = 1) {
   return Math.min(b, Math.max(a, v))
@@ -46,68 +43,6 @@ function useScrollProgress(cb: (p: number) => void) {
   return ref
 }
 
-// İki satır, kaydırdıkça zıt yönlere kayan proje önizlemeleri
-export function PreviewRows({ projeler, baslik, vurgu }: { projeler: Proje[]; baslik?: string; vurgu?: string }) {
-  const row1 = useRef<HTMLDivElement>(null)
-  const row2 = useRef<HTMLDivElement>(null)
-  const cb = useRef((p: number) => {
-    const w = window.innerWidth
-    const kay = Math.min(900, w * 0.6)
-    if (row1.current) row1.current.style.transform = `translate3d(${-kay * p + kay * 0.15}px,0,0)`
-    if (row2.current) row2.current.style.transform = `translate3d(${kay * p - kay * 0.85}px,0,0)`
-  }).current
-  const sectionRef = useScrollProgress(cb)
-
-  // Satırlar boş kalmasın diye listeyi çoğalt
-  const dolu = projeler.length ? projeler : [{ ad: "Proje" }]
-  const uzat = (arr: Proje[]) => {
-    const out: Proje[] = []
-    while (out.length < 8) out.push(...arr)
-    return out.slice(0, Math.max(8, arr.length))
-  }
-  const satir1 = uzat(dolu)
-  const satir2 = uzat([...dolu].reverse())
-
-  const Kart = ({ p }: { p: Proje }) => (
-    <figure className="w-[260px] shrink-0 sm:w-[340px] lg:w-[400px]">
-      <ProjeOnizleme src={p.onizleme} ad={p.ad} />
-      <figcaption className="mt-2 flex items-center justify-between px-1 text-[13px] font-medium text-[#2a1708]/70">
-        <span className="truncate">{p.ad}</span>
-        <span>{p.yil}</span>
-      </figcaption>
-    </figure>
-  )
-
-  return (
-    <section ref={sectionRef} className="overflow-hidden py-24 sm:py-32" aria-label="Proje önizlemeleri">
-      {(baslik || vurgu) && (
-      <h2 className="mx-auto mb-14 max-w-[1150px] px-6 text-center text-[clamp(32px,5vw,56px)] leading-[1] font-medium tracking-tight text-[#2a1708]">
-        {baslik}{" "}
-        <span
-          className="inline-block -rotate-3 bg-gradient-to-r from-[#f8a55e] via-[#f47b2a] to-[#fbbf91] bg-clip-text pr-2 text-[1.25em] text-transparent"
-          style={{ fontFamily: "var(--font-caveat), cursive" }}
-        >
-          {vurgu}
-        </span>
-      </h2>
-      )}
-      <div className="space-y-5 sm:space-y-6">
-        <div ref={row1} className="flex w-max gap-5 will-change-transform sm:gap-6">
-          {satir1.map((p, i) => (
-            <Kart key={`a${i}`} p={p} />
-          ))}
-        </div>
-        <div ref={row2} className="flex w-max gap-5 will-change-transform sm:gap-6">
-          {satir2.map((p, i) => (
-            <Kart key={`b${i}`} p={p} />
-          ))}
-        </div>
-      </div>
-    </section>
-  )
-}
-
-// Ekran kenarlarına taşan dev yazı; satırlar kaydırdıkça zıt yönlere kayar
 export function GiantStatement({ satirlar, elYazisi }: { satirlar: string[]; elYazisi?: string }) {
   const refs = useRef<(HTMLDivElement | null)[]>([])
   const yaziRef = useRef<HTMLSpanElement>(null)

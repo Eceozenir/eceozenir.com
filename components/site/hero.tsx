@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react"
 import Link from "next/link"
 import { ArrowUpRight } from "lucide-react"
+import { useDil } from "./dil"
 
 // Giriş: tam ekran video.
 //  - Üstte ekran genişliğini dolduran dev isim (harfleri fareden kaçar)
@@ -20,6 +21,7 @@ export function Hero({
   slogan: string
   referanslar: string[]
 }) {
+  const { t } = useDil()
   const bolumRef = useRef<HTMLElement>(null)
   const kapRef = useRef<HTMLDivElement>(null)
   const isimRef = useRef<HTMLHeadingElement>(null)
@@ -140,6 +142,7 @@ export function Hero({
         <h1
           ref={isimRef}
           aria-label={isim}
+          lang="tr"
           className="foto-gir inline-block leading-[0.86] font-light whitespace-nowrap uppercase"
           style={{ fontSize: "17vw", letterSpacing: "-0.055em", whiteSpace: "nowrap", textWrap: "nowrap" }}
         >
@@ -166,20 +169,20 @@ export function Hero({
             data-miknatis
             className="inline-flex items-center gap-2 rounded-full border border-[#fbfaf6] px-8 py-3.5 text-[13px] tracking-[0.06em] uppercase transition-colors hover:bg-[#fbfaf6] hover:text-black"
           >
-            <ArrowUpRight className="size-4" /> Projeleri gör
+            <ArrowUpRight className="size-4" /> {t.projeleriGor}
           </Link>
           <a
             href="#iletisim"
             data-miknatis
             className="inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-[13px] tracking-[0.06em] text-[#fbfaf6]/80 uppercase transition-colors hover:text-[#fbfaf6]"
           >
-            İletişime geç
+            {t.iletisimeGec}
           </a>
         </div>
       </div>
 
       {/* Altta akan referans isimleri */}
-      <div aria-label="Referanslar" className="relative overflow-hidden pb-6 sm:pb-8">
+      <div aria-label={t.referanslar} className="relative overflow-hidden pb-6 sm:pb-8">
         <div className="marquee-track flex w-max">
           {seritYazilari.map((r, i) => (
             <span

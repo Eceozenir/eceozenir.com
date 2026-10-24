@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState } from "react"
 import { createPortal } from "react-dom"
 import { X, ZoomIn, ZoomOut } from "lucide-react"
+import { useDil } from "@/components/site/dil"
+import { doldur } from "@/lib/sozluk"
 
 // Fareyle eğilen, sürükleyerek çevrilebilen 3B sertifika kartı.
 // Ön yüz: sertifika görseli. Arka yüz: kısa bilgi.
@@ -22,6 +24,7 @@ export function Certificate3D({
   const wrapRef = useRef<HTMLDivElement>(null)
   const cardRef = useRef<HTMLDivElement>(null)
   const ipucuRef = useRef<HTMLDivElement>(null)
+  const { t } = useDil()
   const [buyuk, setBuyuk] = useState(false)
   const acRef = useRef(() => {})
   acRef.current = () => setBuyuk(true)
@@ -124,7 +127,7 @@ export function Certificate3D({
       className="relative mx-auto w-full max-w-[760px] cursor-grab touch-pan-y select-none active:cursor-grabbing"
       style={{ perspective: "1400px" }}
       role="img"
-      aria-label={`${kurum}, ${baslik} sertifikası`}
+      aria-label={`${kurum}, ${doldur(t.sertifikasi, { ad: baslik })}`}
     >
       {/* Arkadaki sıcak hale */}
       <div aria-hidden className="absolute inset-[8%] rounded-[40px] bg-[#4a2b1d]/15 blur-3xl" />
@@ -149,7 +152,7 @@ export function Certificate3D({
           style={{ transform: `translateZ(${KALINLIK / 2}px)`, backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden" }}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={gorsel} alt={`${baslik} sertifikası`} draggable={false} className="size-full object-cover" />
+          <img src={gorsel} alt={doldur(t.sertifikasi, { ad: baslik })} draggable={false} className="size-full object-cover" />
           {/* Parlama */}
           <div
             aria-hidden
@@ -164,7 +167,7 @@ export function Certificate3D({
           style={{ transform: `rotateY(180deg) translateZ(${KALINLIK / 2}px)`, backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden" }}
         >
           <div className="flex size-full flex-col justify-between p-[6cqw]">
-            <p className="text-[2.6cqw] font-semibold tracking-[0.25em] text-[#e6cdb6]">SERTİFİKA</p>
+            <p className="text-[2.6cqw] font-semibold tracking-[0.25em] text-[#e6cdb6]">{t.sertifikaEtiket}</p>
             <div className="min-w-0">
               <p className="text-[6.2cqw] leading-[1.05] font-semibold tracking-tight">{baslik}</p>
               <p className="mt-[1.5cqw] text-[3cqw] text-[#e6cdb6]">{kurum}</p>
@@ -185,7 +188,7 @@ export function Certificate3D({
         ref={ipucuRef}
         className="pointer-events-none mt-6 text-center text-sm text-[#6b665e] transition-opacity duration-500"
       >
-        Sürükleyerek çevir · tıklayınca büyüsün
+        {t.sertifikaIpucu}
       </div>
       {buyuk && <SertifikaBuyuk gorsel={gorsel} baslik={baslik} kapat={() => setBuyuk(false)} />}
     </div>
@@ -195,6 +198,7 @@ export function Certificate3D({
 // Sertifikayı tam ekranda gösterir. Görsele tıklayınca/dokununca yakınlaşır,
 // yakınken fareyle (ya da parmakla sürükleyerek) gezilir.
 function SertifikaBuyuk({ gorsel, baslik, kapat }: { gorsel: string; baslik: string; kapat: () => void }) {
+  const { t } = useDil()
   const [yakin, setYakin] = useState(false)
   const [nokta, setNokta] = useState({ x: 50, y: 50 })
 
@@ -218,7 +222,7 @@ function SertifikaBuyuk({ gorsel, baslik, kapat }: { gorsel: string; baslik: str
     <div
       role="dialog"
       aria-modal="true"
-      aria-label={`${baslik} sertifikası`}
+      aria-label={doldur(t.sertifikasi, { ad: baslik })}
       className="foto-gir fixed inset-0 z-[200] flex items-center justify-center bg-[#141414]/90 p-3 sm:p-8"
       onClick={kapat}
     >
@@ -230,7 +234,7 @@ function SertifikaBuyuk({ gorsel, baslik, kapat }: { gorsel: string; baslik: str
             setYakin((y) => !y)
           }}
           className="flex size-11 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20"
-          aria-label={yakin ? "Uzaklaştır" : "Yakınlaştır"}
+          aria-label={yakin ? t.uzaklastir : t.yakinlastir}
         >
           {yakin ? <ZoomOut className="size-5" /> : <ZoomIn className="size-5" />}
         </button>
@@ -238,7 +242,7 @@ function SertifikaBuyuk({ gorsel, baslik, kapat }: { gorsel: string; baslik: str
           type="button"
           onClick={kapat}
           className="flex size-11 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20"
-          aria-label="Kapat"
+          aria-label={t.kapat}
         >
           <X className="size-5" />
         </button>
@@ -256,14 +260,14 @@ function SertifikaBuyuk({ gorsel, baslik, kapat }: { gorsel: string; baslik: str
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={gorsel}
-          alt={`${baslik} sertifikası`}
+          alt={doldur(t.sertifikasi, { ad: baslik })}
           draggable={false}
           className="size-full object-contain transition-transform duration-300 ease-out select-none"
           style={{ transform: yakin ? "scale(2.4)" : "scale(1)", transformOrigin: `${nokta.x}% ${nokta.y}%` }}
         />
       </div>
       <p className="pointer-events-none absolute bottom-4 left-0 w-full text-center text-sm text-white/60">
-        {yakin ? "Gezmek için imleci gezdir · tekrar tıkla" : "Yakınlaştırmak için tıkla"}
+        {yakin ? t.yakinIpucu : t.uzakIpucu}
       </p>
     </div>,
     document.body

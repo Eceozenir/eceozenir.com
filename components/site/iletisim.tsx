@@ -1,10 +1,12 @@
 import { Mail, Phone } from "lucide-react"
 import { Kartvizit } from "@/components/business-card"
-import { iletisim, kartvizit } from "@/app/bilgilerim"
+import { icerik } from "@/lib/dil"
 import { Kap } from "./ui"
 import { InstagramIkon } from "./instagram-ikon"
 
-export function IletisimBolum() {
+export async function IletisimBolum() {
+  const { v, t } = await icerik()
+  const { iletisim, kartvizit } = v
   const tel = iletisim.telefon ? `tel:+9${iletisim.telefon.replace(/\D/g, "")}` : ""
   return (
     <section id="iletisim" className="scroll-mt-24 pt-24">
@@ -12,10 +14,10 @@ export function IletisimBolum() {
         <div className="grid items-center gap-12 rounded-[32px] bg-white p-8 sm:p-12 lg:grid-cols-[1.1fr_1fr] lg:gap-16 lg:p-16">
           <div>
             <h2 className="text-[clamp(32px,4.4vw,52px)] leading-[1.05] font-semibold">
-              Projeniz mi var? <span className="vurgu">Konuşalım.</span>
+              {t.projenizMiVar} <span className="vurgu">{t.konusalim}</span>
             </h2>
             <p className="mt-4 max-w-md text-lg leading-relaxed text-[#6b665e]">
-              E-ticaret, kurumsal site, B2B ya da işletmenize özel bir yazılım için bana doğrudan ulaşabilirsiniz.
+              {t.iletisimMetin}
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <a

@@ -1,7 +1,8 @@
-import { referanslar } from "@/app/bilgilerim"
+import { icerik } from "@/lib/dil"
 
 // Logo ızgarası. Logosu eklenmemiş firmalar adlarıyla görünür.
-export function ReferansIzgara() {
+export async function ReferansIzgara() {
+  const { referanslar } = (await icerik()).v
   return (
     <div className="grid grid-cols-2 gap-3 sm:grid-cols-5">
       {referanslar.map((r, i) => {

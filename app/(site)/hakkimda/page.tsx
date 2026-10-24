@@ -7,16 +7,16 @@ import { Journey } from "@/components/journey"
 import { Certificate3D } from "@/components/cert-3d"
 import { Kap, BolumBaslik, SayfaBaslik } from "@/components/site/ui"
 import { IletisimBolum } from "@/components/site/iletisim"
-import { deneyim, egitim, firma, fotograf, hakkimda, sertifikalar, yetkinlikler } from "../../bilgilerim"
+import { icerik } from "@/lib/dil"
 
-export const metadata: Metadata = {
-  title: "Hakkımda",
-  description: "Ece Özenir'in deneyimi, eğitimi, sertifikaları ve uzmanlık alanları.",
+export async function generateMetadata(): Promise<Metadata> {
+  const { t } = await icerik()
+  return { title: t.hakkimda, description: t.metaHakkimda }
 }
 
 // "2025-Bugün" gibi tarihleri sıralamak için
 function yil(t: string) {
-  if (/bugün/i.test(t)) return 9999
+  if (/bugün|present/i.test(t)) return 9999
   const y = t.match(/(19|20)\d{2}/)
   return y ? Number(y[0]) : 5000
 }
@@ -24,7 +24,9 @@ function yil(t: string) {
 // CV'ni public klasörüne "cv.pdf" adıyla koyarsan "CV'mi indir" düğmesi görünür.
 const CV = "/cv.pdf"
 
-export default function HakkimdaSayfa() {
+export default async function HakkimdaSayfa() {
+  const { v, t } = await icerik()
+  const { deneyim, egitim, firma, fotograf, hakkimda, sertifikalar, yetkinlikler } = v
   const fotoVar = fs.existsSync(path.join(process.cwd(), "public", fotograf))
   const cvVar = fs.existsSync(path.join(process.cwd(), "public", CV))
   const sertifika3d = sertifikalar.find((s) => s.gorsel)
@@ -32,10 +34,10 @@ export default function HakkimdaSayfa() {
   return (
     <>
       <SayfaBaslik
-        ust="Hakkımda"
+        ust={t.hakkimda}
         baslik={
           <>
-            Merhaba, ben <span className="vurgu">Ece.</span>
+            {t.merhabaBen} <span className="vurgu">Ece.</span>
           </>
         }
       />
@@ -52,7 +54,7 @@ export default function HakkimdaSayfa() {
             <p className="text-[clamp(22px,2.4vw,30px)] leading-snug font-medium tracking-tight">{hakkimda.trim()}</p>
             <p className="mt-6 text-lg leading-relaxed text-[#6b665e]">{firma.metin}</p>
             <p className="mt-4 text-lg leading-relaxed text-[#6b665e]">
-              Bunun yanında Türkiye&apos;nin dört bir yanındaki ralli yarışlarında zaman kayıt ekibinde görev alıyorum; parkurdan kareleri galeride bulabilirsiniz.
+              {t.ralliMetin}
             </p>
             {cvVar && (
               <a
@@ -60,7 +62,7 @@ export default function HakkimdaSayfa() {
                 download
                 className="mt-8 inline-flex items-center gap-2 self-start rounded-full bg-[#141414] px-6 py-3.5 text-[15px] font-medium text-[#fbfaf6] transition-colors hover:bg-[#4a2b1d]"
               >
-                <Download className="size-4" /> CV&apos;mi indir
+                <Download className="size-4" /> {t.cvIndir}
               </a>
             )}
           </div>
@@ -70,7 +72,7 @@ export default function HakkimdaSayfa() {
       {/* Yolculuk: aşağı indikçe kartlar sağdan ve soldan kayarak gelir */}
       <section className="pt-24 sm:pt-32">
         <Kap>
-          <h2 className="text-center text-[clamp(34px,4.8vw,60px)] leading-[1.02] font-light">Bugüne kadarki yolculuğum</h2>
+          <h2 className="text-center text-[clamp(34px,4.8vw,60px)] leading-[1.02] font-light">{t.yolculuk}</h2>
           <div className="mt-14 md:mt-20">
             <Journey
               duraklar={[
@@ -101,7 +103,7 @@ export default function HakkimdaSayfa() {
                 {sertifika3d.saat && (
                   <p className="mono text-[clamp(56px,7vw,88px)] leading-none">
                     {sertifika3d.saat}
-                    <span className="ml-2 font-sans text-base text-[#6b665e]">saat</span>
+                    <span className="ml-2 font-sans text-base text-[#6b665e]">{t.saat}</span>
                   </p>
                 )}
                 <h2 className="mt-6 text-[clamp(26px,3vw,36px)] leading-tight font-semibold">{sertifika3d.ad}</h2>
@@ -116,7 +118,7 @@ export default function HakkimdaSayfa() {
       {/* Uzmanlık */}
       <section className="pt-24 sm:pt-32">
         <Kap>
-          <BolumBaslik baslik="Uzmanlık alanlarım" />
+          <BolumBaslik baslik={t.uzmanlik} />
           <div className="mt-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
             {yetkinlikler.map((g, i) => (
               <Reveal key={g.baslik} delay={i * 70} className="h-full">

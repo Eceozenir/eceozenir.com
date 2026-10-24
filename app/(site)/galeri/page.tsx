@@ -5,21 +5,23 @@ import { FotoGaleri } from "@/components/site/foto-galeri"
 import { Kap, SayfaBaslik } from "@/components/site/ui"
 import { AlbumKart } from "@/components/site/album-kart"
 import { albumler } from "@/lib/galeri"
+import { icerik } from "@/lib/dil"
 
-export const metadata: Metadata = {
-  title: "Galeri",
-  description: "Ofisten, ralli parkurlarından ve toplantılardan fotoğraflar.",
+export async function generateMetadata(): Promise<Metadata> {
+  const { t } = await icerik()
+  return { title: t.galeri, description: t.metaGaleri }
 }
 
 // Galeri üç bölümden oluşur. Albümler bilgilerim.ts'teki "kategori" alanına göre dağılır.
-const BOLUMLER = [
-  { id: "ofis", baslik: "Ofis görselleri", aciklama: "Webadası ofisindeki çalışma ortamımız ve ofisimizin kedisi Ada." },
-  { id: "ralli", baslik: "Ralli görselleri", aciklama: "Zaman Kayıt Netice Sorumlusu olarak görev yaptığım ralli yarışlarından kareler." },
-  { id: "etkinlik", baslik: "Toplantı görselleri", aciklama: "Proje toplantılarından ve müşterilerimiz için yaptığımız içerik çekimlerinden kareler." },
-]
-
-export default function GaleriSayfa() {
-  const liste = albumler()
+export default async function GaleriSayfa() {
+  const { v, t } = await icerik()
+  // Başlık ve açıklamalar lib/sozluk.ts içinde
+  const BOLUMLER = [
+    { id: "ofis", baslik: t.ofisBaslik, aciklama: t.ofisAciklama },
+    { id: "ralli", baslik: t.ralliBaslik, aciklama: t.ralliAciklama },
+    { id: "etkinlik", baslik: t.etkinlikBaslik, aciklama: t.etkinlikAciklama },
+  ]
+  const liste = albumler(v.galeri)
   // Ofis bölümünde albüm yerine fotoğraflar doğrudan gösterilir
   const ofisAlbum = liste.find((a) => a.kategori === "ofis" && a.fotolar.length > 0)
   const OFIS_ONIZLEME = 4
@@ -27,13 +29,13 @@ export default function GaleriSayfa() {
   return (
     <>
       <SayfaBaslik
-        baslik="Galeri"
-        aciklama="Ofisten, ralli parkurlarından ve toplantılardan kareler."
+        baslik={t.galeri}
+        aciklama={t.galeriAciklama}
       />
 
       {/* Bölümlere hızlı geçiş */}
       <Kap>
-        <nav className="flex flex-wrap gap-2" aria-label="Galeri bölümleri">
+        <nav className="flex flex-wrap gap-2" aria-label={t.galeriBolumleri}>
           {BOLUMLER.map((b) => (
             <a
               key={b.id}
@@ -65,7 +67,7 @@ export default function GaleriSayfa() {
                       data-miknatis
                       className="group mt-6 inline-flex items-center gap-2 rounded-full bg-[#141414] px-6 py-3.5 text-[13px] tracking-[0.06em] text-[#fbfaf6] uppercase transition-colors hover:bg-[#4a2b1d]"
                     >
-                      Daha fazlasını gör <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
+                      {t.dahaFazla} <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
                     </Link>
                   )}
                 </div>
@@ -77,7 +79,7 @@ export default function GaleriSayfa() {
                 </div>
               ) : (
                 <div className="mt-10 flex items-center gap-3 rounded-2xl bg-white px-6 py-10 text-[#6b665e]">
-                  <Camera className="size-5" /> Bu bölümün fotoğrafları yakında eklenecek.
+                  <Camera className="size-5" /> {t.bolumYakinda}
                 </div>
               )}
             </Kap>

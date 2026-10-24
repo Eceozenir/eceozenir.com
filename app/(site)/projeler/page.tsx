@@ -4,24 +4,27 @@ import { Kap, BolumBaslik, SayfaBaslik } from "@/components/site/ui"
 import { ProjeKart } from "@/components/site/proje-kart"
 import { ReferansIzgara } from "@/components/site/referanslar"
 import { IletisimBolum } from "@/components/site/iletisim"
-import { katkilar, projeler } from "../../bilgilerim"
+import { icerik } from "@/lib/dil"
+import { doldur } from "@/lib/sozluk"
 
-export const metadata: Metadata = {
-  title: "Projeler",
-  description: "Ece Özenir'in yönettiği e-ticaret, kurumsal site ve B2B projeleri.",
+export async function generateMetadata(): Promise<Metadata> {
+  const { t } = await icerik()
+  return { title: t.projeler, description: t.metaProjeler }
 }
 
-export default function ProjelerSayfa() {
+export default async function ProjelerSayfa() {
+  const { v, t } = await icerik()
+  const { katkilar, projeler } = v
   return (
     <>
       <SayfaBaslik
-        ust={`${projeler.length} proje · ${katkilar.length} katkı`}
+        ust={doldur(t.projeKatki, { p: projeler.length, k: katkilar.length })}
         baslik={
           <>
-            Yönettiğim <span className="vurgu">projeler</span>
+            {t.projelerBaslik} <span className="vurgu">{t.projelerVurgu}</span>
           </>
         }
-        aciklama="E-ticaret, kurumsal site ve B2B alanlarında fikir aşamasından yayına kadar yürüttüğüm işler. Önizlemeye tıklayarak siteleri buradan gezebilirsiniz."
+        aciklama={t.projelerAciklama}
       />
       <Kap>
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -35,7 +38,7 @@ export default function ProjelerSayfa() {
 
       <section className="pt-24 sm:pt-32">
         <Kap>
-          <BolumBaslik baslik="Katkıda bulunduklarım" aciklama="Ekibin bir parçası olarak geliştirilmesine katkı sağladığım siteler." />
+          <BolumBaslik baslik={t.katkilar} aciklama={t.katkiAciklama} />
           <div className="mt-12 grid gap-4 md:grid-cols-2">
             {katkilar.map((k, i) => (
               <Reveal key={k.ad} delay={(i % 2) * 70} className="h-full">
@@ -48,7 +51,7 @@ export default function ProjelerSayfa() {
 
       <section className="pt-24 sm:pt-32">
         <Kap>
-          <BolumBaslik baslik="Referanslar" aciklama="Birlikte çalıştığımız markalardan bazıları." />
+          <BolumBaslik baslik={t.referanslar} aciklama={t.referansAciklama} />
           <div className="mt-12">
             <ReferansIzgara />
           </div>

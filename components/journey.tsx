@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react"
 import { Award, Briefcase, GraduationCap } from "lucide-react"
+import { useDil } from "@/components/site/dil"
 
 type Durak = {
   tur: "is" | "okul" | "sertifika"
@@ -14,6 +15,7 @@ type Durak = {
 // Deneyim + eğitim tek bir yolculuk çizgisinde.
 // Kaydırdıkça ortadaki çizgi sarı→turuncu→pembe dolar, her durakta bir işaret belirir.
 export function Journey({ duraklar }: { duraklar: Durak[] }) {
+  const { t } = useDil()
   const wrapRef = useRef<HTMLDivElement>(null)
   const fillRef = useRef<HTMLDivElement>(null)
   const lineRef = useRef<HTMLDivElement>(null)
@@ -117,7 +119,7 @@ export function Journey({ duraklar }: { duraklar: Durak[] }) {
         {duraklar.map((d, i) => {
           const sag = i % 2 === 1
           const Ikon = d.tur === "okul" ? GraduationCap : d.tur === "sertifika" ? Award : Briefcase
-          const simdi = /bugün/i.test(d.tarih)
+          const simdi = /bugün|present/i.test(d.tarih)
           if (simdi) {
             return (
               <li
@@ -145,7 +147,7 @@ export function Journey({ duraklar }: { duraklar: Durak[] }) {
                           <span className="absolute inline-flex size-full animate-ping rounded-full bg-[#4ade80] opacity-75" />
                           <span className="relative inline-flex size-2 rounded-full bg-[#4ade80]" />
                         </span>
-                        Şu an
+                        {t.suAn}
                       </span>
                       <span className="text-sm text-[#e6cdb6]">{d.tarih}</span>
                     </div>

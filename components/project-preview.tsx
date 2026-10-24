@@ -2,6 +2,8 @@
 
 import { useEffect, useId, useRef, useState } from "react"
 import { ExternalLink, MousePointerClick, X } from "lucide-react"
+import { useDil } from "@/components/site/dil"
+import { doldur } from "@/lib/sozluk"
 
 // Bir projenin site önizlemesi: tarayıcı penceresi görünümünde.
 // Masaüstü: kart ekrandayken site CANLI açılır ve kendi kendine yavaşça kayar.
@@ -74,6 +76,7 @@ export function ProjeOnizleme({
 }) {
   const kimlik = useId()
   const ekranRef = useRef<HTMLDivElement>(null)
+  const { t } = useDil()
   const [mobil, setMobil] = useState(true) // ilk çizimde güvenli taraf: mobil gibi davran
   const [gorunur, setGorunur] = useState(false)
   const [yuklendi, setYuklendi] = useState(false)
@@ -206,7 +209,7 @@ export function ProjeOnizleme({
             target="_blank"
             rel="noopener noreferrer"
             className="flex size-6 items-center justify-center rounded opacity-60 hover:opacity-100"
-            aria-label="Siteyi yeni sekmede aç"
+            aria-label={t.yeniSekmede}
           >
             <ExternalLink className="size-3.5" />
           </a>
@@ -218,7 +221,7 @@ export function ProjeOnizleme({
               setGeziyor(false)
             }}
             className="flex size-6 items-center justify-center rounded opacity-60 hover:opacity-100"
-            aria-label="Gezinmeyi bitir"
+            aria-label={t.gezinmeyiBitir}
           >
             <X className="size-4" />
           </button>
@@ -235,7 +238,7 @@ export function ProjeOnizleme({
               // eslint-disable-next-line @next/next/no-img-element
               <img
                 src={kapak}
-                alt={`${ad} önizlemesi`}
+                alt={doldur(t.onizlemesi, { ad })}
                 loading="lazy"
                 onError={() => setKapakHata(true)}
                 className="absolute inset-0 size-full bg-white object-cover object-top"
@@ -253,7 +256,7 @@ export function ProjeOnizleme({
           >
             <iframe
               src={link}
-              title={`${ad} canlı önizleme`}
+              title={doldur(t.canliOnizleme, { ad })}
               onLoad={() => setYuklendi(true)}
               tabIndex={geziyor ? 0 : -1}
               loading="lazy"
@@ -279,11 +282,11 @@ export function ProjeOnizleme({
             target="_blank"
             rel="noopener noreferrer"
             className="absolute inset-0 flex items-end justify-center bg-gradient-to-t from-black/35 via-transparent to-transparent p-3"
-            aria-label={`${ad} sitesini yeni sekmede aç`}
+            aria-label={doldur(t.yeniSekmedeAd, { ad })}
           >
             <span className="inline-flex items-center gap-2 rounded-full bg-white/95 px-3.5 py-2 text-[11px] font-semibold text-[#141414] shadow-lg">
               <ExternalLink className="size-3.5 text-[#4a2b1d]" />
-              Siteyi ziyaret et
+              {t.siteyiZiyaret}
             </span>
           </a>
         )}
@@ -294,11 +297,11 @@ export function ProjeOnizleme({
             type="button"
             onClick={gezmeyeBasla}
             className="group/gez absolute inset-0 flex items-end justify-center bg-gradient-to-t from-black/35 via-transparent to-transparent p-3 sm:p-4"
-            aria-label={`${ad} sitesini burada gez`}
+            aria-label={doldur(t.buradaGez, { ad })}
           >
             <span className="inline-flex items-center gap-2 rounded-full bg-white/95 px-3.5 py-2 text-[11px] font-semibold text-[#141414] shadow-lg transition-transform group-hover/gez:scale-105 sm:text-xs">
               <MousePointerClick className="onizleme-fare size-4 text-[#4a2b1d]" />
-              Tıkla, aşağı kaydır
+              {t.tiklaKaydir}
             </span>
           </button>
         )}

@@ -16,6 +16,8 @@ import {
   Smartphone,
   UtensilsCrossed,
 } from "lucide-react"
+import { useDil } from "./dil"
+import { doldur } from "@/lib/sozluk"
 
 type Hizmet = { ikon: string; baslik: string; aciklama: string; detay?: string; maddeler: string[]; gorsel?: string }
 
@@ -43,10 +45,11 @@ export function HizmetVitrini({
   eposta: string
   telefon?: string
 }) {
+  const { t } = useDil()
   const [secili, setSecili] = useState(0)
   const [mobilAcik, setMobilAcik] = useState<number | null>(0)
   const tel = telefon ? `tel:+9${telefon.replace(/\D/g, "")}` : ""
-  const mail = (b: string) => `mailto:${eposta}?subject=${encodeURIComponent(`${b} hakkında bilgi almak istiyorum`)}`
+  const mail = (b: string) => `mailto:${eposta}?subject=${encodeURIComponent(doldur(t.mailKonu, { b }))}`
 
   const Panel = ({ h }: { h: Hizmet }) => {
     const Ikon = IKON[h.ikon as keyof typeof IKON] ?? Globe
@@ -83,7 +86,7 @@ export function HizmetVitrini({
               data-miknatis
               className="inline-flex items-center justify-center gap-2 rounded-full bg-[#141414] px-6 py-3.5 text-[13px] tracking-[0.06em] text-[#fbfaf6] uppercase transition-colors hover:bg-[#4a2b1d]"
             >
-              <Mail className="size-4" /> Bilgi al
+              <Mail className="size-4" /> {t.bilgiAl}
             </a>
             {tel && (
               <a
@@ -91,7 +94,7 @@ export function HizmetVitrini({
                 data-miknatis
                 className="inline-flex items-center justify-center gap-2 rounded-full bg-[#141414]/[0.06] px-6 py-3.5 text-[13px] tracking-[0.06em] uppercase transition-colors hover:bg-[#141414]/[0.1]"
               >
-                <Phone className="size-4" /> Hemen ara
+                <Phone className="size-4" /> {t.hemenAra}
               </a>
             )}
           </div>
@@ -107,10 +110,10 @@ export function HizmetVitrini({
           {/* Başlık */}
           <div className="grid items-end gap-6 lg:grid-cols-[1.2fr_1fr] lg:gap-16">
             <h2 className="text-[clamp(38px,5.6vw,80px)] leading-[0.98] font-light">
-              {firmaAd} ile neler yapıyoruz?
+              {doldur(t.hizmetBaslik, { firma: firmaAd })}
             </h2>
             <p className="text-lg leading-relaxed text-[#fbfaf6]/70 lg:pb-2">
-              İşletmelere fikirden canlıya kadar uçtan uca yazılım çözümleri. Bir alan seçin, ne sunduğumuza yakından bakın.
+              {t.hizmetAciklama}
             </p>
           </div>
 

@@ -2,9 +2,12 @@
 
 import { useCallback, useEffect, useRef, useState } from "react"
 import { ChevronLeft, ChevronRight, X } from "lucide-react"
+import { useDil } from "./dil"
+import { doldur } from "@/lib/sozluk"
 
 // Fotoğraf ızgarası + tam ekran görüntüleyici (klavye oklarıyla ve parmakla kaydırarak gezilir).
 export function FotoGaleri({ fotolar, baslik, onizleme }: { fotolar: string[]; baslik: string; onizleme?: number }) {
+  const { t } = useDil()
   const [acik, setAcik] = useState<number | null>(null)
   const dokunX = useRef(0)
 
@@ -38,7 +41,7 @@ export function FotoGaleri({ fotolar, baslik, onizleme }: { fotolar: string[]; b
             type="button"
             onClick={() => setAcik(i)}
             className={`group block w-full overflow-hidden rounded-xl bg-[#ebe6dc] ${onizleme ? "" : "mb-3 sm:mb-4"}`}
-            aria-label={`${baslik}, fotoğraf ${i + 1}`}
+            aria-label={`${baslik}, ${t.fotograf} ${i + 1}`}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
@@ -56,7 +59,7 @@ export function FotoGaleri({ fotolar, baslik, onizleme }: { fotolar: string[]; b
         <div
           role="dialog"
           aria-modal="true"
-          aria-label={`${baslik} fotoğraf görüntüleyici`}
+          aria-label={doldur(t.fotografGoruntuleyici, { ad: baslik })}
           className="fixed inset-0 z-[100] flex flex-col bg-[#0d0d0d]/95 backdrop-blur-sm"
           onTouchStart={(e) => (dokunX.current = e.touches[0].clientX)}
           onTouchEnd={(e) => {
@@ -72,7 +75,7 @@ export function FotoGaleri({ fotolar, baslik, onizleme }: { fotolar: string[]; b
               type="button"
               onClick={kapat}
               className="flex size-11 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20"
-              aria-label="Kapat"
+              aria-label={t.kapat}
             >
               <X className="size-5" />
             </button>
@@ -82,7 +85,7 @@ export function FotoGaleri({ fotolar, baslik, onizleme }: { fotolar: string[]; b
             <img
               key={acik}
               src={fotolar[acik]}
-              alt={`${baslik}, fotoğraf ${acik + 1}`}
+              alt={`${baslik}, ${t.fotograf} ${acik + 1}`}
               className="foto-gir max-h-full max-w-full rounded-lg object-contain"
               onClick={(e) => e.stopPropagation()}
             />
@@ -95,7 +98,7 @@ export function FotoGaleri({ fotolar, baslik, onizleme }: { fotolar: string[]; b
                     git(-1)
                   }}
                   className="absolute top-1/2 left-3 hidden size-12 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 sm:flex"
-                  aria-label="Önceki"
+                  aria-label={t.onceki}
                 >
                   <ChevronLeft className="size-6" />
                 </button>
@@ -106,7 +109,7 @@ export function FotoGaleri({ fotolar, baslik, onizleme }: { fotolar: string[]; b
                     git(1)
                   }}
                   className="absolute top-1/2 right-3 hidden size-12 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 sm:flex"
-                  aria-label="Sonraki"
+                  aria-label={t.sonraki}
                 >
                   <ChevronRight className="size-6" />
                 </button>
