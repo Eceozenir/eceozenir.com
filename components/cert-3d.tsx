@@ -1,6 +1,8 @@
 "use client"
 
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
+import { createPortal } from "react-dom"
+import { X, ZoomIn, ZoomOut } from "lucide-react"
 
 // Fareyle eğilen, sürükleyerek çevrilebilen 3B sertifika kartı.
 // Ön yüz: sertifika görseli. Arka yüz: kısa bilgi.
@@ -20,6 +22,9 @@ export function Certificate3D({
   const wrapRef = useRef<HTMLDivElement>(null)
   const cardRef = useRef<HTMLDivElement>(null)
   const ipucuRef = useRef<HTMLDivElement>(null)
+  const [buyuk, setBuyuk] = useState(false)
+  const acRef = useRef(() => {})
+  acRef.current = () => setBuyuk(true)
 
   useEffect(() => {
     const wrap = wrapRef.current
@@ -69,7 +74,7 @@ export function Certificate3D({
       // En yakın yüze (ön ya da arka) otur
       spinTarget = Math.round(spinTarget / 180) * 180
       // Sürüklemeden tıklandıysa: kartı çevir
-      if (moved < 6) spinTarget += 180
+      if (moved < 6) acRef.current()
       try {
         wrap.releasePointerCapture(e.pointerId)
       } catch {}
@@ -180,8 +185,87 @@ export function Certificate3D({
         ref={ipucuRef}
         className="pointer-events-none mt-6 text-center text-sm text-[#6b665e] transition-opacity duration-500"
       >
-        Sürükleyerek çevir · tıklayınca arkası dönsün
+        Sürükleyerek çevir · tıklayınca büyüsün
       </div>
+      {buyuk && <SertifikaBuyuk gorsel={gorsel} baslik={baslik} kapat={() => setBuyuk(false)} />}
     </div>
+  )
+}
+
+// Sertifikayı tam ekranda gösterir. Görsele tıklayınca/dokununca yakınlaşır,
+// yakınken fareyle (ya da parmakla sürükleyerek) gezilir.
+function SertifikaBuyuk({ gorsel, baslik, kapat }: { gorsel: string; baslik: string; kapat: () => void }) {
+  const [yakin, setYakin] = useState(false)
+  const [nokta, setNokta] = useState({ x: 50, y: 50 })
+
+  useEffect(() => {
+    const tus = (e: KeyboardEvent) => e.key === "Escape" && kapat()
+    window.addEventListener("keydown", tus)
+    const eski = document.body.style.overflow
+    document.body.style.overflow = "hidden"
+    return () => {
+      window.removeEventListener("keydown", tus)
+      document.body.style.overflow = eski
+    }
+  }, [kapat])
+
+  const konum = (e: React.PointerEvent<HTMLDivElement>) => {
+    const r = e.currentTarget.getBoundingClientRect()
+    setNokta({ x: ((e.clientX - r.left) / r.width) * 100, y: ((e.clientY - r.top) / r.height) * 100 })
+  }
+
+  return createPortal(
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-label={`${baslik} sertifikası`}
+      className="foto-gir fixed inset-0 z-[200] flex items-center justify-center bg-[#141414]/90 p-3 sm:p-8"
+      onClick={kapat}
+    >
+      <div className="absolute top-3 right-3 flex gap-2 sm:top-5 sm:right-5">
+        <button
+          type="button"
+          onClick={(e) => {
+            e.stopPropagation()
+            setYakin((y) => !y)
+          }}
+          className="flex size-11 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20"
+          aria-label={yakin ? "Uzaklaştır" : "Yakınlaştır"}
+        >
+          {yakin ? <ZoomOut className="size-5" /> : <ZoomIn className="size-5" />}
+        </button>
+        <button
+          type="button"
+          onClick={kapat}
+          className="flex size-11 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20"
+          aria-label="Kapat"
+        >
+          <X className="size-5" />
+        </button>
+      </div>
+      <div
+        className={`relative max-h-full w-full max-w-6xl overflow-hidden rounded-xl bg-white shadow-2xl ${yakin ? "cursor-zoom-out touch-none" : "cursor-zoom-in"}`}
+        style={{ aspectRatio: "1754 / 1240", maxHeight: "calc(100dvh - 7rem)" }}
+        onClick={(e) => {
+          e.stopPropagation()
+          konum(e as unknown as React.PointerEvent<HTMLDivElement>)
+          setYakin((y) => !y)
+        }}
+        onPointerMove={(e) => yakin && konum(e)}
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={gorsel}
+          alt={`${baslik} sertifikası`}
+          draggable={false}
+          className="size-full object-contain transition-transform duration-300 ease-out select-none"
+          style={{ transform: yakin ? "scale(2.4)" : "scale(1)", transformOrigin: `${nokta.x}% ${nokta.y}%` }}
+        />
+      </div>
+      <p className="pointer-events-none absolute bottom-4 left-0 w-full text-center text-sm text-white/60">
+        {yakin ? "Gezmek için imleci gezdir · tekrar tıkla" : "Yakınlaştırmak için tıkla"}
+      </p>
+    </div>,
+    document.body
   )
 }

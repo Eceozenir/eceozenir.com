@@ -358,6 +358,7 @@ export const tosfed = {
   ralliler: [
     // Yeni ralli eklemek için bu satırı kopyala:
     // { yil: "2026", ad: "Ralli adı", sehir: "Şehir", tarih: "Gün Ay", album: "galerideki albümün slug'ı" },
+    { yil: "2026", ad: "Marmaris Ege Rallisi", sehir: "Muğla", tarih: "Nisan", album: "2026-marmaris-ege-rallisi" },
     { yil: "2026", ad: "Rally Bodrum", sehir: "Muğla", tarih: "Mayıs", album: "2026-bodrum-ralli" },
     { yil: "2026", ad: "50. Yeşil Bursa Rallisi", sehir: "Bursa", tarih: "5-7 Haziran", album: "2026-bursa-ralli" },
     { yil: "2026", ad: "Kapadokya Rallisi", sehir: "Nevşehir", tarih: "21-23 Ağustos", album: "2026-kapadokya-ralli" },
@@ -378,7 +379,7 @@ export const galeri = [
     kategori: "ofis",
     yer: "Webadası Bilgi Teknolojileri",
     tarih: "",
-    aciklama: "Webadası ekibiyle ofisteki günlerimizden kareler. Ofisin kedisi de ekibin bir parçası.",
+    aciklama: "Webadası ofisinde çalışma ortamımızdan ve ofisimizin kedisi Ada'dan kareler.",
     kapak: "",
   },
   {
@@ -387,7 +388,7 @@ export const galeri = [
     kategori: "ralli",
     yer: "Eskişehir",
     tarih: "18-20 Eylül 2026",
-    aciklama: "Zaman kayıt ekibinde görev aldığım yarıştan kareler: ralli merkezi, servis alanı ve parkur.",
+    aciklama: "Zaman Kayıt Netice Sorumlusu olarak görev yaptığım ETİ Odunpazarı Esok Rally yarışından kareler.",
     kapak: "",
   },
   {
@@ -396,7 +397,7 @@ export const galeri = [
     kategori: "ralli",
     yer: "Nevşehir",
     tarih: "21-23 Ağustos 2026",
-    aciklama: "Zaman kayıt ekibinde görev aldığım yarıştan kareler: ralli merkezi, zaman kayıt masası, servis alanı ve balonlar eşliğinde Kapadokya.",
+    aciklama: "Zaman Kayıt Netice Sorumlusu olarak görev yaptığım Kapadokya Rallisi yarışından kareler.",
     kapak: "",
   },
   {
@@ -405,7 +406,7 @@ export const galeri = [
     kategori: "ralli",
     yer: "Bursa",
     tarih: "5-7 Haziran 2026",
-    aciklama: "Zaman kayıt ekibinde görev aldığım yarıştan kareler: start rampası, ralli merkezi, zaman kayıt odası, servis alanı ve kupalar.",
+    aciklama: "Zaman Kayıt Netice Sorumlusu olarak görev yaptığım 50. Yeşil Bursa Rallisi yarışından kareler.",
     kapak: "",
   },
   {
@@ -414,7 +415,16 @@ export const galeri = [
     kategori: "ralli",
     yer: "Bodrum",
     tarih: "Mayıs 2026",
-    aciklama: "Zaman kayıt ekibinde görev aldığım yarıştan kareler: ralli merkezi, zaman kayıt salonu ve parkur.",
+    aciklama: "Zaman Kayıt Netice Sorumlusu olarak görev yaptığım Rally Bodrum yarışından kareler.",
+    kapak: "",
+  },
+  {
+    slug: "2026-marmaris-ege-rallisi",
+    baslik: "Marmaris Ege Rallisi",
+    kategori: "ralli",
+    yer: "Marmaris",
+    tarih: "Nisan 2026",
+    aciklama: "Zaman Kayıt Netice Sorumlusu olarak görev yaptığım Marmaris Ege Rallisi yarışından kareler.",
     kapak: "",
   },
   {
@@ -428,11 +438,11 @@ export const galeri = [
   },
   {
     slug: "flora-natural-cekimi",
-    baslik: "Flora Natural ürün çekimi",
+    baslik: "Flora Natural içerik çekimi",
     kategori: "etkinlik",
     yer: "Flora Natural",
     tarih: "",
-    aciklama: "Flora Natural için yaptığımız ürün çekiminden bir kare.",
+    aciklama: "Sosyal medyasını da yönettiğimiz Flora Natural'ın içerik çekiminden kareler.",
     kapak: "",
   },
 ]
