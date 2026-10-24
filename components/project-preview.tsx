@@ -62,12 +62,14 @@ export function ProjeOnizleme({
   ad,
   link,
   koyu = false,
+  canliKapali = false,
   className = "",
 }: {
   src?: string
   ad: string
   link?: string
   koyu?: boolean
+  canliKapali?: boolean // site pencere içinde açılmıyorsa: sadece kapak + "siteyi ziyaret et"
   className?: string
 }) {
   const kimlik = useId()
@@ -118,7 +120,7 @@ export function ProjeOnizleme({
 
   // Masaüstü: görünür olunca sıraya gir; sıra dolunca en eski önizleme kapanır
   useEffect(() => {
-    if (mobil || !link) return
+    if (mobil || !link || canliKapali) return
     const cikar = () => {
       const i = canliListe.indexOf(kimlik)
       if (i >= 0) canliListe.splice(i, 1)
@@ -184,7 +186,7 @@ export function ProjeOnizleme({
   const alanAdi = link ? link.replace(/^https?:\/\//, "").replace(/\/$/, "") : ad
   // Mobilde site sadece dokununca, masaüstünde kart ekrandayken yüklenir
   // Telefonda canlı site sayfa içinde açılmaz (telefonlar kaldıramıyor); dokununca yeni sekmede açılır
-  const canli = Boolean(link && gorunur && !mobil && izinli)
+  const canli = Boolean(link && gorunur && !mobil && izinli && !canliKapali)
   const kapak = src && !kapakHata ? src : ""
 
   return (
@@ -271,7 +273,7 @@ export function ProjeOnizleme({
         )}
 
         {/* Telefon: siteyi yeni sekmede aç */}
-        {link && mobil && (
+        {link && (mobil || canliKapali) && (
           <a
             href={link}
             target="_blank"
@@ -287,7 +289,7 @@ export function ProjeOnizleme({
         )}
 
         {/* Bilgisayar: "Tıkla, aşağı kaydır" */}
-        {link && !mobil && !geziyor && (
+        {link && !mobil && !geziyor && !canliKapali && (
           <button
             type="button"
             onClick={gezmeyeBasla}

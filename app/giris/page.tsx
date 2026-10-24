@@ -192,7 +192,7 @@ export default function GirisTema() {
                     <ProjeOnizleme
                       src={p.onizleme || undefined}
                       ad={p.ad}
-                      link={"canli" in p && p.canli === false ? undefined : p.link}
+                      link={p.link} canliKapali={"canli" in p && p.canli === false}
                       koyu={ton === "#101731"}
                       className="rounded-none"
                     />
@@ -220,7 +220,7 @@ export default function GirisTema() {
                 <ProjeOnizleme
                   src={k.onizleme || undefined}
                   ad={k.ad}
-                  link={"canli" in k && k.canli === false ? undefined : k.link}
+                  link={k.link} canliKapali={"canli" in k && k.canli === false}
                   className="rounded-none"
                 />
                 <a href={k.link} target="_blank" rel="noopener noreferrer" className="mt-4 flex items-start justify-between gap-2">

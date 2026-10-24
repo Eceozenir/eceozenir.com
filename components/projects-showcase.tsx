@@ -102,7 +102,7 @@ export function ProjectsShowcase({
                   <ProjeOnizleme
                     src={p.onizleme || undefined}
                     ad={p.ad}
-                    link={p.canli === false ? undefined : p.link}
+                    link={p.link} canliKapali={p.canli === false}
                     koyu={false}
                     className="rounded-none"
                   />
@@ -177,7 +177,7 @@ export function ProjectsShowcase({
                 <ProjeOnizleme
                   src={p.onizleme}
                   ad={p.ad}
-                  link={p.canli === false ? undefined : p.link}
+                  link={p.link} canliKapali={p.canli === false}
                   koyu={false}
                   className="relative transition-transform duration-700 group-hover:-translate-y-1 group-hover:rotate-[-1deg]"
                 />

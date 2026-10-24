@@ -150,9 +150,9 @@ export const projeler = [
     ad: "E&N Butik",
     aciklama: "E&N Butik için e-ticaret sitesi. Ürün kataloğu, online sipariş ve ödeme altyapısı.",
     etiketler: ["E-ticaret", "Moda"],
-    link: "https://enbutik.com",
+    link: "https://enbutikduzce.com.tr/",
     canli: false, // site pencere içinde açılmıyor; açılırsa bu satırı sil
-    onizleme: "",
+    onizleme: "/onizlemeler/enbutik.mp4",
   },
   {
     ad: "Cihat Arslan Athletic Performance Center",
@@ -184,11 +184,11 @@ export const projeler = [
   },
   {
     ad: "STSİZ Toptancı Projesi",
-    aciklama: "[Toptan satış platformu. Kısa açıklamayı sen kontrol et/düzenle.]",
+    aciklama: "Toptancılar ve bayiler için B2B sipariş platformu. Bayi girişi, ürün kataloğu ve toplu sipariş yönetimi.",
     etiketler: ["B2B", "Toptan satış"],
     link: "https://stsiz.com/",
     canli: false, // site pencere içinde açılmıyor; açılırsa bu satırı sil
-    onizleme: "",
+    onizleme: "/onizlemeler/stsiz.jpg",
   },
   {
     ad: "Dr. Özgür Sabah",
